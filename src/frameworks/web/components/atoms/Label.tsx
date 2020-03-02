@@ -2,7 +2,7 @@ import styled from "styled-components";
 import theme from "../../../../theme";
 
 export const BaseLabel = styled.p`
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: 'Muli', 'Noto Sans KR', sans-serif;
   margin: 0;
   color: ${props => props.color ?? theme.color.primary.Black};
 `;
