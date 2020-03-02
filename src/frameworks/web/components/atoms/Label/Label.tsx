@@ -1,10 +1,10 @@
-import styled from "styled-components";
-import theme from "../../../../../theme";
+import styled from 'styled-components';
+import theme from 'theme';
 
 export const BaseLabel = styled.p`
   font-family: 'Muli', 'Noto Sans KR', sans-serif;
   margin: 0;
-  color: ${props => props.color ?? theme.color.primary.Black};
+  color: ${(props) => props.color ?? theme.color.primary.Black};
 `;
 
 export const LabelH1 = styled(BaseLabel)`
@@ -38,7 +38,7 @@ export const LabelH4 = styled(BaseLabel)`
 export const LabelH5 = styled(BaseLabel)`
   font-weight: bold;
   font-size: 16px;
-  letter-spacing: 0px;
+  letter-spacing: 0;
   line-height: 26px;
 `;
 
