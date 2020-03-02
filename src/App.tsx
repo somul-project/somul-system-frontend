@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {LabelH1, LabelH2, LabelH3, LabelH4, LabelH5, LabelH6, LabelP1, LabelP2} from "./frameworks/web/components/atoms/Label";
+import {LabelH1, LabelH2, LabelH3, LabelH4, LabelH5, LabelH6, LabelP1, LabelP2} from "./frameworks/web/components/atoms/Label/Label";
 
 class App extends Component {
   render() {
