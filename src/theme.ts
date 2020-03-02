@@ -1,22 +1,23 @@
 const theme = {
     color: {
         primary: {
-            Forsythia: '#FFE873',
+            Azure: '#45A4F6',
+            Sky: '#76BEFC',
+            Scarlet: '#F5503D',
+            Salmon: '#FF8273',
             Black: '#000000',
         },
         secondary: {
-            Pea: '#96EBA4',
-            Lavender: '#CAA2F2',
             Snow: '#F4F4F4',
-            Silver: '#DCDCDC',
-            Moon: '#989898',
             Nickel: '#656565',
-            Coal: '#333333'
+            Ash: '#E6E6E6',
+            Coal: '#333333',
+            Moon: '#989898',
         },
         alert: {
-            Failure: '#FF5E71',
-            Success: '#67EB8A',
-            Warning: '#A972F2',
+            Failure: '#FF4D71',
+            Success: '#4DEC82',
+            Warning: '#FFCF4D',
         }
     },
 };

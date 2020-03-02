@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import theme from "../../../../theme";
+import theme from "../../../../../theme";
 
 export const BaseLabel = styled.p`
   font-family: 'Muli', 'Noto Sans KR', sans-serif;
