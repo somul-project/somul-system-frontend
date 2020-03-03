@@ -1,7 +1,7 @@
 type ButtonType = 'default' | 'field' | 'small' | 'wide';
 
 export interface IButton {
-    type: ButtonType
+    type?: ButtonType
     label: string
     isPrimary: boolean
     onClick: any
