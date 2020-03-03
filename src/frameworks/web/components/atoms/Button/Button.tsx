@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import theme from 'theme';
 import React from 'react';
-// eslint-disable-next-line no-unused-vars
 import { IButton } from 'interfaces/frameworks/web/components/atoms/Button/IButton';
 
 interface IBaseButton {
@@ -52,23 +51,19 @@ const WideButton = styled(BaseButton)`
 
 export default class Button extends React.PureComponent<IButton> {
   render() {
-    const { type } = this.props;
-    const { label } = this.props;
-    const { isPrimary } = this.props;
-    const { onClick } = this.props;
+    const {
+      type, label, isPrimary, onClick,
+    } = this.props;
 
-    if (type === 'wide') {
-      return <WideButton isPrimary={isPrimary} onClick={onClick}>{label}</WideButton>;
-    }
+    const BUTTONS = {
+      wide: WideButton,
+      field: FieldButton,
+      small: SmallButton,
+      default: DefaultButton,
+    };
 
-    if (type === 'field') {
-      return <FieldButton isPrimary={isPrimary} onClick={onClick}>{label}</FieldButton>;
-    }
+    const ButtonComponent = BUTTONS[type];
 
-    if (type === 'small') {
-      return <SmallButton isPrimary={isPrimary} onClick={onClick}>{label}</SmallButton>;
-    }
-
-    return <DefaultButton isPrimary={isPrimary} onClick={onClick}>{label}</DefaultButton>;
+    return <ButtonComponent isPrimary={isPrimary} onClick={onClick}>{label}</ButtonComponent>;
   }
 }
