@@ -1,8 +1,7 @@
-// eslint-disable-next-line no-unused-vars
-import React from 'react';
+type ButtonType = 'default' | 'field' | 'small' | 'wide';
 
 export interface IButton {
-    type: 'default' | 'field' | 'small' | 'wide'
+    type: ButtonType
     label: string
     isPrimary: boolean
     onClick: any
