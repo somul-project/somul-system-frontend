@@ -1,12 +1,8 @@
 import styled from 'styled-components';
 import theme from 'theme';
 import React from 'react';
-import { IButton } from 'interfaces/frameworks/web/components/atoms/Button/IButton';
-
-interface IBaseButton {
-  isPrimary: boolean
-  onClick: any
-}
+// eslint-disable-next-line no-unused-vars
+import { IBaseButton, IButton } from 'interfaces/frameworks/web/components/atoms/Button/IButton';
 
 
 const BaseButton = styled.button`
