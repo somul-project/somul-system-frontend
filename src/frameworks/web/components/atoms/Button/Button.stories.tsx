@@ -11,7 +11,7 @@ export default {
 export const DefaultButton = () => {
   const label = text('Text', '바로가기');
   const isPrimary = boolean('IsPrimary', true);
-  return <Button type="default" label={label} isPrimary={isPrimary} onClick={action('button-clicked')} />;
+  return <Button label={label} isPrimary={isPrimary} onClick={action('button-clicked')} />;
 };
 
 export const FieldButton = () => {

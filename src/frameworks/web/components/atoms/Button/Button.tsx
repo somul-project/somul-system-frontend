@@ -8,6 +8,7 @@ interface IBaseButton {
   onClick: any
 }
 
+
 const BaseButton = styled.button`
   font-family: 'Muli', 'Noto Sans KR', sans-serif;
   background-color: ${(props: IBaseButton) => (props.isPrimary ? theme.color.primary.Scarlet : theme.color.primary.Black)};
@@ -49,20 +50,20 @@ const WideButton = styled(BaseButton)`
     color: ${(props) => props.color ?? theme.color.primary.Black};
 `;
 
+const BUTTONS = {
+  wide: WideButton,
+  field: FieldButton,
+  small: SmallButton,
+  default: DefaultButton,
+};
+
 export default class Button extends React.PureComponent<IButton> {
   render() {
     const {
       type, label, isPrimary, onClick,
     } = this.props;
 
-    const BUTTONS = {
-      wide: WideButton,
-      field: FieldButton,
-      small: SmallButton,
-      default: DefaultButton,
-    };
-
-    const ButtonComponent = BUTTONS[type];
+    const ButtonComponent = BUTTONS[type ?? 'default'];
 
     return <ButtonComponent isPrimary={isPrimary} onClick={onClick}>{label}</ButtonComponent>;
   }
