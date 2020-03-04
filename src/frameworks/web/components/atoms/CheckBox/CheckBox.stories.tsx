@@ -1,6 +1,6 @@
 import React from 'react';
 import { State, Store } from '@sambego/storybook-state';
-import { withKnobs, text } from '@storybook/addon-knobs';
+import {withKnobs, text, boolean} from '@storybook/addon-knobs';
 import { withActions } from '@storybook/addon-actions';
 import CheckBox from 'frameworks/web/components/atoms/CheckBox/CheckBox';
 
@@ -34,6 +34,19 @@ export const DefaultCheckBox = () => {
   );
 };
 
+export const DisabledCheckBox = () => {
+  const label = text('Text', '이용 약관에 동의합니다.');
+  const isChecked = boolean('IsChecked', false);
+
+  return (
+      <CheckBox label={label} checked={isChecked} disabled />
+  );
+};
+
 DefaultCheckBox.story = {
   name: 'Check Box',
+};
+
+DisabledCheckBox.story = {
+  name: 'Check Box (Disabled)',
 };

@@ -2,7 +2,8 @@
 import { ChangeEventHandler } from 'react';
 
 export interface IBaseCheckBox {
-  checked: boolean;
+  checked?: boolean
+  disabled?: boolean
   onChange?: ChangeEventHandler<HTMLInputElement>
 }
 
@@ -11,5 +12,6 @@ export interface ICheckBox {
   className?: string
   label: string
   checked: boolean
+  disabled?: boolean
   onChange?: ChangeEventHandler<HTMLInputElement>,
 }
