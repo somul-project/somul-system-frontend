@@ -47,14 +47,14 @@ const CheckBoxContainer = styled.div`
 export default class CheckBox extends React.PureComponent<ICheckBox> {
   render() {
     const {
-      className, label, onChange, checked,
+      className, label, onChange, checked, disabled,
     } = this.props;
 
     return (
     // eslint-disable-next-line jsx-a11y/label-has-associated-control
-      <label>
+      <label style={{ opacity: disabled ? '0.5' : '', pointerEvents: disabled ? 'none' : 'inherit' }}>
         <CheckBoxContainer className={className}>
-          <HiddenCheckBox checked={checked} onChange={onChange} />
+          <HiddenCheckBox checked={checked} onChange={onChange} disabled={disabled} />
           <StyledCheckBox style={{ marginTop: '-3px' }} checked={checked}>
             <Icon viewBox="0 0 24 24">
               <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
