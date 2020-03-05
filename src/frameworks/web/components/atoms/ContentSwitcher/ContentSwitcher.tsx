@@ -6,8 +6,10 @@ interface IBaseButtonContentButton {
   active: boolean
 }
 
-interface IButtonContentButton extends IBaseButtonContentButton {
-  edge: 'left' | 'right' | 'none'
+type EdgeType = 'left' | 'right' | 'none';
+
+interface IContentButton extends IBaseButtonContentButton {
+  edge: EdgeType
 }
 
 interface IContentSwitcher {
@@ -18,9 +20,9 @@ interface IContentSwitcher {
 const BaseContentButton = styled.button`
   font-family: 'Muli', 'Noto Sans KR', sans-serif;
   font-weight: bold;
-  background-color: ${(props: IButtonContentButton) => (props.active ? theme.color.primary.Azure : theme.color.secondary.Ash)};
+  background-color: ${(props: IContentButton) => (props.active ? theme.color.primary.Azure : theme.color.secondary.Ash)};
   color: ${(props: IBaseButtonContentButton) => (props.active ? theme.color.primary.White : theme.color.secondary.Nickel)} !important;
-  width: 364px;
+  width: 100%;
   height: 56px;
   border: none;
   outline: none;
@@ -35,28 +37,55 @@ const BaseContentButton = styled.button`
 `;
 
 const ContentSwitcherContainer = styled.div`
-  ${BaseContentButton}:not(:last-child) {
-    margin-right: 9px;
+  width: 1100px;
+  
+  .row {
+    margin: 0;
+    
+    .col {
+       padding: 0;
+    }
+  }
+  
+  .col:not(:last-child) {
+    margin-right: 8px;
   }
 `;
 
 
 const EdgeContentButton = styled(BaseContentButton)`
-  border-top-left-radius: ${(props: IButtonContentButton) => (props.edge === 'left' ? '10px' : '4px')};
-  border-bottom-left-radius: ${(props: IButtonContentButton) => (props.edge === 'left' ? '10px' : '4px')};
-  border-top-right-radius: ${(props: IButtonContentButton) => (props.edge === 'right' ? '10px' : '4px')};
-  border-bottom-right-radius: ${(props: IButtonContentButton) => (props.edge === 'right' ? '10px' : '4px')};
+  border-top-left-radius: ${(props: IContentButton) => (props.edge === 'left' ? '10px' : '4px')};
+  border-bottom-left-radius: ${(props: IContentButton) => (props.edge === 'left' ? '10px' : '4px')};
+  border-top-right-radius: ${(props: IContentButton) => (props.edge === 'right' ? '10px' : '4px')};
+  border-bottom-right-radius: ${(props: IContentButton) => (props.edge === 'right' ? '10px' : '4px')};
 `;
 
 export default class ContentSwitcher extends React.PureComponent<IContentSwitcher> {
   render() {
     const { index, labels } = this.props;
+    const contentButtons: any[] = [];
+
+    labels.forEach((label, i) => {
+      let edge: EdgeType = 'none';
+
+      if (i === 0) {
+        edge = 'left';
+      } else if (i === labels.length - 1) {
+        edge = 'right';
+      }
+
+      contentButtons.push(
+        <div className="col">
+          <EdgeContentButton edge={edge} active={i === index}>{label}</EdgeContentButton>
+        </div>,
+      );
+    });
 
     return (
       <ContentSwitcherContainer>
-        <EdgeContentButton edge="left" active={index === 1}>{labels[0]}</EdgeContentButton>
-        <EdgeContentButton edge="none" active={index === 2}>{labels[1]}</EdgeContentButton>
-        <EdgeContentButton edge="right" active={index === 3}>{labels[2]}</EdgeContentButton>
+        <div className="row">
+          {contentButtons}
+        </div>
       </ContentSwitcherContainer>
     );
   }
