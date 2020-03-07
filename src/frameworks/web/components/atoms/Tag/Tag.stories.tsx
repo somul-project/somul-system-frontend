@@ -1,35 +1,51 @@
 import React from 'react';
-import { withKnobs, text } from '@storybook/addon-knobs';
-import {
-  AcceptTag, PendingTag, UnacceptTag,
-} from './Tag';
+import { withKnobs, text, select } from '@storybook/addon-knobs';
+import Tag from 'frameworks/web/components/atoms/Tag/Tag';
+import theme from 'theme';
 
 export default {
   title: 'Tag',
   decorators: [withKnobs],
 };
 
-export const Accept = () => {
+export const DefaultTag = () => {
+  const label = text('Text', '태그');
+
+  const colorList = {
+    'Azuru' : theme.color.primary.Azure,
+    'Scarlet' : theme.color.primary.Scarlet,
+    'Moon' : theme.color.secondary.Moon,
+    'Failure' : theme.color.alert.Failure,
+    'Success' : theme.color.alert.Success,
+  }
+  const color = select('Color', colorList, theme.color.secondary.Moon);
+  return <Tag color={color} label={label}></Tag>
+}
+
+export const AcceptTag = () => {
   const label = text('Text', '승인완료');
-  return <AcceptTag>{label}</AcceptTag>;
+  return <Tag type="accept" label={label}></Tag>;
 }
 
-export const Pending = () => {
+export const PendingTag = () => {
   const label = text('Text', '심사중');
-  return <PendingTag>{label}</PendingTag>;
+  return <Tag type="pending" label={label}></Tag>;
 }
 
-export const Unaccpet = () => {
+export const UnaccpetTag = () => {
   const label = text('Text', '미승인');
-  return <UnacceptTag>{label}</UnacceptTag>;
+  return <Tag type="unaccept" label={label}></Tag>
 }
 
-Accept.story = {
+DefaultTag.story = {
+  name: 'Default Tag',
+};
+AcceptTag.story = {
   name: 'Accept Tag',
 };
-Pending.story = {
+PendingTag.story = {
   name: 'Pending Tag',
 };
-Unaccpet.story = {
+UnaccpetTag.story = {
   name: 'Unaccpet Tag',
 };
