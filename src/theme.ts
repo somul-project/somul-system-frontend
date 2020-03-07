@@ -13,7 +13,7 @@ const theme = {
       Nickel: '#656565',
       Ash: '#E6E6E6',
       Coal: '#333333',
-      Moon: '#989898',
+      Moon: '#9B9B9B',
     },
     alert: {
       Failure: '#FF4D71',
