@@ -16,7 +16,7 @@ export const AcceptTag = styled(BaseTag)`
 `;
 
 export const PendingTag = styled(BaseTag)`
-  background-color: #9B9B9B;
+  background-color: ${theme.color.secondary.Moon};
 `;
 
 export const UnacceptTag = styled(BaseTag)`
