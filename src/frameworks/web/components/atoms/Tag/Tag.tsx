@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import theme from 'theme';
 
-import { ITag } from 'src/interfaces/frameworks/web/components/atoms/Tag/ITag'
+import { ITag } from 'src/interfaces/frameworks/web/components/atoms/Tag/ITag';
 
 export const BaseTag = styled.span`
   font-family: 'Muli', 'Noto Sans KR', sans-serif;
@@ -15,7 +15,7 @@ export const BaseTag = styled.span`
 `;
 
 export const DefaultTag = styled(BaseTag)`
-  background-color: ${(props) => props.color ?? theme.color.primary.Black};;
+  background-color: ${(props) => props.color ?? theme.color.primary.Black};
 `;
 
 export const AcceptTag = styled(BaseTag)`
@@ -27,7 +27,7 @@ export const PendingTag = styled(BaseTag)`
 `;
 
 export const UnacceptTag = styled(BaseTag)`
-background-color: ${theme.color.alert.Failure};
+  background-color: ${theme.color.alert.Failure};
 `;
 
 const TAGS = {
@@ -40,7 +40,7 @@ const TAGS = {
 export default class Button extends React.PureComponent<ITag> {
   render() {
     const {
-      type, label, color
+      type, label, color,
     } = this.props;
 
     const TagComponent = TAGS[type ?? 'default'];
