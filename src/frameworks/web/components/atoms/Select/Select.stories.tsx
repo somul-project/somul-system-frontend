@@ -8,12 +8,14 @@ export default {
   decorators: [withKnobs, withActions('click')],
 };
 
+const tmpFunction = (i: number) => (i);
+
 export const TwoElementsSelect = () => {
   const label1 = text('First Select Element', '네');
   const label2 = text('Second Select Element', '아니요');
 
   return (
-    <Select labels={[label1, label2]} />
+    <Select labels={[label1, label2]} onElementClick={tmpFunction} />
   );
 };
 
@@ -23,7 +25,7 @@ export const ThreeElementsSelect = () => {
   const label3 = text('Third Select Element', '3');
 
   return (
-    <Select labels={[label1, label2, label3]} />
+    <Select labels={[label1, label2, label3]} onElementClick={tmpFunction} />
   );
 };
 
