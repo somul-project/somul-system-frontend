@@ -53,36 +53,29 @@ export default class Select extends React.PureComponent<ISelect, ISelectState> {
   handleClick(i: number) {
     const { onElementClick } = this.props;
     const { selectNumber } = this.state;
-    if (i === selectNumber) {
-      onElementClick(-1);
-      this.setState({
-        selectNumber: -1,
-      });
-    } else {
-      onElementClick(i);
-      this.setState({
-        selectNumber: i,
-      });
-    }
+    const elementNum = (i === selectNumber) ? -1 : i;
+
+    onElementClick(elementNum);
+    this.setState({
+      selectNumber: elementNum,
+    });
   }
 
   render() {
     const { labels } = this.props;
     const { selectNumber } = this.state;
-    const selectElements: any[] = [];
+    const selectElements: JSX.Element[] = [];
 
     labels.forEach((label, i) => {
-      let edge: EdgeType = 'none';
-      let active: boolean = false;
+      let edge: EdgeType;
+      const active: boolean = (selectNumber === i);
 
       if (i === 0) {
         edge = 'left';
       } else if (i === labels.length - 1) {
         edge = 'right';
-      }
-
-      if (selectNumber === i) {
-        active = true;
+      } else {
+        edge = 'none';
       }
 
       selectElements.push(
