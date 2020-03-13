@@ -55,14 +55,14 @@ export default class ContentSwitcher extends React.PureComponent<IContentSwitche
     const contentButtons: ReactNode[] = [];
 
     labels.forEach((label, i) => {
-      let edge: EdgeType = 'none';
+      let edge: EdgeType;
 
       if (i === 0) {
         edge = 'left';
-      }
-
-      if (i === labels.length - 1) {
+      } else if (i === labels.length - 1) {
         edge = 'right';
+      } else {
+        edge = 'none';
       }
 
       contentButtons.push(
