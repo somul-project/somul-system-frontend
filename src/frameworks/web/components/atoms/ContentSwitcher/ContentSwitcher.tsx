@@ -1,21 +1,11 @@
 import styled from 'styled-components';
 import theme from 'theme';
-import React from 'react';
-
-interface IBaseButtonContentButton {
-  active: boolean
-}
-
-type EdgeType = 'left' | 'right' | 'none';
-
-interface IContentButton extends IBaseButtonContentButton {
-  edge: EdgeType
-}
-
-interface IContentSwitcher {
-  index: number
-  labels: string[]
-}
+// eslint-disable-next-line no-unused-vars
+import React, { ReactNode } from 'react';
+import {
+  // eslint-disable-next-line no-unused-vars
+  EdgeType, IBaseButtonContentButton, IContentButton, IContentSwitcher,
+} from 'interfaces/frameworks/web/components/atoms/ContentSwitcher/IContentSwitcher';
 
 const BaseContentButton = styled.button`
   font-family: 'Muli', 'Noto Sans KR', sans-serif;
@@ -48,10 +38,9 @@ const ContentSwitcherContainer = styled.div`
   }
   
   .col:not(:last-child) {
-    margin-right: 8px;
+    margin-right: 30px;
   }
 `;
-
 
 const EdgeContentButton = styled(BaseContentButton)`
   border-top-left-radius: ${(props: IContentButton) => (props.edge === 'left' ? '10px' : '4px')};
@@ -63,14 +52,16 @@ const EdgeContentButton = styled(BaseContentButton)`
 export default class ContentSwitcher extends React.PureComponent<IContentSwitcher> {
   render() {
     const { index, labels } = this.props;
-    const contentButtons: any[] = [];
+    const contentButtons: ReactNode[] = [];
 
     labels.forEach((label, i) => {
       let edge: EdgeType = 'none';
 
       if (i === 0) {
         edge = 'left';
-      } else if (i === labels.length - 1) {
+      }
+
+      if (i === labels.length - 1) {
         edge = 'right';
       }
 
