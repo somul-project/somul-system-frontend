@@ -52,7 +52,12 @@ export default class CheckBox extends React.PureComponent<ICheckBox> {
 
     return (
     // eslint-disable-next-line jsx-a11y/label-has-associated-control
-      <label style={{ opacity: disabled ? '0.5' : '', pointerEvents: disabled ? 'none' : 'inherit' }}>
+      <label style={{
+        opacity: disabled ? '0.5' : undefined,
+        pointerEvents: disabled ? 'none' : 'inherit',
+        boxSizing: 'unset',
+      }}
+      >
         <CheckBoxContainer className={className}>
           <HiddenCheckBox checked={checked} onChange={onChange} disabled={disabled} />
           <StyledCheckBox style={{ marginTop: '-3px' }} checked={checked}>
