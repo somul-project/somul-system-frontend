@@ -5,6 +5,7 @@ module.exports = {
     '@storybook/addon-actions',
     '@storybook/addon-links',
     '@storybook/addon-knobs',
-    '@sambego/storybook-state'
+    '@sambego/storybook-state',
+    '@storybook/addon-backgrounds'
   ],
 };
