@@ -1,11 +1,11 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/somul-project/somul-project-frontend/master/resources/content-poster.png" width="100" height="100">
+  <img src="https://raw.githubusercontent.com/somul-project/somul-system-frontend/master/resources/content-poster.png" width="100" height="100">
 </p>
 
 <h1 align="center">5월, 소프트웨어에 물들다 프론트앤드</h1>
 <h4 align="center">5월, 소프트웨어에 물들다 (somul.kr) 프론트앤드 프로젝트입니다.</h4>
 <p align="center">
-  <img src=https://img.shields.io/badge/somul--project--homepage-0.1-information.svg?style=flat-square">
+  <img src=https://img.shields.io/badge/somul--system--homepage-dev-information.svg?style=flat-square">
 </p>
                                                                                                        
 **5월, 소프트웨어에 물들다 홈페이지** 프로젝트는 React 로 작성되었습니다.
