@@ -1,44 +1,73 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="center">
+  <img src="https://raw.githubusercontent.com/somul-project/somul-project-frontend/master/resources/content-poster.png" width="100" height="100">
+</p>
 
-## Available Scripts
+<h1 align="center">5월, 소프트웨어에 물들다 프론트앤드</h1>
+<h4 align="center">5월, 소프트웨어에 물들다 (somul.kr) 프론트앤드 프로젝트입니다.</h4>
+<p align="center">
+  <img src=https://img.shields.io/badge/somul--project--homepage-0.1-information.svg?style=flat-square">
+</p>
+                                                                                                       
+**5월, 소프트웨어에 물들다 홈페이지** 프로젝트는 React 로 작성되었습니다.
+사용된 버전은 16.12.0 버전의 React 를 사용했으며, TypeScript + Clean Architecture 구조로 작성되었습니다.
 
-In the project directory, you can run:
+## 🛠사전 설치
 
-### `yarn start`
+- ESLint 가 지원되는 에디터 (IntelliJ, VSCode 등)
+- Node.js 12.16+
+- Yarn 1.22+ (`npm install -g yarn`)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 👮‍♀️컨트리뷰트 규칙
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+**5월, 소프트웨어에 물들다 홈페이지** 프로젝트는 누구나 Contribute 를 할 수 있습니다. 아래의 규칙을 따라주세요!
 
-### `yarn test`
+- master 브랜치 다이렉트 푸시는 절대 허용되지 않으며, 무조건 PR 로부터 머지되어야 합니다.
+- 모든 작업은 브랜치를 파서 작업해주시고, 작업이 완료될 경우 PR 을 보내주세요!
+  - 브랜치 이름의 규칙은 아래와 같습니다.
+    - 작업자이름/변경사항명 (예 : sanghun/fix-padding-for-modal-component)
+- 모든 작업에는 테스트 코드가 필요합니다.
+  - 비즈니스 로직은 단위 테스트를, 컴포넌트는 스토리북이 작성되어야 합니다.
+- 모든 PR 은 1명 이상 Approve 되어야 머지됩니다.         
+- 모든 PR 은 CI 를 통과해야 리뷰를 시작합니다.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 💻 프로젝트 구축방법
+해당 프로젝트를 로컬에서 실행하기 위해서는 아래의 명령어를 입력하여 사전 준비 작업이 필요합니다.<br>
+프로젝트는 `yarn` 을 사용합니다.
 
-### `yarn build`
+```bash
+$ yarn install
+```
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 로컬에서 개발하기 (소스코드를 저장하면, 자동으로 컴파일되고 새로고침 됨)
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+```bash
+$ yarn start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 로컬에서 컴포넌트 스토리북 실행하기
 
-### `yarn eject`
+```
+$ yarn storybook
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### 배포하기 위해 빌드하기 (HTML로 컴파일)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+yarn build
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### 단위 테스트 (Unit Test) 돌리기
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```bash
+yarn test
+```
 
-## Learn More
+### 코드 스타일 검사하기
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+yarn lint
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 📄 라이선스
+
+**5월, 소프트웨어에 물들다 홈페이지** 프로젝트는 MIT 라이선스를 따르고 있습니다.
