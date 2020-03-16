@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 // eslint-disable-next-line no-unused-vars
-import React, { ReactNode } from 'react';
+import React, { EventHandler, ReactNode } from 'react';
 import theme from 'theme';
 import {
   // eslint-disable-next-line no-unused-vars
@@ -77,6 +77,8 @@ const DropdownListContainer = styled.div`
 `;
 
 export default class Dropdown extends React.PureComponent<IDropdown, IDropdownState> {
+  wrapperRef: HTMLDivElement | undefined = undefined;
+
   constructor(props: IDropdown) {
     super(props);
 
@@ -84,6 +86,19 @@ export default class Dropdown extends React.PureComponent<IDropdown, IDropdownSt
       isOpened: false,
       selectedData: undefined,
     };
+
+    this.setWrapperRef = this.setWrapperRef.bind(this);
+    this.handleClickOutside = this.handleClickOutside.bind(this);
+  }
+
+  componentDidMount(): void {
+    // eslint-disable-next-line no-undef
+    document.addEventListener('mousedown', this.handleClickOutside);
+  }
+
+  componentWillUnmount(): void {
+    // eslint-disable-next-line no-undef
+    document.removeEventListener('mousedown', this.handleClickOutside);
   }
 
   onDropdownContainerClick() {
@@ -98,17 +113,27 @@ export default class Dropdown extends React.PureComponent<IDropdown, IDropdownSt
     const { data, onDataSelectChange } = this.props;
     const { selectedData } = this.state;
 
-    const userSelectedData = data.filter((d) => d === data[idx])[0];
+    const userSelectedData = data.find((d) => d === data[idx])!;
 
-    if (onDataSelectChange) {
-      if (selectedData !== userSelectedData) {
-        onDataSelectChange(userSelectedData);
-      }
+    if (onDataSelectChange && selectedData !== userSelectedData) {
+      onDataSelectChange(userSelectedData);
     }
 
     this.setState({
       selectedData: userSelectedData,
     });
+  }
+
+  setWrapperRef(node: HTMLDivElement) {
+    this.wrapperRef = node;
+  }
+
+  handleClickOutside(event: Event) {
+    if (this.wrapperRef && !this.wrapperRef.contains(event.target! as Node)) {
+      this.setState({
+        isOpened: false,
+      });
+    }
   }
 
   render() {
@@ -129,7 +154,11 @@ export default class Dropdown extends React.PureComponent<IDropdown, IDropdownSt
     });
 
     return (
-      <DropdownContainer isOpened={isOpened} onClick={() => this.onDropdownContainerClick()}>
+      <DropdownContainer
+        ref={this.setWrapperRef}
+        isOpened={isOpened}
+        onClick={() => this.onDropdownContainerClick()}
+      >
         <LabelForSelected>{selectedData ?? defaultLabel}</LabelForSelected>
         <Arrow viewBox="0 0 24 24">
           <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z" />
