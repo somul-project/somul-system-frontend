@@ -15,10 +15,10 @@ export const LightBackgroundContentsBox = () => {
     max: 300,
     step: 1,
   };
-  const width = number('Width', 200, options).toString().concat('px');
-  const height = number('Height', 200, options).toString().concat('px');
+  const width = number('Width', 200, options);
+  const height = number('Height', 200, options);
 
-  return <ContentsBox width={width} height={height} bgDark={false} />;
+  return <ContentsBox width={width} height={height} isDarkBackground={false} />;
 };
 
 export const DarkBackgroundContentsBox = () => {
@@ -28,10 +28,10 @@ export const DarkBackgroundContentsBox = () => {
     max: 300,
     step: 1,
   };
-  const width = number('Width', 200, options).toString().concat('px');
-  const height = number('Height', 200, options).toString().concat('px');
+  const width = number('Width', 200, options);
+  const height = number('Height', 200, options);
 
-  return <ContentsBox width={width} height={height} bgDark />;
+  return <ContentsBox width={width} height={height} isDarkBackground />;
 };
 
 DarkBackgroundContentsBox.story = {
