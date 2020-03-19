@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 // eslint-disable-next-line no-unused-vars
-import React, { EventHandler, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import theme from 'theme';
 import {
   // eslint-disable-next-line no-unused-vars
