@@ -18,6 +18,8 @@ const SelectElement = styled.button`
   height: 56px;
   outline: none;
   transition: all 0.2s;
+
+  cursor: pointer;
   
   margin-left: ${(props: ISelectElement) => (props.edge === 'left' ? '0px' : '2px')};
   margin-right: ${(props: ISelectElement) => (props.edge === 'right' ? '0px' : '2px')};
