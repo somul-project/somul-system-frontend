@@ -1,13 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import theme from 'theme';
-
-interface IRadioButton {
-  label: string
-  id: string
-  name: string
-  value: string
-}
+// eslint-disable-next-line no-unused-vars
+import { IRadioButton } from 'interfaces/frameworks/web/components/atoms/RadioButton/IRadioButton';
 
 const RadioButtonContainer = styled.div`
   margin-right: 72px;
