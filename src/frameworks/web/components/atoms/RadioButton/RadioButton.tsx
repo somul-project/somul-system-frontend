@@ -2,10 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import theme from 'theme';
 // eslint-disable-next-line no-unused-vars
-import { IRadioButton } from 'interfaces/frameworks/web/components/atoms/RadioButton/IRadioButton';
+import { IRadioButton, IRadioButtonContainer } from 'interfaces/frameworks/web/components/atoms/RadioButton/IRadioButton';
 
 const RadioButtonContainer = styled.div`
-  margin-right: 72px;
+  margin-right: ${(props: IRadioButtonContainer) => (props.edge !== 'right' ? '36px' : '0')};
+  margin-left: ${(props: IRadioButtonContainer) => (props.edge !== 'left' ? '36px' : '0')};
 `;
 
 const RadioButtonInput = styled.input`
@@ -70,12 +71,12 @@ const RadioButtonLabel = styled.label`
 export default class RadioButton extends React.PureComponent<IRadioButton> {
   render() {
     const {
-      label, id, name, value,
+      label, id, name, value, onRadioClick, edge,
     } = this.props;
 
     return (
-      <RadioButtonContainer>
-        <RadioButtonInput type="radio" id={id} name={name} value={value} />
+      <RadioButtonContainer edge={edge}>
+        <RadioButtonInput type="radio" id={id} name={name} value={value} onClick={() => onRadioClick(label)} />
         <RadioButtonLabel htmlFor={id}>
           {label}
         </RadioButtonLabel>
