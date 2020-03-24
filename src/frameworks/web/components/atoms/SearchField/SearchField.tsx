@@ -15,6 +15,7 @@ const InputBox = styled.input`
   margin-right: 12px;
   outline: none;
   border: none;
+  line-height: 2;
 `;
 
 const SearchFieldContainer = styled.div`
