@@ -10,12 +10,12 @@ export default {
   decorators: [withKnobs],
 };
 
-export const OneLoginButton = () => {
+export const LoginButtonStory = () => {
   const options = ['google', 'github'];
   const value = select('Login from', options, 'google');
   return <LoginButton type={value as LoginButtonType} onClick={action('button-clicked')} />;
 };
 
-OneLoginButton.story = {
-  name: 'One Login Button',
+LoginButtonStory.story = {
+  name: 'Login Button',
 };
