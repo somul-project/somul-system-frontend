@@ -23,14 +23,14 @@ const LoginButtonContainer = styled.div`
 const LoginButtonImg = styled.img`
   width: 32px;
   height: 32px;
-  margin: 12px 0px 12px 20px;
+  margin: 11px 0px 11px 19px;
   float: left;
 `;
 
 const LoginButtonLabel = styled.p`
   font-family: 'Muli', 'Noto Sans KR', sans-serif;
   font-size: 14px;
-  margin: 18px 28px 18px 0px;
+  margin: 17px 27px 17px 0px;
   float: right;
 `;
 
@@ -41,8 +41,8 @@ export default class Button extends React.PureComponent<ILoginButton> {
     } = this.props;
 
     return (
-      <LoginButtonContainer onClick={onClick}>
-        <LoginButtonImg src={type?.concat('.png')} />
+      <LoginButtonContainer onClick={() => onClick()}>
+        <LoginButtonImg src={type?.concat('.svg')} />
         <LoginButtonLabel>
           {type === 'google' ? 'Google' : 'Github'}
           {' '}
