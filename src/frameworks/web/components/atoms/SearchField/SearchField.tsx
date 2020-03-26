@@ -10,7 +10,7 @@ const InputBox = styled.input`
   width: 100%;
   font-family: 'Muli', 'Noto Sans KR', sans-serif;
   font-size: 16px;
-  font-weight: bold;
+  font-weight: normal;
   margin-left: 24px;
   margin-right: 12px;
   outline: none;
