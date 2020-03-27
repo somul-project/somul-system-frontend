@@ -11,4 +11,9 @@ export interface IRadioButton {
   name: string
   value: string
   onRadioClick: (data: string) => void
+  disabled?: boolean
+}
+
+export interface IRadioButtonElement {
+  disabled?: boolean
 }

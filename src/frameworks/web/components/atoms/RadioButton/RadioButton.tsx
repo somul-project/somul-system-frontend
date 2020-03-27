@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import theme from 'theme';
-// eslint-disable-next-line no-unused-vars
-import { IRadioButton, IRadioButtonContainer } from 'interfaces/frameworks/web/components/atoms/RadioButton/IRadioButton';
+import {
+  // eslint-disable-next-line no-unused-vars
+  IRadioButton, IRadioButtonContainer, IRadioButtonElement,
+} from 'interfaces/frameworks/web/components/atoms/RadioButton/IRadioButton';
 
 const RadioButtonContainer = styled.div`
   margin-right: ${(props: IRadioButtonContainer) => (props.edge !== 'right' ? '36px' : '0')};
@@ -32,7 +34,8 @@ const RadioButtonInput = styled.input`
       top: 2px;
       width: 20px;
       height: 20px;
-      border: 1.8px solid ${theme.color.primary.Black};
+      border: 1.8px solid
+        ${(props: IRadioButtonElement) => (props.disabled ? theme.color.secondary.Moon : theme.color.primary.Black)};
       border-radius: 100%;
       background: ${theme.color.primary.White};
   }
@@ -41,7 +44,8 @@ const RadioButtonInput = styled.input`
       content: '';
       width: 10px;
       height: 10px;
-      background: ${theme.color.primary.Black};
+      background:
+        ${(props: IRadioButtonElement) => (props.disabled ? theme.color.secondary.Moon : theme.color.primary.Black)};
       position: absolute;
       top: 7px;
       left: 5px;
@@ -61,7 +65,8 @@ const RadioButtonLabel = styled.label`
   padding-top: 2px;
   font-family: 'Muli', 'Noto Sans KR', sans-serif;
   margin: 0;
-  color: ${theme.color.primary.Black};
+  color:
+    ${(props: IRadioButtonElement) => (props.disabled ? theme.color.secondary.Moon : theme.color.primary.Black)};
   font-weight: bold;
   font-size: 16px;
   letter-spacing: 0;
@@ -71,13 +76,20 @@ const RadioButtonLabel = styled.label`
 export default class RadioButton extends React.PureComponent<IRadioButton> {
   render() {
     const {
-      label, id, name, value, onRadioClick, edge,
+      label, id, name, value, onRadioClick, edge, disabled,
     } = this.props;
 
     return (
       <RadioButtonContainer edge={edge}>
-        <RadioButtonInput type="radio" id={id} name={name} value={value} onClick={() => onRadioClick(label)} />
-        <RadioButtonLabel htmlFor={id}>
+        <RadioButtonInput
+          type="radio"
+          id={id}
+          name={name}
+          value={value}
+          onClick={() => onRadioClick(label)}
+          disabled={disabled}
+        />
+        <RadioButtonLabel htmlFor={id} disabled={disabled}>
           {label}
         </RadioButtonLabel>
       </RadioButtonContainer>
