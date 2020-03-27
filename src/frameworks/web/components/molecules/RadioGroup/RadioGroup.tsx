@@ -1,10 +1,15 @@
-import React from 'react';
+// eslint-disable-next-line no-unused-vars
+import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 import RadioButton from 'frameworks/web/components/atoms/RadioButton/RadioButton';
-// eslint-disable-next-line no-unused-vars
-import { IRadioGroup } from 'interfaces/frameworks/web/components/molecules/RadioGroup/IRadioGroup';
-// eslint-disable-next-line no-unused-vars
-import { edgeType } from 'src/interfaces/frameworks/web/components/atoms/RadioButton/IRadioButton';
+import {
+  // eslint-disable-next-line no-unused-vars
+  IRadioGroup,
+} from 'interfaces/frameworks/web/components/molecules/RadioGroup/IRadioGroup';
+import {
+  // eslint-disable-next-line no-unused-vars
+  edgeType,
+} from 'src/interfaces/frameworks/web/components/atoms/RadioButton/IRadioButton';
 
 const RadioGroupContainer = styled.div`
   display: flex;
@@ -12,9 +17,9 @@ const RadioGroupContainer = styled.div`
 
 export default class RadioGroup extends React.PureComponent<IRadioGroup> {
   render() {
-    const radioElements: JSX.Element[] = [];
+    const radioElements: ReactNode[] = [];
     const {
-      id, data, onDataSelectChange,
+      id, data, onDataSelectChange, disabled,
     } = this.props;
 
     data.forEach((d, i) => {
@@ -35,6 +40,7 @@ export default class RadioGroup extends React.PureComponent<IRadioGroup> {
           value={d}
           edge={edge}
           onRadioClick={onDataSelectChange}
+          disabled={disabled}
         />,
       );
     });
