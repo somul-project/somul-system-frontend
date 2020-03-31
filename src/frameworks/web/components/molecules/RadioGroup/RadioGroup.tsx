@@ -9,7 +9,7 @@ import {
 import {
   // eslint-disable-next-line no-unused-vars
   edgeType,
-} from 'src/interfaces/frameworks/web/components/atoms/RadioButton/IRadioButton';
+} from 'interfaces/frameworks/web/components/atoms/RadioButton/IRadioButton';
 
 const RadioGroupContainer = styled.div`
   display: flex;
