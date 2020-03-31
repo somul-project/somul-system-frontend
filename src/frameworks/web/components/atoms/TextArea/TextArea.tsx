@@ -14,11 +14,12 @@ const InputBox = styled.textarea`
   height: 164px;
   resize: none;
   margin:
-    ${(props: ITextAreaElement) => (props.isFocus ? '14px 22px 14px 22px' : '16px 24px 16px 24px')};
+    ${(props: ITextAreaElement) => (props.isFocus ? '14px 0 14px 22px' : '16px 0 16px 24px')};
+  padding:
+    ${(props: ITextAreaElement) => (props.isFocus ? '0 22px 0 0' : '0 24px 0 0')};
   outline: none;
   border: none;
   line-height: 1.71;
-  overflow:hidden
 `;
 
 const TextAreaContainer = styled.div`
@@ -55,7 +56,7 @@ export default class TextArea extends React.PureComponent<ITextArea, ITextAreaEl
 
   onLabelChange(value: string) {
     const { onValueChange } = this.props;
-    onValueChange!(value);
+    onValueChange(value);
   }
 
   render() {

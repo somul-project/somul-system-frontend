@@ -53,7 +53,7 @@ export default class TextField extends React.PureComponent<ITextField, ITextFiel
 
   onLabelChange(value: string) {
     const { onValueChange } = this.props;
-    onValueChange!(value);
+    onValueChange(value);
   }
 
   render() {
