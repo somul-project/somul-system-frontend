@@ -7,7 +7,7 @@ const ContentsBox = styled.div`
   height: ${(props: IContentsBox) => props.height ?? 200}px;
   box-shadow: 0 5px 30px 0 rgba(155, 155, 155, ${(props: IContentsBox) => (props.isDarkBackground ? '0.1' : '0.2')});
   background-color: white;
-  border-radius: 25px;
+  border-radius: 30px;
 `;
 
 export { ContentsBox as default };

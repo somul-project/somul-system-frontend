@@ -3,7 +3,3 @@ export interface ISingleCard {
   buttonLabel: string[]
   buttonOnClick: Function[]
 }
-
-export interface ISingleCardButtonContainer {
-  buttonCnt: number
-}
