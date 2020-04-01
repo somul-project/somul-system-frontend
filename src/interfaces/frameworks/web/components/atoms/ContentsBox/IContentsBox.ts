@@ -1,5 +1,5 @@
 export interface IContentsBox {
-  width: number
-  height: number
+  width?: number
+  height?: number
   isDarkBackground: boolean
 }
