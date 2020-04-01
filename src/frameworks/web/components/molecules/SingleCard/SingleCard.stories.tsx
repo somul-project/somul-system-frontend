@@ -10,7 +10,7 @@ export default {
   decorators: [withKnobs],
 };
 
-export const DarkBackgroundSingleCard = () => {
+export const SimpleTextSingleCard = () => {
   const buttonLabel: string[] = [];
   const buttonOnClick: Function[] = [];
 
@@ -35,7 +35,7 @@ export const DarkBackgroundSingleCard = () => {
   );
 };
 
-DarkBackgroundSingleCard.story = {
+SimpleTextSingleCard.story = {
   parameters: {
     backgrounds: [
       { name: 'Snow', value: theme.color.secondary.Snow, default: true },
