@@ -44,6 +44,12 @@ const CheckBoxContainer = styled.div`
   cursor: pointer;
 `;
 
+const LabelContainer = styled.div`
+  display: inline-block;
+  padding-left: 16px;
+  user-select: none;
+`;
+
 export default class CheckBox extends React.PureComponent<ICheckBox> {
   render() {
     const {
@@ -66,7 +72,9 @@ export default class CheckBox extends React.PureComponent<ICheckBox> {
             </Icon>
           </StyledCheckBox>
         </CheckBoxContainer>
-        <Label type="H5" style={{ display: 'inline-block', paddingLeft: '16px', userSelect: 'none' }}>{label}</Label>
+        <LabelContainer>
+          <Label type="H5">{label}</Label>
+        </LabelContainer>
       </label>
     );
   }
