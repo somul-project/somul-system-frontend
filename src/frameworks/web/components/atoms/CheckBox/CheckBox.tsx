@@ -3,7 +3,7 @@ import React from 'react';
 // eslint-disable-next-line no-unused-vars
 import { IBaseCheckBox, ICheckBox } from 'interfaces/frameworks/web/components/atoms/CheckBox/ICheckBox';
 import theme from 'theme';
-import { LabelH5 } from 'frameworks/web/components/atoms/Label/Label';
+import Label from 'frameworks/web/components/atoms/Label/Label';
 
 const HiddenCheckBox = styled.input.attrs<IBaseCheckBox>({ type: 'checkbox' })`
   border: 0;
@@ -66,7 +66,7 @@ export default class CheckBox extends React.PureComponent<ICheckBox> {
             </Icon>
           </StyledCheckBox>
         </CheckBoxContainer>
-        <LabelH5 style={{ display: 'inline-block', paddingLeft: '16px', userSelect: 'none' }}>{label}</LabelH5>
+        <Label type="H5" style={{ display: 'inline-block', paddingLeft: '16px', userSelect: 'none' }}>{label}</Label>
       </label>
     );
   }
