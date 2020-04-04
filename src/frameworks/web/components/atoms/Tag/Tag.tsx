@@ -7,8 +7,8 @@ const Tag = styled.span`
   font-size: 14px;
   line-height: 24px;
   color: white;
-  padding: 2px 8px;
-  margin: 4px;
+  padding: 4px 8px;
+  line-height: 1.5;
   border-radius: 8px;
   height: 28px;
   background-color: ${(props) => props.color ?? theme.color.secondary.Moon};
