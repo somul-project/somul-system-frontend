@@ -1,4 +1,4 @@
-type ButtonType = 'default' | 'field' | 'small' | 'wide';
+type ButtonType = 'default' | 'field' | 'small' | 'wide' | 'mobilewide';
 
 export interface IBaseButton {
   isPrimary: boolean
@@ -8,4 +8,5 @@ export interface IBaseButton {
 export interface IButton extends IBaseButton{
   type?: ButtonType
   label: string
+  style?: object
 }

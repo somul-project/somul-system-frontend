@@ -22,28 +22,36 @@ const BaseButton = styled.button`
 `;
 
 const DefaultButton = styled(BaseButton)`
-    width: 154px;
-    height: 56px;
-    color: ${(props) => props.color ?? theme.color.primary.Black};
+  height: 56px;
+  padding: 0 48px;
+  color: ${(props) => props.color ?? theme.color.primary.Black};
 `;
 
 const FieldButton = styled(BaseButton)`
-    width: 154px;
-    height: 48px;
-    color: ${(props) => props.color ?? theme.color.primary.Black};
+  height: 48px;
+  padding: 0 48px;
+  color: ${(props) => props.color ?? theme.color.primary.Black};
 `;
 
 const SmallButton = styled(BaseButton)`
-    width: 116px;
-    height: 40px;
-    font-size: 14px;
-    color: ${(props) => props.color ?? theme.color.primary.Black};
+  height: 40px;
+  padding: 0 32px;
+  font-size: 14px;
+  color: ${(props) => props.color ?? theme.color.primary.Black};
 `;
 
 const WideButton = styled(BaseButton)`
-    width: 350px;
-    height: 70px;
-    color: ${(props) => props.color ?? theme.color.primary.Black};
+  font-weight: bold;
+  width: 350px;
+  height: 70px;
+  color: ${(props) => props.color ?? theme.color.primary.Black};
+`;
+
+const MobileWideButton = styled(BaseButton)`
+  width: 100%;
+  height: 70px;
+  text-align: center;
+  color: ${(props) => props.color ?? theme.color.primary.Black};
 `;
 
 const BUTTONS = {
@@ -51,16 +59,25 @@ const BUTTONS = {
   field: FieldButton,
   small: SmallButton,
   default: DefaultButton,
+  mobilewide: MobileWideButton,
 };
 
 export default class Button extends React.PureComponent<IButton> {
   render() {
     const {
-      type, label, isPrimary, onClick,
+      type, label, isPrimary, onClick, style,
     } = this.props;
 
     const ButtonComponent = BUTTONS[type ?? 'default'];
 
-    return <ButtonComponent isPrimary={isPrimary} onClick={onClick}>{label}</ButtonComponent>;
+    return (
+      <ButtonComponent
+        isPrimary={isPrimary}
+        onClick={onClick}
+        style={style}
+      >
+        {label}
+      </ButtonComponent>
+    );
   }
 }

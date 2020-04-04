@@ -1,26 +1,40 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="prefix__logo-20px-colored" width="112.5" height="20" viewBox="0 0 112.5 20">
-    <defs>
-        <style>
-            .prefix__cls-1{fill:#45a4f6}.prefix__cls-2{fill:#f5503d}
-        </style>
-    </defs>
-    <path id="prefix__사각형_176" d="M0 0H14.1V4H0z" class="prefix__cls-1" data-name="사각형 176" transform="translate(4)"/>
-    <path id="prefix__패스_32" d="M37.3 4V0H27.23v4h10.06z" class="prefix__cls-1" data-name="패스 32"/>
-    <path id="prefix__사각형_177" d="M0 0H10.07V4H0z" class="prefix__cls-1" data-name="사각형 177" transform="translate(78.42 16)"/>
-    <path id="prefix__사각형_178" d="M0 0H5.9V4H0z" class="prefix__cls-1" data-name="사각형 178" transform="translate(49.79)"/>
-    <path id="prefix__패스_33" d="M27.23 16v4H37.3v-4H27.23z" class="prefix__cls-1" data-name="패스 33"/>
-    <path id="prefix__사각형_179" d="M0 0H10.67V4H0z" class="prefix__cls-2" data-name="사각형 179" transform="translate(4 8)"/>
-    <path id="prefix__사각형_180" d="M0 0H14.1V4H0z" class="prefix__cls-1" data-name="사각형 180" transform="translate(.57 16)"/>
-    <path id="prefix__사각형_181" d="M0 0H4V4H0z" class="prefix__cls-2" data-name="사각형 181" transform="translate(0 4)"/>
-    <path id="prefix__사각형_182" d="M0 0H4V4H0z" class="prefix__cls-2" data-name="사각형 182" transform="translate(14.67 12)"/>
-    <path id="prefix__사각형_183" d="M0 0H4V12H0z" class="prefix__cls-2" data-name="사각형 183" transform="translate(23.23 4)"/>
-    <path id="prefix__패스_34" d="M37.29 4v12h4V4H37.3z" class="prefix__cls-2" data-name="패스 34"/>
-    <path id="prefix__사각형_184" d="M0 0H4V16H0z" class="prefix__cls-2" data-name="사각형 184" transform="translate(45.79 4)"/>
-    <path id="prefix__패스_35" d="M55.7 4v16h4V4h-4z" class="prefix__cls-2" data-name="패스 35"/>
-    <path id="prefix__패스_36" d="M59.7 0v4h5.9V0z" class="prefix__cls-1" data-name="패스 36"/>
-    <path id="prefix__사각형_185" d="M0 0H4V16H0z" class="prefix__cls-2" data-name="사각형 185" transform="translate(65.6 4)"/>
-    <path id="prefix__사각형_186" d="M0 0H10.64V4H0z" class="prefix__cls-1" data-name="사각형 186" transform="translate(101.86 16)"/>
-    <path id="prefix__패스_37" d="M101.86 15V0h-4v20h4v-5z" class="prefix__cls-2" data-name="패스 37"/>
-    <path id="prefix__사각형_187" d="M0 0H4V16H0z" class="prefix__cls-2" data-name="사각형 187" transform="translate(74.42)"/>
-    <path id="prefix__사각형_188" d="M0 0H4V16H0z" class="prefix__cls-2" data-name="사각형 188" transform="translate(88.48)"/>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="레이어_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+	 y="0px" viewBox="0 0 112.5 20" style="enable-background:new 0 0 112.5 20;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#45A4F6;}
+	.st1{fill:#F5503D;}
+</style>
+<g>
+	<g>
+		<polygon class="st0" points="37.1,4 37.1,0 27.1,0 27.1,4 37.1,4 		"/>
+		<polygon class="st0" points="37.1,20 37.1,16 27.1,16 27.1,20 37.1,20 		"/>
+		<polygon class="st1" points="37.1,4 37.1,16 37.1,16 41.1,16 41.1,4 37.1,4 		"/>
+		<polygon class="st1" points="23.1,4 23.1,16 23.1,16 27.1,16 27.1,4 23.1,4 		"/>
+	</g>
+	<g>
+		<rect x="50" class="st0" width="6" height="4"/>
+		<rect x="46" y="4" class="st1" width="4" height="16"/>
+		<rect x="60" class="st0" width="6" height="4"/>
+		<rect x="56" y="4" class="st1" width="4" height="16"/>
+		<rect x="66" y="4" class="st1" width="4" height="16"/>
+	</g>
+	<g>
+		<rect x="102" y="16" class="st0" width="10.5" height="4"/>
+		<polygon class="st1" points="102,15 102,0 98,0 98,20 102,20 102,16 		"/>
+	</g>
+	<g>
+		<polygon class="st0" points="88.8,20 88.8,16 78.8,16 78.8,20 88.8,20 		"/>
+		<rect x="74.8" class="st1" width="4" height="16"/>
+		<rect x="88.8" class="st1" width="4" height="16"/>
+	</g>
+	<g>
+		<rect x="4" class="st0" width="13.1" height="4"/>
+		<rect x="4" y="8" class="st1" width="10.6" height="4"/>
+		<rect x="1.5" y="16" class="st0" width="13.1" height="4"/>
+		<rect y="4" class="st1" width="4" height="4"/>
+		<rect x="14.6" y="12" class="st1" width="4" height="4"/>
+	</g>
+</g>
 </svg>
