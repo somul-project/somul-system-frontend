@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="prefix__logo-20px-colored" width="112.5" height="20" viewBox="0 0 112.5 20">
+    <defs>
+        <style>
+            .prefix__cls-1{fill:#45a4f6}.prefix__cls-2{fill:#f5503d}
+        </style>
+    </defs>
+    <path id="prefix__사각형_176" d="M0 0H14.1V4H0z" class="prefix__cls-1" data-name="사각형 176" transform="translate(4)"/>
+    <path id="prefix__패스_32" d="M37.3 4V0H27.23v4h10.06z" class="prefix__cls-1" data-name="패스 32"/>
+    <path id="prefix__사각형_177" d="M0 0H10.07V4H0z" class="prefix__cls-1" data-name="사각형 177" transform="translate(78.42 16)"/>
+    <path id="prefix__사각형_178" d="M0 0H5.9V4H0z" class="prefix__cls-1" data-name="사각형 178" transform="translate(49.79)"/>
+    <path id="prefix__패스_33" d="M27.23 16v4H37.3v-4H27.23z" class="prefix__cls-1" data-name="패스 33"/>
+    <path id="prefix__사각형_179" d="M0 0H10.67V4H0z" class="prefix__cls-2" data-name="사각형 179" transform="translate(4 8)"/>
+    <path id="prefix__사각형_180" d="M0 0H14.1V4H0z" class="prefix__cls-1" data-name="사각형 180" transform="translate(.57 16)"/>
+    <path id="prefix__사각형_181" d="M0 0H4V4H0z" class="prefix__cls-2" data-name="사각형 181" transform="translate(0 4)"/>
+    <path id="prefix__사각형_182" d="M0 0H4V4H0z" class="prefix__cls-2" data-name="사각형 182" transform="translate(14.67 12)"/>
+    <path id="prefix__사각형_183" d="M0 0H4V12H0z" class="prefix__cls-2" data-name="사각형 183" transform="translate(23.23 4)"/>
+    <path id="prefix__패스_34" d="M37.29 4v12h4V4H37.3z" class="prefix__cls-2" data-name="패스 34"/>
+    <path id="prefix__사각형_184" d="M0 0H4V16H0z" class="prefix__cls-2" data-name="사각형 184" transform="translate(45.79 4)"/>
+    <path id="prefix__패스_35" d="M55.7 4v16h4V4h-4z" class="prefix__cls-2" data-name="패스 35"/>
+    <path id="prefix__패스_36" d="M59.7 0v4h5.9V0z" class="prefix__cls-1" data-name="패스 36"/>
+    <path id="prefix__사각형_185" d="M0 0H4V16H0z" class="prefix__cls-2" data-name="사각형 185" transform="translate(65.6 4)"/>
+    <path id="prefix__사각형_186" d="M0 0H10.64V4H0z" class="prefix__cls-1" data-name="사각형 186" transform="translate(101.86 16)"/>
+    <path id="prefix__패스_37" d="M101.86 15V0h-4v20h4v-5z" class="prefix__cls-2" data-name="패스 37"/>
+    <path id="prefix__사각형_187" d="M0 0H4V16H0z" class="prefix__cls-2" data-name="사각형 187" transform="translate(74.42)"/>
+    <path id="prefix__사각형_188" d="M0 0H4V16H0z" class="prefix__cls-2" data-name="사각형 188" transform="translate(88.48)"/>
+</svg>
