@@ -7,5 +7,8 @@ export interface ILabelMark {
 }
 
 export interface ILabel extends ILabelMark {
-  type: labelType
+  type?: labelType
+  onClick?: any
+  color?: string
+  style?: object
 }

@@ -7,7 +7,8 @@ import { ILabel, ILabelMark } from 'interfaces/frameworks/web/components/atoms/L
 const BaseLabel = styled.p`
   font-family: 'Muli', 'Noto Sans KR', sans-serif;
   margin: 0;
-  color: ${(props) => props.color ?? theme.color.primary.Black};
+  color: ${(props: ILabel) => props.color ?? theme.color.primary.Black};
+  ${(props: ILabel) => (typeof props.onClick !== 'undefined' ? 'cursor: pointer;' : '')}
 `;
 
 const LabelH1 = styled(BaseLabel)`
@@ -67,13 +68,14 @@ const LabelP2 = styled(BaseLabel)`
 `;
 
 const LabelMark = styled.mark`
-  display: inline-block;
   line-height: ${(props: ILabelMark) => ((props.mark === 'full') ? -1 : 0)}em;
   padding-left: 10px;
   padding-right: 10px;
   padding-bottom: ${(props: ILabelMark) => ((props.mark === 'full') ? 0 : 0.7)}em;
   border-radius: 1em;
   background-color: ${(props: ILabelMark) => props.markColor ?? theme.color.alert.Warning};
+  background-opacity: 0.5;
+  box-decoration-break: clone;
 `;
 
 const LABEL = {
@@ -90,14 +92,23 @@ const LABEL = {
 export default class Label extends React.PureComponent<ILabel> {
   render() {
     const {
-      type, mark, markColor, children,
+      type, mark, markColor, children, onClick, color, style,
     } = this.props;
     let label = children;
-    const LabelComponent = LABEL[type];
+    const LabelComponent = LABEL[type ?? 'P1'];
 
     if (typeof mark !== 'undefined' && mark !== 'none') {
       label = <LabelMark mark={mark} markColor={markColor}>{label}</LabelMark>;
     }
-    return <LabelComponent>{label}</LabelComponent>;
+    return (
+      <LabelComponent
+        onClick={onClick}
+        color={color}
+        mark={mark}
+        style={style}
+      >
+        {label}
+      </LabelComponent>
+    );
   }
 }
