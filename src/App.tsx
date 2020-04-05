@@ -1,10 +1,10 @@
 import React from 'react';
-import Header from 'frameworks/web/components/pages/Landing/Landing';
+import Landing from 'frameworks/web/components/pages/Landing/Landing';
 
 function App() {
   return (
     <div>
-      <Header />
+      <Landing />
     </div>
   );
 }

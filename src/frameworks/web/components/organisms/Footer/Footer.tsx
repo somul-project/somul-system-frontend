@@ -41,10 +41,10 @@ export default class Footer extends React.PureComponent {
           <Row align="center" justify="between" style={{ height: '100%' }}>
             <Col md={4}>
               <Label type="H5" color={theme.color.secondary.Moon}>소프트웨어에 물들다</Label>
-              <Label type="P2" color={theme.color.secondary.Moon}>colored in software</Label>
+              <Label type="P2" color={theme.color.secondary.Moon}>Colored in Software</Label>
             </Col>
-            <Col lg={5} xl={4}>
-              <div style={{ float: 'right' }}>
+            <Col lg={6}>
+              <div style={{ float: 'right', marginLeft: '230px' }}>
                 <a href="https://www.facebook.com/groups/may.somul/">
                   <FooterSNSLogo src="facebook-footer.svg" alt="footer facebook icon" />
                 </a>
@@ -56,7 +56,7 @@ export default class Footer extends React.PureComponent {
                 </a>
               </div>
               <Label type="P2" color={theme.color.secondary.Moon} style={{ float: 'right' }}>
-                Copyright © 2016 Somul, All rights reserved.
+                Copyright © 2020 Colored by Software, All rights reserved.
               </Label>
             </Col>
           </Row>
@@ -74,8 +74,8 @@ export default class Footer extends React.PureComponent {
                 <CodeClubLogo src="codeclub.svg" alt="footer code-club icon" />
               </a>
             </div>
-            <Label type="P2" color={theme.color.secondary.Moon} style={{ marginTop: '8px' }}>
-              Copyright © 2016 Somul, All rights reserved.
+            <Label type="P2" color={theme.color.secondary.Moon} style={{ marginTop: '8px', textAlign: 'center' }}>
+              Copyright © 2020 Colored by Software, All rights reserved.
             </Label>
           </FooterCenterContainer>
         </Hidden>
