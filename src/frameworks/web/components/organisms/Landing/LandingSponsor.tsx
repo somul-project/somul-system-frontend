@@ -32,7 +32,7 @@ export default class LandingSponsor extends React.PureComponent {
   render() {
     return (
       <ScreenClassRender render={(sClass: string) => (
-        <div>
+        <div id="landingSponsor">
           <div
             style={{
               textAlign: 'center',

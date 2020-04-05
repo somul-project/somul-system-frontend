@@ -26,11 +26,6 @@ const BannerMainIllust = styled.img`
   height: auto;
 `;
 
-const notYetAlert = () => {
-  // eslint-disable-next-line no-undef, no-alert
-  alert('추후 공개될 예정입니다.');
-};
-
 export default class LandingBanner extends React.PureComponent {
   render() {
     return (
@@ -51,7 +46,7 @@ export default class LandingBanner extends React.PureComponent {
                 <Label type="H4" color={theme.color.primary.White} style={{ margin: '40px 0' }}>
                   2020년 05월 30일 14:00 ~
                 </Label>
-                <Button isPrimary={false} label="자세히보기" onClick={notYetAlert} />
+                <a href="#landingAbout"><Button isPrimary={false} label="자세히보기" onClick={() => undefined} /></a>
               </Visible>
             </Col>
             <Hidden lg xl>
@@ -85,7 +80,7 @@ export default class LandingBanner extends React.PureComponent {
               paddingBottom: '40px',
             }}
             >
-              <Button isPrimary={false} label="자세히보기" onClick={notYetAlert} />
+              <a href="#landingAbout"><Button isPrimary={false} label="자세히보기" onClick={() => undefined} /></a>
             </div>
           </Hidden>
         </BannerContainer>

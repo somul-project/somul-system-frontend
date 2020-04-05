@@ -28,7 +28,7 @@ export default class LandingJoin extends React.PureComponent {
   render() {
     return (
       <ScreenClassRender render={(sClass: string) => (
-        <JoinContainer>
+        <JoinContainer id="landingJoin">
           <div style={{ textAlign: 'center', padding: ['lg', 'xl'].includes(sClass) ? '64px 0' : '32px 0' }}>
             <Label type="H4">JOIN US</Label>
           </div>

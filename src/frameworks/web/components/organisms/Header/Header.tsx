@@ -2,23 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import Label from 'frameworks/web/components/atoms/Label/Label';
 import Button from 'frameworks/web/components/atoms/Button/Button';
-import { Visible, Hidden } from 'react-grid-system';
-
-const HeaderContainer = styled.div`
-  height: 80px;
-  margin: 0 85px;
-`;
-
-const HeaderLogo = styled.img`
-  margin: 30px 76px 30px 0;
-  width: 112.5px;
-  height: 20px;
-  float: left;
-`;
+import { Visible, Hidden, ScreenClassRender } from 'react-grid-system';
 
 const HeaderMenuContainer = styled.div`
   float: left;
-  width: 450px;
+  width: 100%;
+  max-width: 440px;
   margin: 28px 0;
 
   display: flex;
@@ -36,9 +25,7 @@ const HeaderButtonContainer = styled.div`
 
 const HeaderSidebarButton = styled.img`
   float: right;
-  width: 40px;
-  height: 40px;
-  margin: 20px 0;
+  cursor: pointer;
 `;
 
 const notYetAlert = () => {
@@ -49,27 +36,52 @@ const notYetAlert = () => {
 export default class Header extends React.PureComponent {
   render() {
     return (
-      <HeaderContainer>
-        <a href="https://somul.kr">
-          <HeaderLogo src="logo.svg" alt="소프트웨어에 물들다 (로고)" />
-        </a>
-        <Visible xl>
-          <HeaderMenuContainer>
-            <Label type="H5" onClick={notYetAlert}>소물이란?</Label>
-            <Label type="H5" onClick={notYetAlert}>강연정보</Label>
-            <Label type="H5" onClick={notYetAlert}>참가신청</Label>
-            <Label type="H5" onClick={notYetAlert}>후원안내</Label>
-            <Label type="H5" onClick={notYetAlert}>FAQ</Label>
-          </HeaderMenuContainer>
-          <HeaderButtonContainer>
-            <Button type="small" label="회원가입" isPrimary={false} onClick={notYetAlert} style={{ marginLeft: '20px' }} />
-            <Button type="small" label="로그인" isPrimary onClick={notYetAlert} />
-          </HeaderButtonContainer>
-        </Visible>
-        <Hidden xl>
-          <HeaderSidebarButton src="mobile-menu.svg" alt="사이드 메뉴" onClick={notYetAlert} />
-        </Hidden>
-      </HeaderContainer>
+      <ScreenClassRender render={(sClass: string) => (
+        <div style={{
+          height: sClass === 'xs' ? '48px' : '80px',
+          margin: sClass === 'xs' ? '0 24px' : '0 85px',
+        }}
+        >
+          <a href="https://somul.kr">
+            <img
+              src="logo.svg"
+              alt="소프트웨어에 물들다 (로고)"
+              style={{
+                margin: sClass === 'xs' ? '16px 0' : '30px 76px 30px 0',
+                width: sClass === 'xs' ? '90px' : '112.5px',
+                height: sClass === 'xs' ? '16px' : '20px',
+                float: 'left',
+              }}
+            />
+          </a>
+          <Visible xl>
+            <HeaderMenuContainer>
+              <Label type="H5" onClick={notYetAlert}>소물이란?</Label>
+              <Label type="H5" onClick={notYetAlert}>강연정보</Label>
+              <a href="#landingJoin" style={{ textDecoration: 'none' }}><Label type="H5">참가신청</Label></a>
+              <a href="#landingSponsor" style={{ textDecoration: 'none' }}><Label type="H5">후원안내</Label></a>
+              <Label type="H5" onClick={notYetAlert}>FAQ</Label>
+            </HeaderMenuContainer>
+            <HeaderButtonContainer>
+              <Button type="small" label="회원가입" isPrimary={false} onClick={notYetAlert} style={{ marginLeft: '20px' }} />
+              <Button type="small" label="로그인" isPrimary onClick={notYetAlert} />
+            </HeaderButtonContainer>
+          </Visible>
+          <Hidden xl>
+            <HeaderSidebarButton
+              src="mobile-menu.svg"
+              alt="사이드 메뉴"
+              onClick={notYetAlert}
+              style={{
+                width: sClass === 'xs' ? '20px' : '40px',
+                height: sClass === 'xs' ? '20px' : '40px',
+                margin: sClass === 'xs' ? '14px 0' : '20px 0',
+              }}
+            />
+          </Hidden>
+        </div>
+      )}
+      />
     );
   }
 }
