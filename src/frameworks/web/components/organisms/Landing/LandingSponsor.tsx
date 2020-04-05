@@ -44,7 +44,7 @@ export default class LandingSponsor extends React.PureComponent {
           <Row
             justify="center"
             align="center"
-            style={{ marginBottom: ['lg', 'xl'].includes(sClass) ? '64px' : '32px' }}
+            style={{ margin: ['lg', 'xl'].includes(sClass) ? '0 0 64px 0' : '0 0 32px 0' }}
           >
             <Col xs={8} md={6} lg={5} xl={5}>
               <SponsorIllust

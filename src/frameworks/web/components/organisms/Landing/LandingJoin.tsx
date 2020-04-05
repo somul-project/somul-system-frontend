@@ -32,7 +32,7 @@ export default class LandingJoin extends React.PureComponent {
           <div style={{ textAlign: 'center', padding: ['lg', 'xl'].includes(sClass) ? '64px 0' : '32px 0' }}>
             <Label type="H4">JOIN US</Label>
           </div>
-          <Row justify="center">
+          <Row justify="center" style={{ margin: '0' }}>
             <Col xs={10} lg={9}>
               <ContentsBox isDarkBackground>
                 <div style={{ padding: ['lg', 'xl'].includes(sClass) ? '24px 0 48px 0' : '' }}>
