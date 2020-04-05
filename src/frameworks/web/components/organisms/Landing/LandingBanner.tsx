@@ -32,15 +32,16 @@ export default class LandingBanner extends React.PureComponent {
       <ScreenClassRender render={(sClass: string) => (
         <BannerContainer>
           <Row
-            justify="center"
+            justify={['lg', 'xl'].includes(sClass) ? 'center' : 'around'}
             align={['lg', 'xl'].includes(sClass) ? 'start' : 'end'}
             style={{
               width: '100%',
               paddingTop: ['lg', 'xl'].includes(sClass) ? '120px' : '32px',
               paddingBottom: ['lg', 'xl'].includes(sClass) ? '80px' : '23px',
+              margin: '0',
             }}
           >
-            <Col offset={{ xs: 1, lg: 1 }} xs={7} lg={4}>
+            <Col offset={{ lg: 1 }} xs={6} sm={5} lg={4}>
               <BannerTitleImg src="main-contents-title.svg" alt="소프트웨어에 물들다" />
               <Visible lg xl>
                 <Label type="H4" color={theme.color.primary.White} style={{ margin: '40px 0' }}>
@@ -50,8 +51,8 @@ export default class LandingBanner extends React.PureComponent {
               </Visible>
             </Col>
             <Hidden lg xl>
-              <Col xs={4}>
-                <Label type="H4" color={theme.color.primary.White} style={{ textAlign: 'right' }}>
+              <Col xs={5}>
+                <Label type={sClass === 'xs' ? 'P2' : 'H4'} color={theme.color.primary.White} style={{ textAlign: 'right' }}>
                   2020년 05월 30일
                   <br />
                   14:00 ~

@@ -38,7 +38,7 @@ export default class Footer extends React.PureComponent {
     return (
       <FooterContainer>
         <Visible lg xl>
-          <Row align="center" justify="between" style={{ height: '100%' }}>
+          <Row align="center" justify="between" style={{ height: '100%', margin: '0' }}>
             <Col md={4}>
               <Label type="H5" color={theme.color.secondary.Moon}>소프트웨어에 물들다</Label>
               <Label type="P2" color={theme.color.secondary.Moon}>Colored in Software</Label>
