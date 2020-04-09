@@ -24,7 +24,12 @@ export default class LandingAbout extends React.PureComponent {
               padding: ['lg', 'xl'].includes(sClass) ? '64px 0' : '33px 0 25px 0',
             }}
           >
-            <Label type="H4" color={theme.color.primary.Azure}>ABOUT SOMUL</Label>
+            <Label
+              type={['lg', 'xl'].includes(sClass) ? 'H4' : 'MobileH3'}
+              color={theme.color.primary.Azure}
+            >
+              ABOUT SOMUL
+            </Label>
           </div>
           <Row
             justify="center"
@@ -42,13 +47,20 @@ export default class LandingAbout extends React.PureComponent {
                 whiteSpace: 'pre-line',
               }}
             >
-              <Label type="P1" style={{ paddingTop: ['lg', 'xl'].includes(sClass) ? '0' : '30px' }}>
+              <Label
+                type={['lg', 'xl'].includes(sClass) ? 'P1' : 'MobileP1'}
+                style={{ paddingTop: ['lg', 'xl'].includes(sClass) ? '0' : '30px' }}
+              >
                 &apos;소프트웨어에 물들다&apos;는 전국의 도서관에서 소프트웨어를 주제로
                 {sClass === 'md' ? '\n' : ' '}
                 한날 한시에 진행되는 강연 프로젝트입니다.
               </Label>
               <div style={{ padding: '12px 0' }} />
-              <Label type="P1" mark="full">
+              <Label
+                type={['lg', 'xl'].includes(sClass) ? 'P1' : 'MobileP1'}
+                mark="full"
+                markColor="#FFF0A6"
+              >
                 올해는 COVID-19 바이러스(이하 코로나)로 인하여 온라인으로 진행합니다.
                 {sClass === 'md' ? '\n' : ' '}
                 5월 29일 오후 2시에 공개될 강연 리스트(유튜브 링크)로 여러분들을 찾아뵙겠습니다.

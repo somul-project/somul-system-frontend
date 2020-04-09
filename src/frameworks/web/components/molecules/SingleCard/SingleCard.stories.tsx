@@ -2,7 +2,7 @@ import React from 'react';
 import { withKnobs, boolean, text } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import SingleCard from 'frameworks/web/components/molecules/SingleCard/SingleCard';
-import { LabelP1 } from 'frameworks/web/components/atoms/Label/Label';
+import Label from 'frameworks/web/components/atoms/Label/Label';
 import theme from 'theme';
 
 export default {
@@ -28,9 +28,9 @@ export const SimpleTextSingleCard = () => {
 
   return (
     <SingleCard title={title} buttonLabel={buttonLabel} buttonOnClick={buttonOnClick}>
-      <LabelP1 color={theme.color.secondary.Moon}>
+      <Label type="P1" color={theme.color.secondary.Moon}>
         {label}
-      </LabelP1>
+      </Label>
     </SingleCard>
   );
 };

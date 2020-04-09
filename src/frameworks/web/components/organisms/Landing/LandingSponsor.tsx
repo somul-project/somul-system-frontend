@@ -39,7 +39,12 @@ export default class LandingSponsor extends React.PureComponent {
               margin: ['lg', 'xl'].includes(sClass) ? '64px 0' : '32px 0',
             }}
           >
-            <Label type="H4" color={theme.color.primary.Azure}>HOW TO SPONSOR</Label>
+            <Label
+              type={['lg', 'xl'].includes(sClass) ? 'H4' : 'MobileH3'}
+              color={theme.color.primary.Azure}
+            >
+              HOW TO SPONSOR
+            </Label>
           </div>
           <Row
             justify="center"
@@ -55,14 +60,20 @@ export default class LandingSponsor extends React.PureComponent {
             </Col>
             <Col xs={10} lg={6} xl={5}>
               <SponsorLabelContainer>
-                <Label type="P1" style={{ marginBottom: '8px' }}>
+                <Label
+                  type={['lg', 'xl'].includes(sClass) ? 'P1' : 'MobileP1'}
+                  style={{ marginBottom: '8px' }}
+                >
                   늘 그렇듯이 이런 행사에는 산업체, 개인들의 열화와 같은 지지, 그리고 물심양면의 후원이 필요합니다.
                 </Label>
-                <Label type="P1" style={{ marginBottom: '8px' }}>
+                <Label
+                  type={['lg', 'xl'].includes(sClass) ? 'P1' : 'MobileP1'}
+                  style={{ marginBottom: '8px' }}
+                >
                   현금 후원도 받지만, 도서관과 행사 참여 어린이들에게 주실 서적, 기념품, 그리고 봉사자들을 위 후원품을 보내주시면 저희가 전달해드립니다.
                   아주 작은 후원이라도 감사히 생각하며 개인, 회사, 기관의 소중한 후원이 우리의 미래를 밝게 할 것입니다.
                 </Label>
-                <Label type="P1">
+                <Label type={['lg', 'xl'].includes(sClass) ? 'P1' : 'MobileP1'}>
                   또한 후원사들의 명단 & 로고를 널리 알려 이 소중한 행사에 같이 해주심을 기억하겠습니다.
                 </Label>
               </SponsorLabelContainer>

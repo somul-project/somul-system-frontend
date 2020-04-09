@@ -74,7 +74,7 @@ export default class Footer extends React.PureComponent {
                 <CodeClubLogo src="codeclub.svg" alt="footer code-club icon" />
               </a>
             </div>
-            <Label type="P2" color={theme.color.secondary.Moon} style={{ marginTop: '8px', textAlign: 'center' }}>
+            <Label type="MobileP2" color={theme.color.secondary.Moon} style={{ marginTop: '8px', textAlign: 'center' }}>
               Copyright © 2020 Colored by Software, All rights reserved.
             </Label>
           </FooterCenterContainer>

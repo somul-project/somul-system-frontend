@@ -30,7 +30,7 @@ export default class LandingJoin extends React.PureComponent {
       <ScreenClassRender render={(sClass: string) => (
         <JoinContainer id="landingJoin">
           <div style={{ textAlign: 'center', padding: ['lg', 'xl'].includes(sClass) ? '64px 0' : '32px 0' }}>
-            <Label type="H4">JOIN US</Label>
+            <Label type={['lg', 'xl'].includes(sClass) ? 'H4' : 'MobileH4'}>JOIN US</Label>
           </div>
           <Row justify="center" style={{ margin: '0' }}>
             <Col xs={10} lg={9}>
@@ -55,7 +55,9 @@ export default class LandingJoin extends React.PureComponent {
                 padding: ['lg', 'xl'].includes(sClass) ? '64px 0' : '32px 0',
               }}
             >
-              <Label type="P1">※ 올해 본 행사는 온라인에서 진행되는 관계로, 도서관 및 봉사자 신청을 받지 않습니다.</Label>
+              <Label type={['lg', 'xl'].includes(sClass) ? 'P1' : 'MobileP1'}>
+                ※ 올해 본 행사는 온라인에서 진행되는 관계로, 도서관 및 봉사자 신청을 받지 않습니다.
+              </Label>
             </Col>
           </Row>
         </JoinContainer>

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import React, { ReactNode } from 'react';
 import theme from 'theme';
 import ContentsBox from 'frameworks/web/components/atoms/ContentsBox/ContentsBox';
-import { LabelH4 } from 'frameworks/web/components/atoms/Label/Label';
+import Label from 'frameworks/web/components/atoms/Label/Label';
 // eslint-disable-next-line no-unused-vars
 import { IDividedCard } from 'interfaces/frameworks/web/components/molecules/DividedCard/IDividedCard';
 
@@ -38,7 +38,7 @@ export default class DividedCard extends React.PureComponent<IDividedCard> {
     return (
       <CardContainer isDarkBackground={false}>
         <LeftContainer>
-          <LabelH4 color={theme.color.primary.White}>{title}</LabelH4>
+          <Label type="H4" color={theme.color.primary.White}>{title}</Label>
           {left}
         </LeftContainer>
         <RightContainer>

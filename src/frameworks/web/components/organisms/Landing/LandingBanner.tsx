@@ -52,7 +52,7 @@ export default class LandingBanner extends React.PureComponent {
             </Col>
             <Hidden lg xl>
               <Col xs={5}>
-                <Label type={sClass === 'xs' ? 'P2' : 'H4'} color={theme.color.primary.White} style={{ textAlign: 'right' }}>
+                <Label type="MobileP1" color={theme.color.primary.White} style={{ textAlign: 'right' }}>
                   2020년 05월 30일
                   <br />
                   14:00 ~
