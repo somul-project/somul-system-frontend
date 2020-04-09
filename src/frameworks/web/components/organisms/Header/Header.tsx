@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Label from 'frameworks/web/components/atoms/Label/Label';
 import Button from 'frameworks/web/components/atoms/Button/Button';
 import { Visible, Hidden, ScreenClassRender } from 'react-grid-system';
+import { Link } from 'react-router-dom';
 
 const HeaderMenuContainer = styled.div`
   float: left;
@@ -42,7 +43,7 @@ export default class Header extends React.PureComponent {
           margin: sClass === 'xs' ? '0 24px' : '0 85px',
         }}
         >
-          <a href="https://somul.kr">
+          <Link to="/">
             <img
               src="logo.svg"
               alt="소프트웨어에 물들다 (로고)"
@@ -53,7 +54,7 @@ export default class Header extends React.PureComponent {
                 float: 'left',
               }}
             />
-          </a>
+          </Link>
           <Visible xl>
             <HeaderMenuContainer>
               <a href="#landingAbout" style={{ textDecoration: 'none' }}>
@@ -69,8 +70,23 @@ export default class Header extends React.PureComponent {
               <Label type="H5" onClick={notYetAlert}>FAQ</Label>
             </HeaderMenuContainer>
             <HeaderButtonContainer>
-              <Button type="small" label="회원가입" isPrimary={false} onClick={notYetAlert} style={{ marginLeft: '20px' }} />
-              <Button type="small" label="로그인" isPrimary onClick={notYetAlert} />
+              <Link to="/signup">
+                <Button
+                  type="small"
+                  label="회원가입"
+                  isPrimary={false}
+                  onClick={() => undefined}
+                  style={{ marginLeft: '20px' }}
+                />
+              </Link>
+              <Link to="/signin">
+                <Button
+                  type="small"
+                  label="로그인"
+                  isPrimary
+                  onClick={() => undefined}
+                />
+              </Link>
             </HeaderButtonContainer>
           </Visible>
           <Hidden xl>

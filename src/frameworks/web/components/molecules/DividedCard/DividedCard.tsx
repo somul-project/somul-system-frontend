@@ -1,16 +1,16 @@
 import styled from 'styled-components';
 // eslint-disable-next-line no-unused-vars
-import React, { ReactNode } from 'react';
+import React from 'react';
 import theme from 'theme';
 import ContentsBox from 'frameworks/web/components/atoms/ContentsBox/ContentsBox';
-import { LabelH4 } from 'frameworks/web/components/atoms/Label/Label';
+import Label from 'frameworks/web/components/atoms/Label/Label';
 // eslint-disable-next-line no-unused-vars
 import { IDividedCard } from 'interfaces/frameworks/web/components/molecules/DividedCard/IDividedCard';
 
 const CardContainer = styled(ContentsBox)`
   width: 1100px;
   min-height: 516px;
-  margin: 210px auto;
+  margin: 0 auto;
   background-color: white;
   text-align: center;
   display: flex;
@@ -22,7 +22,7 @@ const LeftContainer = styled.div`
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
   padding: 80px 0;
-  background-color: ${theme.color.primary.Azure};
+  background-color: ${theme.color.primary.Sky};
 `;
 const RightContainer = styled.div`
   width: 730px;
@@ -38,7 +38,7 @@ export default class DividedCard extends React.PureComponent<IDividedCard> {
     return (
       <CardContainer isDarkBackground={false}>
         <LeftContainer>
-          <LabelH4 color={theme.color.primary.White}>{title}</LabelH4>
+          <Label type="H4" color={theme.color.primary.White}>{title}</Label>
           {left}
         </LeftContainer>
         <RightContainer>

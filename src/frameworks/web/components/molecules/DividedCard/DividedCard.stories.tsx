@@ -1,7 +1,7 @@
 import React from 'react';
 import { withKnobs, text } from '@storybook/addon-knobs';
 import DividedCard from 'frameworks/web/components/molecules/DividedCard/DividedCard';
-import { LabelP1 } from 'frameworks/web/components/atoms/Label/Label';
+import Label from 'frameworks/web/components/atoms/Label/Label';
 import theme from 'theme';
 
 export default {
@@ -18,14 +18,14 @@ export const SimpleTextDividedCard = () => {
     <DividedCard title={title}>
       {{
         left: (
-          <LabelP1 color={theme.color.primary.White}>
+          <Label type="P1" color={theme.color.primary.White}>
             {leftLabel}
-          </LabelP1>
+          </Label>
         ),
         right: (
-          <LabelP1>
+          <Label type="P1">
             {rightLabel}
-          </LabelP1>
+          </Label>
         ),
       }}
     </DividedCard>

@@ -57,12 +57,13 @@ export default class TextField extends React.PureComponent<ITextField, ITextFiel
   }
 
   render() {
-    const { defaultLabel } = this.props;
+    const { defaultLabel, style, type } = this.props;
     const { isFocus } = this.state;
 
     return (
-      <TextFieldContainer isFocus={isFocus}>
+      <TextFieldContainer isFocus={isFocus} style={style}>
         <InputBox
+          type={type ?? 'text'}
           placeholder={defaultLabel}
           isFocus={isFocus}
           onFocus={() => this.onFocus()}
