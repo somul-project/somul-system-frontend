@@ -1,13 +1,12 @@
 import React from 'react';
-// import styled from 'styled-components';
 import theme from 'theme';
-// import { Link } from 'react-router-dom';
 import SingleCard from 'frameworks/web/components/molecules/SingleCard/SingleCard';
 import Label from 'frameworks/web/components/atoms/Label/Label';
 import TextField from 'frameworks/web/components/atoms/TextField/TextField';
+// eslint-disable-next-line no-unused-vars
 import { IForgotState } from 'interfaces/frameworks/web/components/organisms/SignIn/IForgot';
 
-export default class Forgot extends React.PureComponent<{}, IForgotState> {
+export default class ForgotPassword extends React.PureComponent<{}, IForgotState> {
   constructor(props: Readonly<{}>) {
     super(props);
     this.state = {

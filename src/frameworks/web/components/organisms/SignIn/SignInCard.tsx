@@ -53,6 +53,8 @@ export default class SignInCard extends React.PureComponent<{}, ISignInCardState
     const { email, password } = this.state;
     // eslint-disable-next-line no-undef, no-alert
     alert(`test : ${email} / ${password}`);
+    // eslint-disable-next-line no-undef
+    window.location.href = '/';
   };
 
   googleLogin = () => undefined;
@@ -77,7 +79,7 @@ export default class SignInCard extends React.PureComponent<{}, ISignInCardState
           />
           <ForgotContainer>
             <Label type="P2" color={theme.color.secondary.Moon}>비밀번호를 잊으셨나요?</Label>
-            <Link to="/signin/forgot" style={{ textDecoration: 'none' }}>
+            <Link to="/signin/forgot-password" style={{ textDecoration: 'none' }}>
               <Label
                 type="P2"
                 color={theme.color.primary.Azure}
@@ -88,9 +90,7 @@ export default class SignInCard extends React.PureComponent<{}, ISignInCardState
             </Link>
           </ForgotContainer>
           <div style={{ padding: '32px 0 0 0', clear: 'right' }}>
-            <Link to="/">
-              <Button type="wide" label="로그인하기" isPrimary onClick={this.login} />
-            </Link>
+            <Button type="wide" label="로그인하기" isPrimary onClick={this.login} />
           </div>
         </SignInFormContainer>
         <BlockContainer>
