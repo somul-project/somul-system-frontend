@@ -1,7 +1,9 @@
+/* eslint-disable react/no-unused-state */
+/* eslint-disable no-undef */
+/* eslint-disable no-alert */
 import React from 'react';
 import styled from 'styled-components';
 import theme from 'theme';
-import { Link } from 'react-router-dom';
 import DividedCard from 'frameworks/web/components/molecules/DividedCard/DividedCard';
 import Label from 'frameworks/web/components/atoms/Label/Label';
 import TextField from 'frameworks/web/components/atoms/TextField/TextField';
@@ -9,7 +11,11 @@ import TextArea from 'frameworks/web/components/atoms/TextArea/TextArea';
 import Button from 'frameworks/web/components/atoms/Button/Button';
 import CheckBox from 'frameworks/web/components/atoms/CheckBox/CheckBox';
 // eslint-disable-next-line no-unused-vars
-import { ISignUpNowState } from 'interfaces/frameworks/web/components/organisms/SignUp/ISignUpNow';
+import { ISignUpData } from 'interfaces/utils/user/IUserService';
+// eslint-disable-next-line no-unused-vars
+import { RouteComponentProps } from 'react-router-dom';
+import UserService from 'utils/user';
+import { ERROR_MESSAGE } from 'utils/constants';
 
 const TextLabelContainer = styled.div`
   width: 65px;
@@ -42,8 +48,8 @@ const PrivacyContainer = styled.div`
   clear: both;
 `;
 
-export default class SignInCard extends React.PureComponent<{}, ISignUpNowState> {
-  constructor(props: Readonly<{}>) {
+export default class SignInCard extends React.PureComponent<RouteComponentProps, ISignUpData> {
+  constructor(props: Readonly<RouteComponentProps>) {
     super(props);
     this.state = {
       name: '',
@@ -55,16 +61,27 @@ export default class SignInCard extends React.PureComponent<{}, ISignUpNowState>
     };
   }
 
-  signupTry = () => {
-    const {
-      name, email, phone, password, rePassword,
-    } = this.state;
-    // eslint-disable-next-line no-undef, no-alert
-    alert(`test : ${name} / ${email} / ${phone} / ${password} / ${rePassword}`);
+  signupTry = async () => {
+    const signupPayload = this.state;
+    const valCheck = UserService.signUpValidationCheck(signupPayload);
+    if (valCheck !== true) {
+      alert(valCheck);
+      return;
+    }
+    const signUpResult = await UserService.sendSignUpData(signupPayload);
+    if (signUpResult === '0') {
+      window.location.href = `/signup/complete?email=${signupPayload.email}`;
+      return;
+    }
+    alert(ERROR_MESSAGE[signUpResult] ?? ERROR_MESSAGE['500']);
   }
 
   render() {
     const { isPrivacyChecked } = this.state;
+    const { location } = this.props;
+
+    const oauthEmail = new URLSearchParams(location.search).get('email');
+    const isOAuthSignup = oauthEmail !== '';
     return (
       <DividedCard title="SIGN UP NOW">
         {{
@@ -105,7 +122,7 @@ export default class SignInCard extends React.PureComponent<{}, ISignUpNowState>
                   </div>
                 </WarningTextContainer>
                 <TextField
-                  defaultLabel="휴대폰 번호를 입력하세요 (000-0000-0000)"
+                  defaultLabel="휴대폰 번호를 입력하세요 (01012345678)"
                   onValueChange={(value) => this.setState({ phone: value })}
                   style={{ width: 'auto', clear: 'right' }}
                 />
@@ -115,6 +132,7 @@ export default class SignInCard extends React.PureComponent<{}, ISignUpNowState>
                       defaultLabel="비밀번호를 입력하세요"
                       onValueChange={(value) => this.setState({ password: value })}
                       style={{ width: 'auto' }}
+                      type="password"
                     />
                   </div>
                   <div style={{ width: '210px' }}>
@@ -122,6 +140,7 @@ export default class SignInCard extends React.PureComponent<{}, ISignUpNowState>
                       defaultLabel="비밀번호를 재입력하세요"
                       onValueChange={(value) => this.setState({ rePassword: value })}
                       style={{ width: 'auto' }}
+                      type="password"
                     />
                   </div>
                 </PasswordContainer>
@@ -144,9 +163,7 @@ export default class SignInCard extends React.PureComponent<{}, ISignUpNowState>
                   />
                 </div>
               </PrivacyContainer>
-              <Link to="/signup/complete">
-                <Button type="wide" label="회원가입하기" isPrimary={false} onClick={this.signupTry} />
-              </Link>
+              <Button type="wide" label="회원가입하기" isPrimary={false} onClick={this.signupTry} />
             </div>
           ),
         }}

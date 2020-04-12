@@ -5,6 +5,7 @@ export interface ITextField {
   defaultLabel: string
   onValueChange: (value: string) => void
   style?: object
+  readOnly?: boolean
 }
 
 export interface ITextFieldElement {

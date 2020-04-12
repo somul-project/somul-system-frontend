@@ -57,7 +57,9 @@ export default class TextField extends React.PureComponent<ITextField, ITextFiel
   }
 
   render() {
-    const { defaultLabel, style, type } = this.props;
+    const {
+      defaultLabel, style, type, readOnly,
+    } = this.props;
     const { isFocus } = this.state;
 
     return (
@@ -69,6 +71,7 @@ export default class TextField extends React.PureComponent<ITextField, ITextFiel
           onFocus={() => this.onFocus()}
           onBlur={() => this.onBlur()}
           onChange={(event) => this.onLabelChange(event.target.value)}
+          readOnly={readOnly ?? false}
         />
       </TextFieldContainer>
     );

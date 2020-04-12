@@ -1,3 +1,6 @@
+/* eslint-disable react/no-unused-state */
+/* eslint-disable no-undef */
+/* eslint-disable no-alert */
 import React from 'react';
 import styled from 'styled-components';
 import theme from 'theme';
@@ -8,7 +11,9 @@ import TextField from 'frameworks/web/components/atoms/TextField/TextField';
 import Button from 'frameworks/web/components/atoms/Button/Button';
 import LoginButton from 'frameworks/web/components/atoms/LoginButton/LoginButton';
 // eslint-disable-next-line no-unused-vars
-import { ISignInCardState } from 'interfaces/frameworks/web/components/organisms/SignIn/ISignInCard';
+import { ISignInData } from 'interfaces/utils/user/IUserService';
+import UserService from 'utils/user';
+import { ERROR_MESSAGE } from 'utils/constants';
 
 const SignInContainer = styled(ContentsBox)`
   width: 730px;
@@ -40,7 +45,7 @@ const SingleLine = styled.div`
   background-color: ${theme.color.secondary.Ash};
 `;
 
-export default class SignInCard extends React.PureComponent<{}, ISignInCardState> {
+export default class SignInCard extends React.PureComponent<{}, ISignInData> {
   constructor(props: Readonly<{}>) {
     super(props);
     this.state = {
@@ -49,17 +54,30 @@ export default class SignInCard extends React.PureComponent<{}, ISignInCardState
     };
   }
 
-  login = () => {
-    const { email, password } = this.state;
-    // eslint-disable-next-line no-undef, no-alert
-    alert(`test : ${email} / ${password}`);
-    // eslint-disable-next-line no-undef
-    window.location.href = '/';
+  login = async () => {
+    const signinPayload = this.state;
+    const valCheck = UserService.signInValidationCheck(signinPayload);
+    if (valCheck !== true) {
+      alert(valCheck);
+      return;
+    }
+    const signUpResult = await UserService.sendSignInData(signinPayload);
+    if (signUpResult === '0') {
+      window.location.href = '/';
+      return;
+    }
+    alert(ERROR_MESSAGE[signUpResult] ?? ERROR_MESSAGE['500']);
   };
 
-  googleLogin = () => undefined;
+  googleLogin = () => {
+    const win = window.open(`${process.env.REACT_APP_SERVER_URL}/auth/google`, '_blank');
+    win!.focus();
+  }
 
-  githubLogin = () => undefined;
+  githubLogin = () => {
+    const win = window.open(`${process.env.REACT_APP_SERVER_URL}/auth/github`, '_blank');
+    win!.focus();
+  }
 
   render() {
     return (
@@ -99,12 +117,8 @@ export default class SignInCard extends React.PureComponent<{}, ISignInCardState
           <SingleLine />
         </BlockContainer>
         <BlockContainer style={{ marginTop: '24px' }}>
-          <Link to="/">
-            <LoginButton type="google" onClick={this.googleLogin} />
-          </Link>
-          <Link to="/">
-            <LoginButton type="github" onClick={this.githubLogin} />
-          </Link>
+          <LoginButton type="google" onClick={this.googleLogin} />
+          <LoginButton type="github" onClick={this.githubLogin} />
         </BlockContainer>
       </SignInContainer>
     );
