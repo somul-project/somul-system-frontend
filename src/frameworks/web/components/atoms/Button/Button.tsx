@@ -51,6 +51,7 @@ const MobileWideButton = styled(BaseButton)`
   width: 100%;
   height: 70px;
   text-align: center;
+  border-radius: 0 0 20px 20px;
   color: ${(props) => props.color ?? theme.color.primary.Black};
 `;
 
