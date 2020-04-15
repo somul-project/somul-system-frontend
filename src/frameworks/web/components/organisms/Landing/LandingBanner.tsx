@@ -9,6 +9,8 @@ import {
 
 const BannerContainer = styled.div`
   background-color: ${theme.color.primary.Azure};
+  background-image: url("main-illustration.png");
+  background-repeat: no-repeat;
 `;
 
 const MaxContainer = styled.div`
@@ -24,80 +26,77 @@ const BannerTitleImg = styled.img`
   display: block;
 `;
 
-const BannerMainIllust = styled.img`
-  max-width: 589px;
-  max-height: 526px;
-  width: 100%;
-  height: auto;
-`;
-
 export default class LandingBanner extends React.PureComponent {
   render() {
     return (
       <div style={{ backgroundColor: theme.color.primary.Azure }}>
         <MaxContainer>
-          <ScreenClassRender render={(sClass: string) => (
-            <BannerContainer
-              style={{
-                margin: ['lg', 'xl'].includes(sClass) ? '0 110px 0 180px' : '0 16px',
-              }}
-            >
-              <Row
-                justify={['lg', 'xl'].includes(sClass) ? 'between' : 'center'}
-                align={['lg', 'xl'].includes(sClass) ? 'start' : 'end'}
+          <ScreenClassRender render={(sClass: string) => {
+            // xs, sm : 2, md : 1, lg, xl: 0
+            let sClassNum: number;
+            let contentPadding: string;
+            let imgPosition: string;
+            if (['lg', 'xl'].includes(sClass)) {
+              sClassNum = 0;
+              contentPadding = '120px 0 253px 0';
+              imgPosition = 'right 114px';
+            } else if (sClass === 'md') {
+              sClassNum = 1;
+              contentPadding = '64px 0 533px 57px';
+              imgPosition = 'right 339px';
+            } else {
+              sClassNum = 2;
+              contentPadding = '32px 0 348px 0';
+              imgPosition = 'center 65%';
+            }
+            return (
+              <BannerContainer
                 style={{
-                  width: '100%',
-                  paddingTop: ['lg', 'xl'].includes(sClass) ? '120px' : '32px',
-                  paddingBottom: ['lg', 'xl'].includes(sClass) ? '80px' : '23px',
-                  margin: '0',
+                  margin: sClassNum === 0 ? '0 110px 0 180px' : '0 16px',
+                  backgroundPosition: imgPosition,
+                  backgroundSize: sClassNum === 2 ? '328px 293px' : '589px 526px',
                 }}
               >
-                <Col xs={12} sm={12} lg={6} style={{ textAlign: ['lg', 'xl'].includes(sClass) ? 'initial' : 'center' }}>
-                  <BannerTitleImg src="main-contents-title.svg" alt="소프트웨어에 물들다" />
-                  <Visible lg xl>
-                    <Label type="H4" color={theme.color.primary.White} style={{ margin: '40px 0' }}>
-                      2020년 05월 30일 14:00 ~
-                    </Label>
-                    <a href="#landingAbout"><Button isPrimary={false} label="자세히보기" onClick={() => undefined} /></a>
-                  </Visible>
-                </Col>
-                <Hidden lg xl>
-                  <Col xs={12}>
-                    <Label type={['xs', 'sm'].includes(sClass) ? 'MobileP1' : 'H4'} color={theme.color.primary.White} style={{ textAlign: 'center', marginTop: '32px' }}>
-                      2020년 05월 30일 14:00 ~
-                    </Label>
-                  </Col>
-                </Hidden>
-                <Col
-                  xs={12}
-                  lg={6}
+                <Row
+                  justify={sClassNum === 0 ? 'between' : 'center'}
+                  align={sClassNum === 0 ? 'start' : 'end'}
                   style={{
-                    marginTop: ['lg', 'xl'].includes(sClass) ? '0' : '32px',
-                    textAlign: ['lg', 'xl'].includes(sClass) ? 'initial' : 'center',
+                    width: '100%',
+                    padding: contentPadding,
+                    margin: '0',
                   }}
                 >
-                  <BannerMainIllust
-                    src="main-illustration.png"
-                    alt="배너 이미지"
-                    style={{
-                      float: ['lg', 'xl'].includes(sClass) ? 'right' : 'none',
-                    }}
-                  />
-                </Col>
-              </Row>
-              <Hidden lg xl>
-                <div style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  width: '100%',
-                  paddingBottom: '40px',
-                }}
-                >
-                  <a href="#landingAbout"><Button isPrimary={false} label="자세히보기" onClick={() => undefined} /></a>
-                </div>
-              </Hidden>
-            </BannerContainer>
-          )}
+                  <Col xs={12} sm={12} lg={9} style={{ textAlign: sClassNum === 2 ? 'center' : 'initial' }}>
+                    <BannerTitleImg src="main-contents-title.svg" alt="소프트웨어에 물들다" />
+                    <Hidden xs sm>
+                      <Label type="H4" color={theme.color.primary.White} style={{ margin: '40px 0' }}>
+                        2020년 05월 30일 14:00 ~
+                      </Label>
+                      <a href="#landingAbout"><Button isPrimary={false} label="자세히보기" onClick={() => undefined} /></a>
+                    </Hidden>
+                  </Col>
+                  <Visible xs sm>
+                    <Col xs={12}>
+                      <Label type={sClassNum === 2 ? 'MobileP1' : 'H4'} color={theme.color.primary.White} style={{ textAlign: 'center', marginTop: '32px' }}>
+                        2020년 05월 30일 14:00 ~
+                      </Label>
+                    </Col>
+                  </Visible>
+                </Row>
+                <Visible xs sm>
+                  <div style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    width: '100%',
+                    paddingBottom: '40px',
+                  }}
+                  >
+                    <a href="#landingAbout"><Button isPrimary={false} label="자세히보기" onClick={() => undefined} /></a>
+                  </div>
+                </Visible>
+              </BannerContainer>
+            );
+          }}
           />
         </MaxContainer>
       </div>
