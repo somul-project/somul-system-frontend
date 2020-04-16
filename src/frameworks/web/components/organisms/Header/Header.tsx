@@ -70,7 +70,7 @@ export default class Header extends React.PureComponent {
               <Label type="H5" onClick={notYetAlert}>FAQ</Label>
             </HeaderMenuContainer>
             <HeaderButtonContainer>
-              <Link to="/signup">
+              <Link to="/signup/start">
                 <Button
                   type="small"
                   label="회원가입"

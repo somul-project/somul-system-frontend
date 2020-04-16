@@ -9,10 +9,10 @@ const InputBox = styled.input`
   font-size: 14px;
   font-weight: normal;
   background-color:
-    ${(props: ITextFieldElement) => (props.isFocus ? theme.color.primary.White : theme.color.secondary.Snow)};
+    ${(props: ITextFieldElement) => (props.isFocus && !props.readOnly ? theme.color.primary.White : theme.color.secondary.Snow)};
   width: 100%;
-  margin-left: ${(props: ITextFieldElement) => (props.isFocus ? '22px' : '24px')};
-  margin-right: ${(props: ITextFieldElement) => (props.isFocus ? '22px' : '24px')};
+  margin-left: ${(props: ITextFieldElement) => (props.isFocus && !props.readOnly ? '22px' : '24px')};
+  margin-right: ${(props: ITextFieldElement) => (props.isFocus && !props.readOnly ? '22px' : '24px')};
   outline: none;
   border: none;
   line-height: 2;
@@ -22,10 +22,10 @@ const TextFieldContainer = styled.div`
   width: 255px;
   height: 56px;
   border:
-    ${(props: ITextFieldElement) => (props.isFocus ? '2px solid '.concat(theme.color.primary.Azure) : '0')};
+    ${(props: ITextFieldElement) => (props.isFocus && !props.readOnly ? '2px solid '.concat(theme.color.primary.Azure) : '0')};
   border-radius: 10px;
   background-color:
-    ${(props: ITextFieldElement) => (props.isFocus ? theme.color.primary.White : theme.color.secondary.Snow)};
+    ${(props: ITextFieldElement) => (props.isFocus && !props.readOnly ? theme.color.primary.White : theme.color.secondary.Snow)};
   display: flex;
   align-items: center;
 `;
@@ -58,12 +58,12 @@ export default class TextField extends React.PureComponent<ITextField, ITextFiel
 
   render() {
     const {
-      defaultLabel, style, type, readOnly,
+      defaultLabel, style, type, readOnly, value,
     } = this.props;
     const { isFocus } = this.state;
 
     return (
-      <TextFieldContainer isFocus={isFocus} style={style}>
+      <TextFieldContainer isFocus={isFocus} style={style} readOnly={readOnly}>
         <InputBox
           type={type ?? 'text'}
           placeholder={defaultLabel}
@@ -72,6 +72,7 @@ export default class TextField extends React.PureComponent<ITextField, ITextFiel
           onBlur={() => this.onBlur()}
           onChange={(event) => this.onLabelChange(event.target.value)}
           readOnly={readOnly ?? false}
+          value={value}
         />
       </TextFieldContainer>
     );

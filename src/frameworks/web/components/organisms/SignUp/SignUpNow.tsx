@@ -26,6 +26,7 @@ const TextLabelContainer = styled.div`
 const TextFieldContainer = styled.div`
   width: 445px;
   float: right;
+  padding-bottom: 24px;
 `;
 
 const WarningTextContainer = styled.div`
@@ -38,7 +39,7 @@ const WarningTextContainer = styled.div`
 `;
 
 const PasswordContainer = styled.div`
-  margin: 24px 0;
+  margin: 24px 0 8px 0;
   display: flex;
   justify-content: space-between;
 `;
@@ -48,7 +49,7 @@ const PrivacyContainer = styled.div`
   clear: both;
 `;
 
-export default class SignInCard extends React.PureComponent<RouteComponentProps, ISignUpData> {
+export default class SignUpNow extends React.PureComponent<RouteComponentProps, ISignUpData> {
   constructor(props: Readonly<RouteComponentProps>) {
     super(props);
     this.state = {
@@ -80,7 +81,7 @@ export default class SignInCard extends React.PureComponent<RouteComponentProps,
     const { isPrivacyChecked } = this.state;
     const { location } = this.props;
 
-    const oauthEmail = new URLSearchParams(location.search).get('email');
+    const oauthEmail = new URLSearchParams(location.search).get('email') ?? '';
     const isOAuthSignup = oauthEmail !== '';
     return (
       <DividedCard title="SIGN UP NOW">
@@ -92,7 +93,7 @@ export default class SignInCard extends React.PureComponent<RouteComponentProps,
                 alt="회원가입 이미지"
                 style={{ width: '380px', height: '580px', margin: '73px 0 18px 0' }}
               />
-              <Label type="P1" color={theme.color.primary.White}>SOMUL 가입을 환영합니다 :)</Label>
+              <Label type="P1" color={theme.color.primary.White} style={{ paddingBottom: '28px' }}>SOMUL 가입을 환영합니다 :)</Label>
             </div>
           ),
           right: (
@@ -113,6 +114,8 @@ export default class SignInCard extends React.PureComponent<RouteComponentProps,
                   defaultLabel="이메일을 입력하세요"
                   onValueChange={(value) => this.setState({ email: value })}
                   style={{ width: 'auto' }}
+                  readOnly={isOAuthSignup}
+                  value={oauthEmail}
                 />
                 <WarningTextContainer>
                   <img src="warning.svg" alt="경고 아이콘" style={{ width: '20px', height: '18px' }} />
@@ -144,6 +147,7 @@ export default class SignInCard extends React.PureComponent<RouteComponentProps,
                     />
                   </div>
                 </PasswordContainer>
+                <Label type="P2" color={theme.color.secondary.Moon} style={{ float: 'right' }}>비밀번호는 8글자 이상의 숫자와 문자 조합이어야 합니다.</Label>
               </TextFieldContainer>
               <PrivacyContainer>
                 <TextArea
@@ -163,7 +167,7 @@ export default class SignInCard extends React.PureComponent<RouteComponentProps,
                   />
                 </div>
               </PrivacyContainer>
-              <Button type="wide" label="회원가입하기" isPrimary={false} onClick={this.signupTry} />
+              <Button type="wide" label="회원가입" isPrimary={false} onClick={this.signupTry} />
             </div>
           ),
         }}

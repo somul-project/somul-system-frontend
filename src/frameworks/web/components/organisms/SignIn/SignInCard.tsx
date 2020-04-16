@@ -9,7 +9,7 @@ import Label from 'frameworks/web/components/atoms/Label/Label';
 import ContentsBox from 'frameworks/web/components/atoms/ContentsBox/ContentsBox';
 import TextField from 'frameworks/web/components/atoms/TextField/TextField';
 import Button from 'frameworks/web/components/atoms/Button/Button';
-import LoginButton from 'frameworks/web/components/atoms/LoginButton/LoginButton';
+import SignButton from 'frameworks/web/components/atoms/SignButton/SignButton';
 // eslint-disable-next-line no-unused-vars
 import { ISignInData } from 'interfaces/utils/user/IUserService';
 import UserService from 'utils/user';
@@ -37,12 +37,19 @@ const BlockContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 16px;
 `;
 
 const SingleLine = styled.div`
   width: 214px;
   height: 1px;
   background-color: ${theme.color.secondary.Ash};
+`;
+
+const SignButtonContainer = styled.div`
+  margin-top: 24px;
+  width: 350px;
+  margin: 0 auto;
 `;
 
 export default class SignInCard extends React.PureComponent<{}, ISignInData> {
@@ -116,10 +123,12 @@ export default class SignInCard extends React.PureComponent<{}, ISignInData> {
           <Label type="P2" color={theme.color.secondary.Moon}>or</Label>
           <SingleLine />
         </BlockContainer>
-        <BlockContainer style={{ marginTop: '24px' }}>
-          <LoginButton type="google" onClick={this.googleLogin} />
-          <LoginButton type="github" onClick={this.githubLogin} />
-        </BlockContainer>
+        <SignButtonContainer>
+          <div style={{ marginBottom: '24px' }}>
+            <SignButton citeType="google" buttonType="signin" onClick={this.googleLogin} />
+          </div>
+          <SignButton citeType="github" buttonType="signin" onClick={this.githubLogin} />
+        </SignButtonContainer>
       </SignInContainer>
     );
   }
