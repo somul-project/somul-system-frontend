@@ -20,9 +20,11 @@ const BaseContentButton = styled.button`
   font-size: 16px;
   transition: all 0.2s;
   
-  &:hover {
-     background-color: ${theme.color.primary.Sky};
-     color: ${theme.color.primary.White} !important;
+  @media (hover: hover) {
+    &:hover {
+      background-color: ${theme.color.primary.Sky};
+      color: ${theme.color.primary.White} !important;
+    }
   }
 `;
 

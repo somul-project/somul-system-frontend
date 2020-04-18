@@ -28,8 +28,10 @@ const SelectElement = styled.button`
   border-top-right-radius: ${(props: ISelectElement) => (props.edge === 'right' ? '10px' : '4px')};
   border-bottom-right-radius: ${(props: ISelectElement) => (props.edge === 'right' ? '10px' : '4px')};
   
-  &:hover {
-    border: solid 2px ${theme.color.primary.Azure};
+  @media (hover: hover) {
+    &:hover {
+      border: solid 2px ${theme.color.primary.Azure};
+    }
   }
 `;
 

@@ -102,9 +102,13 @@ export default class LandingSponsor extends React.PureComponent {
                   <div style={{ textAlign: 'center' }}>
                     <Tag>물품 발송 주소</Tag>
                     <Label type="P2" style={{ margin: '16px 0 24px 0' }}>
-                      서울특별시 성동구 왕십리로 130, 10층(KCC프리미어타워)
+                      서울특별시 성동구 왕십리로 130, 10층 (KCC프리미어타워)
                       <Visible md><br /></Visible>
-                      한국코드클럽위원회, 소프트웨어에 물들다 담당자
+                      {' '}
+                      한국코드클럽위원회,
+                      <Visible xs sm><br /></Visible>
+                      {' '}
+                      소프트웨어에 물들다 담당자
                     </Label>
                     <Tag>관계자 이메일</Tag>
                     <Label type="P2" style={{ margin: '16px 0' }}>
