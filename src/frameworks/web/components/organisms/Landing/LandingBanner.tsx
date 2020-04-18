@@ -72,7 +72,9 @@ export default class LandingBanner extends React.PureComponent {
                       <Label type="H4" color={theme.color.primary.White} style={{ margin: '40px 0' }}>
                         2020년 05월 30일 14:00 ~
                       </Label>
-                      <a href="#landingAbout"><Button isPrimary={false} label="자세히보기" onClick={() => undefined} /></a>
+                      <a href="#landingAbout" style={{ textDecoration: 'none' }}>
+                        <Button isPrimary={false} label="자세히보기" onClick={() => undefined} />
+                      </a>
                     </Hidden>
                   </Col>
                   <Visible xs sm>
@@ -91,7 +93,9 @@ export default class LandingBanner extends React.PureComponent {
                     paddingBottom: '40px',
                   }}
                   >
-                    <a href="#landingAbout"><Button isPrimary={false} label="자세히보기" onClick={() => undefined} /></a>
+                    <a href="#landingAbout" style={{ textDecoration: 'none' }}>
+                      <Button isPrimary={false} label="자세히보기" onClick={() => undefined} />
+                    </a>
                   </div>
                 </Visible>
               </BannerContainer>

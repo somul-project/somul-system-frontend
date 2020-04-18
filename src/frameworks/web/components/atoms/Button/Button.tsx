@@ -15,9 +15,11 @@ const BaseButton = styled.button`
   border-radius: 10px;
   font-size: 16px;
   transition: all 0.2s;
-  
-  &:hover {
-     background-color: ${(props: IBaseButton) => (props.isPrimary ? theme.color.primary.Salmon : theme.color.secondary.Nickel)};
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: ${(props: IBaseButton) => (props.isPrimary ? theme.color.primary.Salmon : theme.color.secondary.Nickel)};
+    }
   }
 `;
 

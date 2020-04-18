@@ -15,8 +15,10 @@ const LoginButtonContainer = styled.div`
   width: 255px;
   height: 56px;
   
-  &:hover {
-     background-color: ${theme.color.secondary.Snow};
+  @media (hover: hover) {
+    &:hover {
+      background-color: ${theme.color.secondary.Snow};
+    }
   }
 `;
 

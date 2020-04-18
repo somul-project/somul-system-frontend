@@ -59,7 +59,7 @@ export default class Header extends React.PureComponent {
               <Visible xl>
                 <HeaderMenuContainer>
                   <a href="#landingAbout" style={{ textDecoration: 'none' }}>
-                    <Label type="H5" onClick={notYetAlert}>소물이란?</Label>
+                    <Label type="H5">소물이란?</Label>
                   </a>
                   <Label type="H5" onClick={notYetAlert}>강연정보</Label>
                   <a href="#landingJoin" style={{ textDecoration: 'none' }}>
