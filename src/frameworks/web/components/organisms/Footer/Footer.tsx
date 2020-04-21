@@ -52,13 +52,13 @@ export default class Footer extends React.PureComponent {
                 <Col lg={6}>
                   <div style={{ float: 'right', marginLeft: '230px' }}>
                     <a href="https://www.facebook.com/groups/may.somul/">
-                      <FooterSNSLogo src="facebook-footer.svg" alt="footer facebook icon" />
+                      <FooterSNSLogo src="logo/facebook-footer.svg" alt="footer facebook icon" />
                     </a>
                     <a href="https://github.com/somul-project">
-                      <FooterSNSLogo src="github-footer.svg" alt="footer github icon" />
+                      <FooterSNSLogo src="logo/github-footer.svg" alt="footer github icon" />
                     </a>
                     <a href="https://codeclubkorea.org">
-                      <CodeClubLogo src="codeclub.svg" alt="footer code-club icon" />
+                      <CodeClubLogo src="logo/codeclub.svg" alt="footer code-club icon" />
                     </a>
                   </div>
                   <Label type="P2" color={theme.color.secondary.Moon} style={{ float: 'right' }}>
@@ -71,13 +71,13 @@ export default class Footer extends React.PureComponent {
               <FooterCenterContainer>
                 <div>
                   <a href="https://www.facebook.com/groups/may.somul/">
-                    <FooterSNSLogo src="facebook-footer.svg" alt="footer facebook icon" />
+                    <FooterSNSLogo src="logo/facebook-footer.svg" alt="footer facebook icon" />
                   </a>
                   <a href="https://github.com/somul-project">
-                    <FooterSNSLogo src="github-footer.svg" alt="footer github icon" />
+                    <FooterSNSLogo src="logo/github-footer.svg" alt="footer github icon" />
                   </a>
                   <a href="https://codeclubkorea.org">
-                    <CodeClubLogo src="codeclub.svg" alt="footer code-club icon" />
+                    <CodeClubLogo src="logo/codeclub.svg" alt="footer code-club icon" />
                   </a>
                 </div>
                 <Label type="MobileP2" color={theme.color.secondary.Moon} style={{ marginTop: '8px', textAlign: 'center' }}>

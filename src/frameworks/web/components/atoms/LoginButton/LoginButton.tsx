@@ -44,7 +44,7 @@ export default class Button extends React.PureComponent<ILoginButton> {
 
     return (
       <LoginButtonContainer onClick={() => onClick()}>
-        <LoginButtonImg src={type?.concat('.svg')} />
+        <LoginButtonImg src={`logo/${type}.svg`} />
         <LoginButtonLabel>
           {type === 'google' ? 'Google' : 'Github'}
           {' '}

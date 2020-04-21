@@ -10,7 +10,7 @@ import {
 
 const BannerContainer = styled.div`
   background-color: ${theme.color.primary.Azure};
-  background-image: url("main-illustration.png");
+  background-image: url("illust/main-illustration.png");
   background-repeat: no-repeat;
 `;
 
@@ -94,7 +94,7 @@ export default class LandingBanner extends React.PureComponent {
                       lg={9}
                       style={{ textAlign: ['xs', 'sm'].includes(sClass) ? 'center' : 'initial' }}
                     >
-                      <BannerTitleImg src="main-contents-title.svg" alt="소프트웨어에 물들다" />
+                      <BannerTitleImg src="logo/main-contents-title.svg" alt="소프트웨어에 물들다" />
                       <Hidden xs sm>
                         <Label type="H4" color={theme.color.primary.White} style={{ margin: '40px 0' }}>
                           2020년 05월 30일 14:00 ~

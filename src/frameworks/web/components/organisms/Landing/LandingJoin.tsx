@@ -43,7 +43,7 @@ export default class LandingJoin extends React.PureComponent {
                 <Col xs={10} lg={9}>
                   <ContentsBox isDarkBackground>
                     <div style={{ padding: ['lg', 'xl'].includes(sClass) ? '24px 0 48px 0' : '' }}>
-                      <JoinIllust src="speaker-illustration.png" alt="Join us" />
+                      <JoinIllust src="illust/speaker-illustration.png" alt="Join us" />
                       <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
                         <Button
                           type={['lg', 'xl'].includes(sClass) ? 'wide' : 'mobilewide'}
