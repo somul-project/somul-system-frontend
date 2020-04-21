@@ -44,9 +44,9 @@ export default class Header extends React.PureComponent {
               margin: sClass === 'xs' ? '0 24px' : '0 85px',
             }}
             >
-              <a href="https://somul.kr">
+              <a href="https://www.somul.kr">
                 <img
-                  src="logo.svg"
+                  src="logo/logo.svg"
                   alt="소프트웨어에 물들다 (로고)"
                   style={{
                     margin: sClass === 'xs' ? '16px 0' : '30px 76px 30px 0',
@@ -77,7 +77,7 @@ export default class Header extends React.PureComponent {
               </Visible>
               <Hidden xl>
                 <HeaderSidebarButton
-                  src="mobile-menu.svg"
+                  src="icon/mobile-menu.svg"
                   alt="사이드 메뉴"
                   onClick={notYetAlert}
                   style={{

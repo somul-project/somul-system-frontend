@@ -43,7 +43,7 @@ export default class LandingAbout extends React.PureComponent {
               style={{ margin: ['lg', 'xl'].includes(sClass) ? '0 0 110px 0' : '0 0 48px 0' }}
             >
               <Col xs={10} md={8} lg={6}>
-                <AboutIllust src="about-illustration.png" alt="About Somul" />
+                <AboutIllust src="illust/about-illustration.png" alt="About Somul" />
               </Col>
               <Col
                 xs={10}

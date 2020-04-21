@@ -58,7 +58,7 @@ export default class LandingSponsor extends React.PureComponent {
             >
               <Col xs={12} md={6} lg={5} xl={5}>
                 <SponsorIllust
-                  src="sponsor-illustration.png"
+                  src="illust/sponsor-illustration.png"
                   alt="About Somul"
                   style={{ marginBottom: ['lg', 'xl'].includes(sClass) ? '0' : '32px' }}
                 />
