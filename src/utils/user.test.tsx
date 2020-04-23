@@ -21,6 +21,15 @@ describe('user utils', () => {
         isPrivacyChecked: true,
       };
       expect(UserService.signUpValidationCheck(rightData)).toEqual(true);
+      const withSignData = {
+        name: '박성우',
+        email: 'test@somul.kr',
+        phone: '01012345678',
+        password: 'testtest123#$%^',
+        rePassword: 'testtest123#$%^',
+        isPrivacyChecked: true,
+      };
+      expect(UserService.signUpValidationCheck(withSignData)).toEqual(true);
     });
     it('gets empty signup data', () => {
       const emptyData = {

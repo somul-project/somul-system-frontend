@@ -12,7 +12,7 @@ export class UserService {
    */
   public static signUpValidationCheck = (data: ISignUpData) => {
     const emailRegExp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
-    const passwordRegExp = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,}$/i;
+    const passwordRegExp = /^(?=.*?[A-Za-z])(?=.*?[0-9])(?=.*[A-Za-z!@#$%^&+=_]).{8,15}$/i;
     const phoneRegExp = /^[0-9]*$/i;
 
     if (data.email === '' || data.name === '' || data.password === '' || data.phone === '' || data.rePassword === '') {
