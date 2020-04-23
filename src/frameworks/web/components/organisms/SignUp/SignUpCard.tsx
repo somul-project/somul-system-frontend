@@ -36,13 +36,13 @@ export default class SignUpCard extends React.PureComponent {
         <Label type="H4" color={theme.color.primary.Azure} style={{ textAlign: 'center' }}>SIGN UP</Label>
         <SignButtonContainer>
           <div style={{ marginBottom: '24px' }}>
-            <SignButton citeType="google" buttonType="signup" onClick={this.googleSignUp} />
+            <SignButton siteType="google" buttonType="signup" onClick={this.googleSignUp} />
           </div>
           <div style={{ marginBottom: '24px' }}>
-            <SignButton citeType="github" buttonType="signup" onClick={this.githubSignUp} />
+            <SignButton siteType="github" buttonType="signup" onClick={this.githubSignUp} />
           </div>
           <Link to="/signup">
-            <SignButton citeType="email" buttonType="signup" onClick={() => undefined} />
+            <SignButton siteType="email" buttonType="signup" onClick={() => undefined} />
           </Link>
         </SignButtonContainer>
       </SignInContainer>

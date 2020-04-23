@@ -125,9 +125,9 @@ export default class SignInCard extends React.PureComponent<{}, ISignInData> {
         </BlockContainer>
         <SignButtonContainer>
           <div style={{ marginBottom: '24px' }}>
-            <SignButton citeType="google" buttonType="signin" onClick={this.googleLogin} />
+            <SignButton siteType="google" buttonType="signin" onClick={this.googleLogin} />
           </div>
-          <SignButton citeType="github" buttonType="signin" onClick={this.githubLogin} />
+          <SignButton siteType="github" buttonType="signin" onClick={this.githubLogin} />
         </SignButtonContainer>
       </SignInContainer>
     );
