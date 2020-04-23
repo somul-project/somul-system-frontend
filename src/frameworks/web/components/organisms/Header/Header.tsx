@@ -72,8 +72,12 @@ export default class Header extends React.PureComponent {
                   <Label type="H5" onClick={notYetAlert}>FAQ</Label>
                 </HeaderMenuContainer>
                 <HeaderButtonContainer>
-                  <Button type="small" label="회원가입" isPrimary={false} onClick={notYetAlert} style={{ marginLeft: '20px' }} />
-                  <Button type="small" label="로그인" isPrimary onClick={notYetAlert} />
+                  <Link to="/signup/start">
+                    <Button type="small" label="회원가입" isPrimary={false} onClick={() => undefined} style={{ marginLeft: '20px' }} />
+                  </Link>
+                  <Link to="/signin">
+                    <Button type="small" label="로그인" isPrimary onClick={() => undefined} />
+                  </Link>
                 </HeaderButtonContainer>
               </Visible>
               <Hidden xl>
