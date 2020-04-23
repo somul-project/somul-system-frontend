@@ -4,10 +4,13 @@ import SingleCard from 'frameworks/web/components/molecules/SingleCard/SingleCar
 import Label from 'frameworks/web/components/atoms/Label/Label';
 // eslint-disable-next-line no-unused-vars
 import { RouteComponentProps } from 'react-router-dom';
+import UserService from 'utils/user';
+import { ERROR_MESSAGE } from 'utils/constants';
 
-const resend = () => {
+const resend = async () => {
+  const result = await UserService.requestResendEmail();
   // eslint-disable-next-line no-undef, no-alert
-  alert('재전송 버튼 누름');
+  alert(result === '0' ? '재전송되었습니다.' : (ERROR_MESSAGE[result] ?? ERROR_MESSAGE['500']));
 };
 
 const goHome = () => {

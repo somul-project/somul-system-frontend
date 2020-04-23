@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import axios, { AxiosResponse } from 'axios';
 import { ISignUpData, ISignInData, IServerResponse } from 'interfaces/utils/user/IUserService';
+import { SERVER_URL } from './constants';
 // import { getEnv } from 'utils/constants';
 
 export class UserService {
@@ -41,7 +42,7 @@ export class UserService {
    * @returns 서버에서 돌아오는 status code
    */
   public static sendSignUpData = async (data: ISignUpData) => {
-    const result: AxiosResponse<IServerResponse> = await axios.post(`${process.env.REACT_APP_SERVER_URL}/auth/register`, {
+    const result: AxiosResponse<IServerResponse> = await axios.post(`${SERVER_URL}/auth/register`, {
       email: data.email,
       name: data.name,
       phonenumber: data.phone,
@@ -68,10 +69,15 @@ export class UserService {
    * @returns 서버에서 돌아오는 status code
    */
   public static sendSignInData = async (data: ISignInData) => {
-    const result: AxiosResponse<IServerResponse> = await axios.post(`${process.env.REACT_APP_SERVER_URL}/auth/login`, {
+    const result: AxiosResponse<IServerResponse> = await axios.post(`${SERVER_URL}/auth/login`, {
       email: data.email,
       password: data.password,
     });
+    return result.data.statusCode;
+  }
+
+  public static requestResendEmail = async () => {
+    const result: AxiosResponse<IServerResponse> = await axios.get(`${SERVER_URL}/auth/resend`);
     return result.data.statusCode;
   }
 }

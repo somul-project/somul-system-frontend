@@ -3,6 +3,7 @@ import theme from 'theme';
 import React from 'react';
 // eslint-disable-next-line no-unused-vars
 import { INavBar, INavBarState } from 'interfaces/frameworks/web/components/molecules/NavigationBar/INavigationBar';
+import { SERVER_URL } from 'utils/constants';
 import Label from '../../atoms/Label/Label';
 
 const NavContainer = styled.div`
@@ -135,7 +136,7 @@ export default class NavigationBar extends React.PureComponent<INavBar, INavBarS
             <MenuElementContainer onClick={this.notYetAlert}>
               <Label type="H5">개인정보 수정</Label>
             </MenuElementContainer>
-            <a href={`${process.env.REACT_APP_SERVER_URL}/auth/logout`} style={{ textDecoration: 'none' }}>
+            <a href={`${SERVER_URL}/auth/logout`} style={{ textDecoration: 'none' }}>
               <MenuElementContainer>
                 <Label type="P1" color={theme.color.secondary.Moon}>로그아웃</Label>
               </MenuElementContainer>

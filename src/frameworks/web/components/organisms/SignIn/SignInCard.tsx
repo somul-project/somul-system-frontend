@@ -13,7 +13,7 @@ import SignButton from 'frameworks/web/components/atoms/SignButton/SignButton';
 // eslint-disable-next-line no-unused-vars
 import { ISignInData } from 'interfaces/utils/user/IUserService';
 import UserService from 'utils/user';
-import { ERROR_MESSAGE } from 'utils/constants';
+import { ERROR_MESSAGE, SERVER_URL } from 'utils/constants';
 
 const SignInContainer = styled(ContentsBox)`
   width: 730px;
@@ -77,12 +77,12 @@ export default class SignInCard extends React.PureComponent<{}, ISignInData> {
   };
 
   googleLogin = () => {
-    const win = window.open(`${process.env.REACT_APP_SERVER_URL}/auth/google`, '_blank');
+    const win = window.open(`${SERVER_URL}/auth/google`, '_blank');
     win!.focus();
   }
 
   githubLogin = () => {
-    const win = window.open(`${process.env.REACT_APP_SERVER_URL}/auth/github`, '_blank');
+    const win = window.open(`${SERVER_URL}/auth/github`, '_blank');
     win!.focus();
   }
 

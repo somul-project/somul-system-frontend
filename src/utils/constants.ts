@@ -1,18 +1,6 @@
-/*
-import dotenv from 'dotenv';
-import * as fs from 'fs';
-*/
-
 export const NODE_ENV = process.env.NODE_ENV !== 'production' ? 'development' : 'production';
 
-// const env = dotenv.parse(fs.readFileSync(`.env.${NODE_ENV}`));
-
-/*
-export const getEnv = (key: string): string => {
-  const isDeclared = key in Object.keys(process.env);
-  return isDeclared ? process.env[key]! : env[key];
-};
-*/
+export const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 export const ERROR_MESSAGE: {[code: string]: string} = {
   0: '성공',

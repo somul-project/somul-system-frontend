@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import Label from 'frameworks/web/components/atoms/Label/Label';
 import ContentsBox from 'frameworks/web/components/atoms/ContentsBox/ContentsBox';
 import SignButton from 'frameworks/web/components/atoms/SignButton/SignButton';
+import { SERVER_URL } from 'utils/constants';
 
 const SignInContainer = styled(ContentsBox)`
   width: 730px;
@@ -21,12 +22,12 @@ const SignButtonContainer = styled.div`
 
 export default class SignUpCard extends React.PureComponent {
   googleSignUp = () => {
-    const win = window.open(`${process.env.REACT_APP_SERVER_URL}/auth/google`, '_blank');
+    const win = window.open(`${SERVER_URL}/auth/google`, '_blank');
     win!.focus();
   }
 
   githubSignUp = () => {
-    const win = window.open(`${process.env.REACT_APP_SERVER_URL}/auth/github`, '_blank');
+    const win = window.open(`${SERVER_URL}/auth/github`, '_blank');
     win!.focus();
   }
 

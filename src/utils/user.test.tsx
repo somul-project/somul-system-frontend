@@ -2,6 +2,14 @@ import moxios from 'moxios';
 import UserService from './user';
 
 describe('user utils', () => {
+  beforeEach(() => {
+    moxios.install();
+  });
+
+  afterEach(() => {
+    moxios.uninstall();
+  });
+
   describe('signUpValidationCheck function', () => {
     it('gets correct signup data', () => {
       const rightData = {
@@ -117,15 +125,8 @@ describe('user utils', () => {
       expect(UserService.signUpValidationCheck(differentPasswordData)).toEqual('비밀번호가 일치하지 않습니다.');
     });
   });
+
   describe('sendSignUpData function', () => {
-    beforeEach(() => {
-      moxios.install();
-    });
-
-    afterEach(() => {
-      moxios.uninstall();
-    });
-
     it('send right data', async () => {
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
@@ -148,6 +149,7 @@ describe('user utils', () => {
       expect(await UserService.sendSignUpData(rightData)).toEqual('0');
     });
   });
+
   describe('signInValidationCheck function', () => {
     it('gets correct signin data', () => {
       const rightData = {
@@ -174,15 +176,8 @@ describe('user utils', () => {
       expect(UserService.signInValidationCheck(emptyPasswordData)).toEqual('모든 칸을 입력해야 합니다.');
     });
   });
+
   describe('sendSignInData function', () => {
-    beforeEach(() => {
-      moxios.install();
-    });
-
-    afterEach(() => {
-      moxios.uninstall();
-    });
-
     it('send right data', async () => {
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
@@ -199,6 +194,22 @@ describe('user utils', () => {
         password: 'testtest123',
       };
       expect(await UserService.sendSignInData(rightData)).toEqual('0');
+    });
+  });
+
+  describe('sendSignInData function', () => {
+    it('send request', async () => {
+      moxios.wait(() => {
+        const request = moxios.requests.mostRecent();
+        request.respondWith({
+          status: 200,
+          response: {
+            statusCode: '0',
+            errorMessage: '성공',
+          },
+        });
+      });
+      expect(await UserService.requestResendEmail()).toEqual('0');
     });
   });
 });
