@@ -60,7 +60,7 @@ export default class SignButton extends React.PureComponent<ISignButton> {
 
     return (
       <SignButtonContainer onClick={() => onClick()} citeType={citeType}>
-        <SignButtonImg src={citeType.concat('.svg')} citeType={citeType} />
+        <SignButtonImg src={`logo/${citeType}.svg`} citeType={citeType} />
         <SignButtonLabel>
           {citeString}
           {' '}

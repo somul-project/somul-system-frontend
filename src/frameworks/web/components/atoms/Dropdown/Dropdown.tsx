@@ -51,9 +51,10 @@ const DropdownList = styled.li<_IDropdownList>`
   transition: 0.1s background;
   
   color: ${(props) => (props.isSelected ? theme.color.primary.Azure : theme.color.primary.Black)};
-  
-  &:hover {
-    background: ${theme.color.secondary.Snow};
+  @media (hover: hover) {
+    &:hover {
+      background: ${theme.color.secondary.Snow};
+    }
   }
 `;
 

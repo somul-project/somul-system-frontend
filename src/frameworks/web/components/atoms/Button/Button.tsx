@@ -15,9 +15,11 @@ const BaseButton = styled.button`
   border-radius: 10px;
   font-size: 16px;
   transition: all 0.2s;
-  
-  &:hover {
-     background-color: ${(props: IBaseButton) => (props.isPrimary ? theme.color.primary.Salmon : theme.color.secondary.Nickel)};
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: ${(props: IBaseButton) => (props.isPrimary ? theme.color.primary.Salmon : theme.color.secondary.Nickel)};
+    }
   }
 `;
 
@@ -51,6 +53,7 @@ const MobileWideButton = styled(BaseButton)`
   width: 100%;
   height: 70px;
   text-align: center;
+  border-radius: 0 0 20px 20px;
   color: ${(props) => props.color ?? theme.color.primary.Black};
 `;
 

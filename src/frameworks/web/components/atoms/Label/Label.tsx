@@ -67,6 +67,27 @@ const LabelP2 = styled(BaseLabel)`
   line-height: 24px;
 `;
 
+const MobileLabelH1 = styled(BaseLabel)`
+  font-weight: 700;
+  font-size: 36px;
+  letter-spacing: -0.54;
+  line-height: 50px;
+`;
+
+const MobileLabelH2 = styled(BaseLabel)`
+  font-weight: 700;
+  font-size: 21px;
+  letter-spacing: -0.2;
+  line-height: 32px;
+`;
+
+const MobileLabelP2 = styled(BaseLabel)`
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: 0;
+  line-height: 22px;
+`;
+
 const LabelMark = styled.mark`
   ${(props: ILabelMark) => ((props.mark === 'underline') ? 'display: inline-block;' : '')}
   line-height: ${(props: ILabelMark) => ((props.mark === 'full') ? -1 : 0)}em;
@@ -87,6 +108,12 @@ const LABEL = {
   H6: LabelH6,
   P1: LabelP1,
   P2: LabelP2,
+  MobileH1: MobileLabelH1,
+  MobileH2: MobileLabelH2,
+  MobileH3: LabelH5,
+  MobileH4: LabelH6,
+  MobileP1: LabelP2,
+  MobileP2: MobileLabelP2,
 };
 
 export default class Label extends React.PureComponent<ILabel> {

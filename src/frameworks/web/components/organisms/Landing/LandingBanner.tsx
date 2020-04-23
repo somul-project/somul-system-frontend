@@ -1,5 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
+// eslint-disable-next-line no-unused-vars
+import styled, { StyledComponent } from 'styled-components';
 import theme from 'theme';
 import Label from 'frameworks/web/components/atoms/Label/Label';
 import Button from 'frameworks/web/components/atoms/Button/Button';
@@ -9,6 +10,46 @@ import {
 
 const BannerContainer = styled.div`
   background-color: ${theme.color.primary.Azure};
+  background-image: url("illust/main-illustration.png");
+  background-repeat: no-repeat;
+`;
+
+const BannerContainerSmall = styled(BannerContainer)`
+  margin: 0 16px;
+  background-position: center 65%;
+  background-size: 328px 293px;
+`;
+
+const BannerContainerMedium = styled(BannerContainer)`
+  margin: 0 16px;
+  background-position: right 339px;
+  background-size: 589px 526px;
+`;
+
+const BannerContainerLarge = styled(BannerContainer)`
+  margin: 0 110px 0 180px;
+  background-position: right 114px;
+  background-size: 589px 526px;
+`;
+
+const RowContainerSmall = styled.div`
+  width: 100%;
+  padding: 32px 0 348px 0;
+`;
+
+const RowContainerMedium = styled.div`
+  width: 100%;
+  padding: 64px 0 533px 57px;
+`;
+
+const RowContainerLarge = styled.div`
+  width: 100%;
+  padding: 120px 0 253px 0;
+`;
+
+const MaxContainer = styled.div`
+  max-width: 1280px;
+  margin: 0 auto;
 `;
 
 const BannerTitleImg = styled.img`
@@ -16,77 +57,85 @@ const BannerTitleImg = styled.img`
   max-height: 175px;
   width: 100%;
   height: auto;
-`;
-
-const BannerMainIllust = styled.img`
-  float: right;
-  max-width: 589px;
-  max-height: 526px;
-  width: 100%;
-  height: auto;
+  display: block;
 `;
 
 export default class LandingBanner extends React.PureComponent {
   render() {
     return (
-      <ScreenClassRender render={(sClass: string) => (
-        <BannerContainer>
-          <Row
-            justify={['lg', 'xl'].includes(sClass) ? 'center' : 'around'}
-            align={['lg', 'xl'].includes(sClass) ? 'start' : 'end'}
-            style={{
-              width: '100%',
-              paddingTop: ['lg', 'xl'].includes(sClass) ? '120px' : '32px',
-              paddingBottom: ['lg', 'xl'].includes(sClass) ? '80px' : '23px',
-              margin: '0',
-            }}
-          >
-            <Col offset={{ lg: 1 }} xs={6} sm={5} lg={4}>
-              <BannerTitleImg src="main-contents-title.svg" alt="소프트웨어에 물들다" />
-              <Visible lg xl>
-                <Label type="H4" color={theme.color.primary.White} style={{ margin: '40px 0' }}>
-                  2020년 05월 30일 14:00 ~
-                </Label>
-                <a href="#landingAbout"><Button isPrimary={false} label="자세히보기" onClick={() => undefined} /></a>
-              </Visible>
-            </Col>
-            <Hidden lg xl>
-              <Col xs={5}>
-                <Label type={sClass === 'xs' ? 'P2' : 'H4'} color={theme.color.primary.White} style={{ textAlign: 'right' }}>
-                  2020년 05월 30일
-                  <br />
-                  14:00 ~
-                </Label>
-              </Col>
-            </Hidden>
-            <Col
-              offset={{ xs: 1 }}
-              xs={9}
-              lg={5}
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                marginTop: ['lg', 'xl'].includes(sClass) ? '0' : '32px',
-              }}
-            >
-              <BannerMainIllust src="main-illustration.png" alt="배너 이미지" />
-            </Col>
-          </Row>
-          <Hidden lg xl>
-            <div style={{
-              display: 'flex',
-              justifyContent: 'center',
-              width: '100%',
-              paddingBottom: '40px',
-            }}
-            >
-              <a href="#landingAbout"><Button isPrimary={false} label="자세히보기" onClick={() => undefined} /></a>
-            </div>
-          </Hidden>
-        </BannerContainer>
-      )}
-      />
+      <div style={{ backgroundColor: theme.color.primary.Azure }}>
+        <MaxContainer>
+          <ScreenClassRender render={(sClass: string) => {
+            let BannerContainerFit: StyledComponent<'div', any, {}, never>;
+            let RowContainerFit: StyledComponent<'div', any, {}, never>;
+            if (['lg', 'xl'].includes(sClass)) {
+              BannerContainerFit = BannerContainerLarge;
+              RowContainerFit = RowContainerLarge;
+            } else if (sClass === 'md') {
+              BannerContainerFit = BannerContainerMedium;
+              RowContainerFit = RowContainerMedium;
+            } else {
+              BannerContainerFit = BannerContainerSmall;
+              RowContainerFit = RowContainerSmall;
+            }
+            return (
+              <BannerContainerFit>
+                <RowContainerFit>
+                  <Row
+                    justify={['lg', 'xl'].includes(sClass) ? 'between' : 'center'}
+                    align={['lg', 'xl'].includes(sClass) ? 'start' : 'end'}
+                    style={{
+                      width: '100%',
+                      margin: '0',
+                    }}
+                  >
+                    <Col
+                      xs={12}
+                      lg={9}
+                      style={{ textAlign: ['xs', 'sm'].includes(sClass) ? 'center' : 'initial' }}
+                    >
+                      <BannerTitleImg src="logo/main-contents-title.svg" alt="소프트웨어에 물들다" />
+                      <Hidden xs sm>
+                        <Label type="H4" color={theme.color.primary.White} style={{ margin: '40px 0' }}>
+                          2020년 05월 30일 14:00 ~
+                        </Label>
+                        <a href="#landingAbout" style={{ textDecoration: 'none' }}>
+                          <Button isPrimary={false} label="자세히보기" onClick={() => undefined} />
+                        </a>
+                      </Hidden>
+                    </Col>
+                    <Visible xs sm>
+                      <Col xs={12}>
+                        <Label
+                          type={['xs', 'sm'].includes(sClass) ? 'MobileP1' : 'H4'}
+                          color={theme.color.primary.White}
+                          style={{ textAlign: 'center', marginTop: '32px' }}
+                        >
+                          2020년 05월 30일 14:00 ~
+                        </Label>
+                      </Col>
+                    </Visible>
+                  </Row>
+                </RowContainerFit>
+                <Visible xs sm>
+                  <div style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    width: '100%',
+                    paddingBottom: '40px',
+                  }}
+                  >
+                    <a href="#landingAbout" style={{ textDecoration: 'none' }}>
+                      <Button isPrimary={false} label="자세히보기" onClick={() => undefined} />
+                    </a>
+                  </div>
+                </Visible>
+              </BannerContainerFit>
+            );
+          }}
+          />
+        </MaxContainer>
+      </div>
     );
   }
 }
