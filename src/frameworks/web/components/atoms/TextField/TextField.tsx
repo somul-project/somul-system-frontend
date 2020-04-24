@@ -4,30 +4,43 @@ import theme from 'theme';
 // eslint-disable-next-line no-unused-vars
 import { ITextField, ITextFieldElement } from 'interfaces/frameworks/web/components/atoms/TextField/ITextField';
 
-const InputBox = styled.input`
+const InputBoxBase = styled.input`
   font-family: 'Muli', 'Noto Sans KR', sans-serif;
   font-size: 14px;
   font-weight: normal;
-  background-color:
-    ${(props: ITextFieldElement) => (props.isFocus && !props.readOnly ? theme.color.primary.White : theme.color.secondary.Snow)};
   width: 100%;
-  margin-left: ${(props: ITextFieldElement) => (props.isFocus && !props.readOnly ? '22px' : '24px')};
-  margin-right: ${(props: ITextFieldElement) => (props.isFocus && !props.readOnly ? '22px' : '24px')};
   outline: none;
   border: none;
   line-height: 2;
 `;
 
-const TextFieldContainer = styled.div`
+const InputBoxActivate = styled(InputBoxBase)`
+  background-color: ${(props: ITextFieldElement) => (props.isFocus ? theme.color.primary.White : theme.color.secondary.Snow)};
+  margin: ${(props: ITextFieldElement) => (props.isFocus ? '0 22px' : '0 24px')};
+`;
+
+const InputBoxDeactivate = styled(InputBoxBase)`
+  background-color: ${theme.color.primary.White};
+  margin: 0 22px;
+`;
+
+const TextFieldContainerBase = styled.div`
   width: 255px;
   height: 56px;
-  border:
-    ${(props: ITextFieldElement) => (props.isFocus && !props.readOnly ? '2px solid '.concat(theme.color.primary.Azure) : '0')};
   border-radius: 10px;
-  background-color:
-    ${(props: ITextFieldElement) => (props.isFocus && !props.readOnly ? theme.color.primary.White : theme.color.secondary.Snow)};
   display: flex;
   align-items: center;
+`;
+
+const TextFieldContainerActivate = styled(TextFieldContainerBase)`
+  border: ${(props: ITextFieldElement) => (props.isFocus ? `2px solid ${theme.color.primary.Azure}` : '0')};
+  background-color:
+    ${(props: ITextFieldElement) => (props.isFocus ? theme.color.primary.White : theme.color.secondary.Snow)};
+`;
+
+const TextFieldContainerDeactivate = styled(TextFieldContainerBase)`
+  border: 2px solid ${theme.color.secondary.Ash};
+  background-color: ${theme.color.primary.White};
 `;
 
 export default class TextField extends React.PureComponent<ITextField, ITextFieldElement> {
@@ -62,19 +75,31 @@ export default class TextField extends React.PureComponent<ITextField, ITextFiel
     } = this.props;
     const { isFocus } = this.state;
 
+    if (readOnly === true) {
+      return (
+        <TextFieldContainerDeactivate style={style}>
+          <InputBoxDeactivate
+            type={type ?? 'text'}
+            placeholder={value}
+            value={value}
+            readOnly
+          />
+        </TextFieldContainerDeactivate>
+      );
+    }
+
     return (
-      <TextFieldContainer isFocus={isFocus} style={style} readOnly={readOnly}>
-        <InputBox
+      <TextFieldContainerActivate isFocus={isFocus} style={style}>
+        <InputBoxActivate
           type={type ?? 'text'}
           placeholder={defaultLabel}
           isFocus={isFocus}
           onFocus={() => this.onFocus()}
           onBlur={() => this.onBlur()}
           onChange={(event) => this.onLabelChange(event.target.value)}
-          readOnly={readOnly ?? false}
           value={value}
         />
-      </TextFieldContainer>
+      </TextFieldContainerActivate>
     );
   }
 }

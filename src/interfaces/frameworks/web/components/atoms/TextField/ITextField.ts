@@ -12,5 +12,4 @@ export interface ITextField {
 export interface ITextFieldElement {
   isFocus: boolean
   style?: object
-  readOnly?: boolean
 }
