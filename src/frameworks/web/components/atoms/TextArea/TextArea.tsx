@@ -11,7 +11,7 @@ const InputBox = styled.textarea`
   background-color:
     ${(props: ITextAreaElement) => (props.isFocus && !props.readOnly ? theme.color.primary.White : theme.color.secondary.Snow)};
   width: 100%;
-  height: 164px;
+  padding: 18px 24px;
   resize: none;
   margin:
     ${(props: ITextAreaElement) => (props.isFocus && !props.readOnly ? '14px 0 14px 22px' : '16px 0 16px 24px')};
@@ -24,7 +24,7 @@ const InputBox = styled.textarea`
 
 const TextAreaContainer = styled.div`
   width: 540px;
-  height: 196px;
+  height: ${(props: ITextAreaElement) => `${props.height ?? 196}px`};
   border:
     ${(props: ITextAreaElement) => (props.isFocus && !props.readOnly ? '2px solid '.concat(theme.color.primary.Azure) : '0')};
   border-radius: 10px;
@@ -60,11 +60,18 @@ export default class TextArea extends React.PureComponent<ITextArea, ITextAreaEl
   }
 
   render() {
-    const { defaultLabel, readOnly } = this.props;
+    const {
+      defaultLabel, readOnly, height, style,
+    } = this.props;
     const { isFocus } = this.state;
 
     return (
-      <TextAreaContainer isFocus={isFocus} readOnly={readOnly ?? false}>
+      <TextAreaContainer
+        isFocus={isFocus}
+        readOnly={readOnly ?? false}
+        height={height}
+        style={style}
+      >
         <InputBox
           placeholder={defaultLabel}
           isFocus={isFocus}

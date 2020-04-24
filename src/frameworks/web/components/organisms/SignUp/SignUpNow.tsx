@@ -89,7 +89,7 @@ export default class SignUpNow extends React.PureComponent<RouteComponentProps, 
           left: (
             <div>
               <img
-                src="signup-illustration.png"
+                src="illust/signup-illustration.png"
                 alt="회원가입 이미지"
                 style={{ width: '380px', height: '580px', margin: '73px 0 18px 0' }}
               />
