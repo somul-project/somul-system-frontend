@@ -7,6 +7,9 @@ export interface ITextField {
   style?: object
   readOnly?: boolean
   value?: string
+  isButton?: boolean
+  buttonSrc?: string
+  onButtonClicked?: Function
 }
 
 export interface ITextFieldElement {
