@@ -29,6 +29,11 @@ const notYetAlert = () => {
   alert('추후 공개될 예정입니다.');
 };
 
+const goApply = () => {
+  // eslint-disable-next-line no-undef
+  window.location.href = '/apply/speaker';
+};
+
 export default class LandingJoin extends React.PureComponent {
   render() {
     return (
@@ -49,7 +54,7 @@ export default class LandingJoin extends React.PureComponent {
                           type={['lg', 'xl'].includes(sClass) ? 'wide' : 'mobilewide'}
                           label="강연자 신청하기"
                           isPrimary
-                          onClick={notYetAlert}
+                          onClick={goApply}
                         />
                       </div>
                     </div>
