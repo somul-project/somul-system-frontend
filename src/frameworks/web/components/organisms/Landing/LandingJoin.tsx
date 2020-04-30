@@ -24,11 +24,6 @@ const JoinIllust = styled.img`
   margin: 0px auto;
 `;
 
-const notYetAlert = () => {
-  // eslint-disable-next-line no-undef, no-alert
-  alert('추후 공개될 예정입니다.');
-};
-
 const goApply = () => {
   // eslint-disable-next-line no-undef
   window.location.href = '/apply/speaker';

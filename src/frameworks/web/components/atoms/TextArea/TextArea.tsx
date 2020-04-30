@@ -61,7 +61,7 @@ export default class TextArea extends React.PureComponent<ITextArea, ITextAreaEl
 
   render() {
     const {
-      defaultLabel, readOnly, height, style,
+      defaultLabel, readOnly, height, style, customRef,
     } = this.props;
     const { isFocus } = this.state;
 
@@ -79,6 +79,7 @@ export default class TextArea extends React.PureComponent<ITextArea, ITextAreaEl
           onBlur={() => this.onBlur()}
           onChange={(event) => this.onLabelChange(event.target.value)}
           readOnly={readOnly ?? false}
+          ref={customRef}
         />
       </TextAreaContainer>
     );

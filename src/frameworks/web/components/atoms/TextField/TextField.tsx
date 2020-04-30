@@ -78,7 +78,7 @@ export default class TextField extends React.PureComponent<ITextField, ITextFiel
 
   render() {
     const {
-      defaultLabel, style, type, readOnly, value, isButton, buttonSrc, onButtonClicked,
+      defaultLabel, style, type, readOnly, value, isButton, buttonSrc, onButtonClicked, customRef
     } = this.props;
     const { isFocus } = this.state;
 
@@ -98,6 +98,7 @@ export default class TextField extends React.PureComponent<ITextField, ITextFiel
     return (
       <TextFieldContainerActivate isFocus={isFocus} style={style}>
         <InputBoxActivate
+          ref={customRef}
           type={type ?? 'text'}
           placeholder={defaultLabel}
           isFocus={isFocus}

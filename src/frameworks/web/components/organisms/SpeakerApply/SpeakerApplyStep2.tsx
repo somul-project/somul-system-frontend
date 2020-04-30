@@ -11,6 +11,7 @@ import TextArea from 'frameworks/web/components/atoms/TextArea/TextArea';
 import Button from 'frameworks/web/components/atoms/Button/Button';
 // eslint-disable-next-line no-unused-vars
 import { ISpeakerApplyStep2, ISpeakerApplyStep2State } from 'interfaces/frameworks/web/components/organisms/SpeakerApply/ISpeakerApplyStep2';
+import FormService from 'utils/form';
 
 const TextLabelContainer = styled.div`
   width: 78px;
@@ -48,6 +49,11 @@ const AddImg = styled.img`
 
 export default class SpeakerApplyStep2
   extends React.PureComponent<ISpeakerApplyStep2, ISpeakerApplyStep2State> {
+
+  sessionName: HTMLInputElement | undefined;
+
+  sessionDesc: HTMLTextAreaElement | undefined;
+
   constructor(props: Readonly<ISpeakerApplyStep2>) {
     super(props);
     this.state = {
@@ -114,13 +120,27 @@ export default class SpeakerApplyStep2
               </TextLabelContainer>
               <TextFieldContainer>
                 <TextField
+                  customRef={(instance: HTMLInputElement | null) => {
+                    this.sessionName = instance!;
+                  }}
                   defaultLabel="강연 제목을 입력하세요 (공백포함 최대 50자)"
-                  onValueChange={(data: string) => handleChange('sessionName', data)}
+                  onValueChange={(data: string) => {
+                    if (FormService.checkTextLength(this.sessionName!, 50)) {
+                      handleChange('sessionName', data);
+                    }
+                  }}
                   style={{ width: 'auto' }}
                 />
                 <TextArea
+                  customRef={(instance: HTMLTextAreaElement | null) => {
+                    this.sessionDesc = instance!;
+                  }}
                   defaultLabel="강연 내용을 입력하세요 (공백포함 최대 500자)"
-                  onValueChange={(data: string) => handleChange('sessionDesc', data)}
+                  onValueChange={(data: string) => {
+                    if (FormService.checkTextLength(this.sessionDesc!, 500)) {
+                      handleChange('sessionDesc', data);
+                    }
+                  }}
                   height={200}
                   style={{ width: 'auto', margin: '24px 0' }}
                 />

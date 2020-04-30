@@ -11,6 +11,7 @@ import TextArea from 'frameworks/web/components/atoms/TextArea/TextArea';
 import Button from 'frameworks/web/components/atoms/Button/Button';
 // eslint-disable-next-line no-unused-vars
 import { ISpeakerApplyStep1 } from 'interfaces/frameworks/web/components/organisms/SpeakerApply/ISpeakerApplyStep1';
+import FormService from 'utils/form';
 
 const TextLabelContainer = styled.div`
   width: 65px;
@@ -25,6 +26,8 @@ const TextFieldContainer = styled.div`
 `;
 
 export default class SpeakerApplyStep1 extends React.PureComponent<ISpeakerApplyStep1> {
+  introduce: HTMLTextAreaElement | undefined;
+
   render() {
     const {
       currentStep, handleChange, name, email, nextStep,
@@ -67,8 +70,15 @@ export default class SpeakerApplyStep1 extends React.PureComponent<ISpeakerApply
                   value={email}
                 />
                 <TextArea
+                  customRef={(instance: HTMLTextAreaElement | null) => {
+                    this.introduce = instance!;
+                  }}
                   defaultLabel="간단한 이력 및 본인소개를 작성해주세요 (공백포함 최대 300자)"
-                  onValueChange={(data: string) => handleChange('introduce', data)}
+                  onValueChange={(data: string) => {
+                    if (FormService.checkTextLength(this.introduce!, 300)) {
+                      handleChange('introduce', data);
+                    }
+                  }}
                   height={120}
                   style={{ width: 'auto' }}
                 />

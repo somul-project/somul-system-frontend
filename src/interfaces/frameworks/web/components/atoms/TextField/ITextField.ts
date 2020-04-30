@@ -10,6 +10,7 @@ export interface ITextField {
   isButton?: boolean
   buttonSrc?: string
   onButtonClicked?: Function
+  customRef?: (instance: HTMLInputElement | null) => void
 }
 
 export interface ITextFieldElement {
