@@ -8,6 +8,8 @@ import {
   Row, Col, Visible, Hidden, ScreenClassRender,
 } from 'react-grid-system';
 
+import { ILandingContainer } from '../../../../../interfaces/frameworks/web/components/organisms/LandingBanner/ILandingBanner';
+
 const BannerContainer = styled.div`
   background-color: ${theme.color.primary.Azure};
   background-image: url("illust/main-illustration.png");
@@ -49,7 +51,8 @@ const RowContainerLarge = styled.div`
 
 const MaxContainer = styled.div`
   max-width: 1280px;
-  margin: 0 auto;
+  margin: 0 auto;             
+  padding-top: ${(props:ILandingContainer) => (props.size === 'xs' ? '48px' : '80px')};
 `;
 
 const BannerTitleImg = styled.img`
@@ -64,21 +67,21 @@ export default class LandingBanner extends React.PureComponent {
   render() {
     return (
       <div style={{ backgroundColor: theme.color.primary.Azure }}>
-        <MaxContainer>
-          <ScreenClassRender render={(sClass: string) => {
-            let BannerContainerFit: StyledComponent<'div', any, {}, never>;
-            let RowContainerFit: StyledComponent<'div', any, {}, never>;
-            if (['lg', 'xl'].includes(sClass)) {
-              BannerContainerFit = BannerContainerLarge;
-              RowContainerFit = RowContainerLarge;
-            } else if (sClass === 'md') {
-              BannerContainerFit = BannerContainerMedium;
-              RowContainerFit = RowContainerMedium;
-            } else {
-              BannerContainerFit = BannerContainerSmall;
-              RowContainerFit = RowContainerSmall;
-            }
-            return (
+        <ScreenClassRender render={(sClass: string) => {
+          let BannerContainerFit: StyledComponent<'div', any, {}, never>;
+          let RowContainerFit: StyledComponent<'div', any, {}, never>;
+          if (['lg', 'xl'].includes(sClass)) {
+            BannerContainerFit = BannerContainerLarge;
+            RowContainerFit = RowContainerLarge;
+          } else if (sClass === 'md') {
+            BannerContainerFit = BannerContainerMedium;
+            RowContainerFit = RowContainerMedium;
+          } else {
+            BannerContainerFit = BannerContainerSmall;
+            RowContainerFit = RowContainerSmall;
+          }
+          return (
+            <MaxContainer size={sClass}>
               <BannerContainerFit>
                 <RowContainerFit>
                   <Row
@@ -131,10 +134,10 @@ export default class LandingBanner extends React.PureComponent {
                   </div>
                 </Visible>
               </BannerContainerFit>
-            );
-          }}
-          />
-        </MaxContainer>
+            </MaxContainer>
+          );
+        }}
+        />
       </div>
     );
   }
