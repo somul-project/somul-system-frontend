@@ -8,7 +8,7 @@ import {
   Row, Col, Visible, Hidden, ScreenClassRender,
 } from 'react-grid-system';
 
-import { ILandingContainer } from '../../../../../interfaces/frameworks/web/components/organisms/LandingBanner/ILandingBanner';
+import { ILandingContainer } from 'interfaces/frameworks/web/components/organisms/LandingBanner/ILandingBanner';
 
 const BannerContainer = styled.div`
   background-color: ${theme.color.primary.Azure};
