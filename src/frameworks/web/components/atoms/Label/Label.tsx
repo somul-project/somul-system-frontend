@@ -89,13 +89,13 @@ const MobileLabelP2 = styled(BaseLabel)`
 `;
 
 const LabelMark = styled.mark`
+  ${(props: ILabelMark) => ((props.mark === 'underline') ? 'display: inline-block;' : '')}
   line-height: ${(props: ILabelMark) => ((props.mark === 'full') ? -1 : 0)}em;
   padding-left: 10px;
   padding-right: 10px;
   padding-bottom: ${(props: ILabelMark) => ((props.mark === 'full') ? 0 : 0.7)}em;
   border-radius: 1em;
   background-color: ${(props: ILabelMark) => props.markColor ?? theme.color.alert.Warning};
-  background-opacity: 0.5;
   box-decoration-break: clone;
 `;
 

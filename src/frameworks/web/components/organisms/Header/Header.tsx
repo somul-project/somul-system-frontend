@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Label from 'frameworks/web/components/atoms/Label/Label';
 import Button from 'frameworks/web/components/atoms/Button/Button';
 import { Visible, Hidden, ScreenClassRender } from 'react-grid-system';
+import { Link } from 'react-router-dom';
 
 const HeaderContainer = styled.div`
   position: fixed;
@@ -81,8 +82,12 @@ export default class Header extends React.PureComponent {
                   <Label type="H5" onClick={notYetAlert}>FAQ</Label>
                 </HeaderMenuContainer>
                 <HeaderButtonContainer>
-                  <Button type="small" label="회원가입" isPrimary={false} onClick={notYetAlert} style={{ marginLeft: '20px' }} />
-                  <Button type="small" label="로그인" isPrimary onClick={notYetAlert} />
+                  <Link to="/signup/start">
+                    <Button type="small" label="회원가입" isPrimary={false} onClick={() => undefined} style={{ marginLeft: '20px' }} />
+                  </Link>
+                  <Link to="/signin">
+                    <Button type="small" label="로그인" isPrimary onClick={() => undefined} />
+                  </Link>
                 </HeaderButtonContainer>
               </Visible>
               <Hidden xl>

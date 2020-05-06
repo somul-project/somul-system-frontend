@@ -7,4 +7,9 @@ export interface IDividedCard {
     left: ReactNode
     right: ReactNode
   }
+  leftPadding?: string
+}
+
+export interface IDividedCardLeft {
+  leftPadding?: string
 }

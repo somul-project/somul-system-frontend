@@ -1,16 +1,15 @@
 import styled from 'styled-components';
 // eslint-disable-next-line no-unused-vars
-import React, { ReactNode } from 'react';
+import React from 'react';
 import theme from 'theme';
 import ContentsBox from 'frameworks/web/components/atoms/ContentsBox/ContentsBox';
 import Label from 'frameworks/web/components/atoms/Label/Label';
 // eslint-disable-next-line no-unused-vars
-import { IDividedCard } from 'interfaces/frameworks/web/components/molecules/DividedCard/IDividedCard';
+import { IDividedCard, IDividedCardLeft } from 'interfaces/frameworks/web/components/molecules/DividedCard/IDividedCard';
 
 const CardContainer = styled(ContentsBox)`
   width: 1100px;
-  min-height: 516px;
-  margin: 210px auto;
+  margin: 0 auto;
   background-color: white;
   text-align: center;
   display: flex;
@@ -21,8 +20,8 @@ const LeftContainer = styled.div`
   height: 100%;
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
-  padding: 80px 0;
-  background-color: ${theme.color.primary.Azure};
+  padding: ${(props: IDividedCardLeft) => props.leftPadding ?? '80px 0'};
+  background-color: ${theme.color.primary.Sky};
 `;
 const RightContainer = styled.div`
   width: 730px;
@@ -32,12 +31,12 @@ const RightContainer = styled.div`
 
 export default class DividedCard extends React.PureComponent<IDividedCard> {
   render() {
-    const { title, children } = this.props;
+    const { title, children, leftPadding } = this.props;
     const { left, right } = children;
 
     return (
       <CardContainer isDarkBackground={false}>
-        <LeftContainer>
+        <LeftContainer leftPadding={leftPadding}>
           <Label type="H4" color={theme.color.primary.White}>{title}</Label>
           {left}
         </LeftContainer>
