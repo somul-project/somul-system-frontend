@@ -77,7 +77,6 @@ export default class SignUpNow extends React.PureComponent<{}, ISignUpData> {
 
   render() {
     const { isPrivacyChecked } = this.state;
-
     return (
       <DividedCard title="SIGN UP NOW">
         {{

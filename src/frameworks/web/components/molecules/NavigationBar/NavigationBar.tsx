@@ -4,7 +4,7 @@ import React from 'react';
 // eslint-disable-next-line no-unused-vars
 import { INavBar, INavBarState } from 'interfaces/frameworks/web/components/molecules/NavigationBar/INavigationBar';
 import { SERVER_URL } from 'utils/constants';
-import Label from '../../atoms/Label/Label';
+import Label from 'frameworks/web/components/atoms/Label/Label';
 
 const NavContainer = styled.div`
   position: relative;

@@ -7,6 +7,10 @@ export interface ITextField {
   style?: object
   readOnly?: boolean
   value?: string
+  isButton?: boolean
+  buttonSrc?: string
+  onButtonClicked?: Function
+  customRef?: (instance: HTMLInputElement | null) => void
 }
 
 export interface ITextFieldElement {

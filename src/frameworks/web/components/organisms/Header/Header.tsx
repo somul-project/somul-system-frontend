@@ -73,9 +73,9 @@ export default class Header extends React.PureComponent {
                     <Label type="H5">소물이란?</Label>
                   </a>
                   <Label type="H5" onClick={notYetAlert}>강연정보</Label>
-                  <a href="#landingJoin" style={{ textDecoration: 'none' }}>
+                  <Link to="/apply/speaker" style={{ textDecoration: 'none' }}>
                     <Label type="H5">참가신청</Label>
-                  </a>
+                  </Link>
                   <a href="#landingSponsor" style={{ textDecoration: 'none' }}>
                     <Label type="H5">후원안내</Label>
                   </a>

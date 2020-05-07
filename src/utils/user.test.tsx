@@ -30,15 +30,6 @@ describe('user utils', () => {
         isPrivacyChecked: true,
       };
       expect(UserService.signUpValidationCheck(withSignData)).toEqual(true);
-      const longPasswordData = {
-        name: '박성우',
-        email: 'test@somul.kr',
-        phone: '01012345678',
-        password: 'testtest123#$%^ionwlkaisabviajbvirhasdv',
-        rePassword: 'testtest123#$%^ionwlkaisabviajbvirhasdv',
-        isPrivacyChecked: true,
-      };
-      expect(UserService.signUpValidationCheck(longPasswordData)).toEqual(true);
     });
     it('gets empty signup data', () => {
       const emptyData = {
@@ -144,68 +135,6 @@ describe('user utils', () => {
     });
   });
 
-  describe('signUpOAuthValidationCheck function', () => {
-    it('gets correct signup data', () => {
-      const correctData = {
-        name: '박성우',
-        email: 'test@somul.kr',
-        phone: '01012345678',
-        isPrivacyChecked: true,
-      };
-      expect(UserService.signUpOAuthValidationCheck(correctData)).toEqual(true);
-    });
-    it('gets empty signup data', () => {
-      const emptyData = {
-        name: '',
-        email: 'test@test.com',
-        phone: '',
-        isPrivacyChecked: false,
-      };
-      expect(UserService.signUpOAuthValidationCheck(emptyData)).toEqual('모든 칸을 입력해야 합니다.');
-    });
-    it('gets not allow privacy item signup data', () => {
-      const privacyFalseData = {
-        name: '박성우',
-        email: 'test@somul.kr',
-        phone: '01012345678',
-        isPrivacyChecked: false,
-      };
-      expect(UserService.signUpOAuthValidationCheck(privacyFalseData)).toEqual('개인정보처리방침 동의가 필요합니다.');
-    });
-    it('gets wrong email signup data', () => {
-      const notAtMarkEmailData = {
-        name: '박성우',
-        email: 'testsomul.kr',
-        phone: '01012345678',
-        isPrivacyChecked: true,
-      };
-      expect(UserService.signUpOAuthValidationCheck(notAtMarkEmailData)).toEqual('이메일 형식이 올바르지 않습니다.');
-      const notDotEmailData = {
-        name: '박성우',
-        email: 'test@somul',
-        phone: '01012345678',
-        isPrivacyChecked: true,
-      };
-      expect(UserService.signUpOAuthValidationCheck(notDotEmailData)).toEqual('이메일 형식이 올바르지 않습니다.');
-    });
-    it('gets wrong phone signup data', () => {
-      const dashPhoneData = {
-        name: '박성우',
-        email: 'test@somul.kr',
-        phone: '010-1234-5678',
-        isPrivacyChecked: true,
-      };
-      expect(UserService.signUpOAuthValidationCheck(dashPhoneData)).toEqual('휴대폰 번호 형식이 올바르지 않습니다.');
-      const shortPhoneData = {
-        name: '박성우',
-        email: 'test@somul.kr',
-        phone: '021235678',
-        isPrivacyChecked: true,
-      };
-      expect(UserService.signUpOAuthValidationCheck(shortPhoneData)).toEqual('휴대폰 번호 형식이 올바르지 않습니다.');
-    });
-  });
-
   describe('sendSignUpData function', () => {
     it('send right data', async () => {
       moxios.wait(() => {
@@ -227,28 +156,6 @@ describe('user utils', () => {
         isPrivacyChecked: true,
       };
       expect(await UserService.sendSignUpData(rightData)).toEqual('0');
-    });
-  });
-
-  describe('sendSignUpData function', () => {
-    it('send right data', async () => {
-      moxios.wait(() => {
-        const request = moxios.requests.mostRecent();
-        request.respondWith({
-          status: 200,
-          response: {
-            statusCode: '0',
-            errorMessage: '성공',
-          },
-        });
-      });
-      const rightData = {
-        name: '박성우',
-        email: 'test@somul.kr',
-        phone: '01012345678',
-        isPrivacyChecked: true,
-      };
-      expect(await UserService.sendSignUpOAuthData(rightData)).toEqual('0');
     });
   });
 

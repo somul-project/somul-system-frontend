@@ -43,6 +43,13 @@ const TextFieldContainerDeactivate = styled(TextFieldContainerBase)`
   background-color: ${theme.color.primary.White};
 `;
 
+const ImgButton = styled.img`
+  width: 24px;
+  height: 24px;
+  float: right;
+  margin-right: ${(props: ITextFieldElement) => (props.isFocus ? '22px' : '24px')};
+`;
+
 export default class TextField extends React.PureComponent<ITextField, ITextFieldElement> {
   constructor(props: ITextField) {
     super(props);
@@ -71,7 +78,7 @@ export default class TextField extends React.PureComponent<ITextField, ITextFiel
 
   render() {
     const {
-      defaultLabel, style, type, readOnly, value,
+      defaultLabel, style, type, readOnly, value, isButton, buttonSrc, onButtonClicked, customRef,
     } = this.props;
     const { isFocus } = this.state;
 
@@ -91,6 +98,7 @@ export default class TextField extends React.PureComponent<ITextField, ITextFiel
     return (
       <TextFieldContainerActivate isFocus={isFocus} style={style}>
         <InputBoxActivate
+          ref={customRef}
           type={type ?? 'text'}
           placeholder={defaultLabel}
           isFocus={isFocus}
@@ -99,6 +107,9 @@ export default class TextField extends React.PureComponent<ITextField, ITextFiel
           onChange={(event) => this.onLabelChange(event.target.value)}
           value={value}
         />
+        {isButton && (
+          <ImgButton src={buttonSrc} onClick={() => onButtonClicked!()} isFocus={isFocus} />
+        )}
       </TextFieldContainerActivate>
     );
   }

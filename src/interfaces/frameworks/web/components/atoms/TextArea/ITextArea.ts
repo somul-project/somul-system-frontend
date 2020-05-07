@@ -4,6 +4,7 @@ export interface ITextArea {
   readOnly?: boolean
   height?: number
   style?: object
+  customRef?: (instance: HTMLTextAreaElement | null) => void
 }
 
 export interface ITextAreaElement {
