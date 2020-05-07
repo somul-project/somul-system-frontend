@@ -71,9 +71,9 @@ export default class SignInCard extends React.PureComponent<{}, ISignInData> {
     const signUpResult = await UserService.sendSignInData(signinPayload);
     if (signUpResult === '0') {
       window.location.href = '/';
-      return;
+    } else {
+      alert(ERROR_MESSAGE[signUpResult] ?? ERROR_MESSAGE['500']);
     }
-    alert(ERROR_MESSAGE[signUpResult] ?? ERROR_MESSAGE['500']);
   };
 
   googleLogin = () => {

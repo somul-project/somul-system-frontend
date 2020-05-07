@@ -9,6 +9,9 @@ import SignUp from 'frameworks/web/components/pages/SignUp/SignUp';
 import Footer from 'frameworks/web/components/organisms/Footer/Footer';
 import SpeakerApply from 'frameworks/web/components/pages/SpeakerApply/SpeakerApply';
 
+import 'react-app-polyfill/ie11';
+import 'react-app-polyfill/stable';
+
 function App() {
   return (
     <Provider store={store}>

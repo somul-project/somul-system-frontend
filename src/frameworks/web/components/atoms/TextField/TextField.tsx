@@ -78,7 +78,7 @@ export default class TextField extends React.PureComponent<ITextField, ITextFiel
 
   render() {
     const {
-      defaultLabel, style, type, readOnly, value, isButton, buttonSrc, onButtonClicked, customRef
+      defaultLabel, style, type, readOnly, value, isButton, buttonSrc, onButtonClicked, customRef,
     } = this.props;
     const { isFocus } = this.state;
 

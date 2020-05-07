@@ -5,6 +5,16 @@ import Button from 'frameworks/web/components/atoms/Button/Button';
 import { Visible, Hidden, ScreenClassRender } from 'react-grid-system';
 import { Link } from 'react-router-dom';
 
+const HeaderContainer = styled.div`
+  position: fixed;
+  min-width: auto;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  background-color: white;
+`;
+
 const HeaderMenuContainer = styled.div`
   float: left;
   width: 100%;
@@ -37,7 +47,7 @@ const notYetAlert = () => {
 export default class Header extends React.PureComponent {
   render() {
     return (
-      <div>
+      <HeaderContainer>
         <ScreenClassRender render={(sClass: string) => (
           <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
             <div style={{
@@ -96,7 +106,7 @@ export default class Header extends React.PureComponent {
           </div>
         )}
         />
-      </div>
+      </HeaderContainer>
     );
   }
 }

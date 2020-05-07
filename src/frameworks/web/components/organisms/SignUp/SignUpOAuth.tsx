@@ -11,9 +11,11 @@ import TextArea from 'frameworks/web/components/atoms/TextArea/TextArea';
 import Button from 'frameworks/web/components/atoms/Button/Button';
 import CheckBox from 'frameworks/web/components/atoms/CheckBox/CheckBox';
 // eslint-disable-next-line no-unused-vars
-import { ISignUpData } from 'interfaces/utils/user/IUserService';
+import { RouteComponentProps } from 'react-router-dom';
 import UserService from 'utils/user';
 import { ERROR_MESSAGE } from 'utils/constants';
+// eslint-disable-next-line no-unused-vars
+import { ISignUpOAuthState } from 'interfaces/frameworks/web/components/organisms/SignUp/ISignUpOAuth';
 
 const TextLabelContainer = styled.div`
   width: 65px;
@@ -27,47 +29,31 @@ const TextFieldContainer = styled.div`
   padding-bottom: 24px;
 `;
 
-const WarningTextContainer = styled.div`
-  float: right;
-  width: 361px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 6px 0 24px 0;
-`;
-
-const PasswordContainer = styled.div`
-  margin: 24px 0 8px 0;
-  display: flex;
-  justify-content: space-between;
-`;
-
 const PrivacyContainer = styled.div`
   margin-bottom: 112px;
   clear: both;
 `;
 
-export default class SignUpNow extends React.PureComponent<{}, ISignUpData> {
-  constructor(props: Readonly<{}>) {
+export default class SignUpOAuth
+  extends React.PureComponent<RouteComponentProps, ISignUpOAuthState> {
+  constructor(props: Readonly<RouteComponentProps>) {
     super(props);
     this.state = {
       name: '',
       email: '',
       phone: '',
-      password: '',
-      rePassword: '',
       isPrivacyChecked: false,
     };
   }
 
   signupTry = async () => {
     const signupPayload = this.state;
-    const valCheck = UserService.signUpValidationCheck(signupPayload);
+    const valCheck = UserService.signUpOAuthValidationCheck(signupPayload);
     if (valCheck !== true) {
       alert(valCheck);
       return;
     }
-    const signUpResult = await UserService.sendSignUpData(signupPayload);
+    const signUpResult = await UserService.sendSignUpOAuthData(signupPayload);
     if (signUpResult === '0') {
       window.location.href = `/signup/complete?email=${signupPayload.email}`;
       return;
@@ -77,69 +63,46 @@ export default class SignUpNow extends React.PureComponent<{}, ISignUpData> {
 
   render() {
     const { isPrivacyChecked } = this.state;
+    const { location } = this.props;
+
+    const oauthEmail = new URLSearchParams(location.search).get('email');
     return (
-      <DividedCard title="SIGN UP NOW">
+      <DividedCard title="추가정보를 입력해주세요!">
         {{
           left: (
             <div>
               <img
-                src="illust/signup-illustration.png"
+                src="signup-illustration.png"
                 alt="회원가입 이미지"
-                style={{ width: '380px', height: '580px', margin: '73px 0 18px 0' }}
+                style={{ width: '380px', height: '580px', marginTop: '15px' }}
               />
-              <Label type="P1" color={theme.color.primary.White} style={{ paddingBottom: '28px' }}>SOMUL 가입을 환영합니다 :)</Label>
             </div>
           ),
           right: (
             <div style={{ margin: '0 95px' }}>
               <TextLabelContainer>
-                <Label type="H5" style={{ marginTop: '14px', marginBottom: '54px' }} color={theme.color.secondary.Nickel}>이름</Label>
-                <Label type="H5" color={theme.color.secondary.Nickel}>이메일</Label>
-                <Label type="H5" style={{ marginTop: '82px', marginBottom: '56px' }} color={theme.color.secondary.Nickel}>휴대폰</Label>
-                <Label type="H5" color={theme.color.secondary.Nickel}>비밀번호</Label>
+                <Label type="H5" style={{ marginTop: '14px' }} color={theme.color.secondary.Nickel}>이름</Label>
+                <Label type="H5" style={{ margin: '54px 0' }} color={theme.color.secondary.Nickel}>이메일</Label>
+                <Label type="H5" style={{ marginBottom: '56px' }} color={theme.color.secondary.Nickel}>휴대폰</Label>
               </TextLabelContainer>
               <TextFieldContainer>
                 <TextField
                   defaultLabel="이름을 입력하세요"
                   onValueChange={(value) => this.setState({ name: value })}
-                  style={{ width: 'auto', marginBottom: '24px' }}
+                  style={{ width: 'auto' }}
                 />
                 <TextField
                   defaultLabel="이메일을 입력하세요"
                   onValueChange={(value) => this.setState({ email: value })}
-                  style={{ width: 'auto' }}
+                  style={{ width: 'auto', margin: '24px 0' }}
+                  readOnly
+                  value={oauthEmail ?? ''}
                 />
-                <WarningTextContainer>
-                  <img src="warning.svg" alt="경고 아이콘" style={{ width: '20px', height: '18px' }} />
-                  <div style={{ display: 'flex' }}>
-                    <Label type="P2" color={theme.color.alert.Warning}>인증메일</Label>
-                    <Label type="P2" color={theme.color.secondary.Moon}>을 발송할 예정이니, 유효한 메일을 입력해주세요.</Label>
-                  </div>
-                </WarningTextContainer>
                 <TextField
                   defaultLabel="휴대폰 번호를 입력하세요 (01012345678)"
                   onValueChange={(value) => this.setState({ phone: value })}
                   style={{ width: 'auto', clear: 'right' }}
                 />
-                <PasswordContainer>
-                  <div style={{ width: '210px' }}>
-                    <TextField
-                      defaultLabel="비밀번호를 입력하세요"
-                      onValueChange={(value) => this.setState({ password: value })}
-                      style={{ width: 'auto' }}
-                      type="password"
-                    />
-                  </div>
-                  <div style={{ width: '210px' }}>
-                    <TextField
-                      defaultLabel="비밀번호를 재입력하세요"
-                      onValueChange={(value) => this.setState({ rePassword: value })}
-                      style={{ width: 'auto' }}
-                      type="password"
-                    />
-                  </div>
-                </PasswordContainer>
-                <Label type="P2" color={theme.color.secondary.Moon} style={{ float: 'right' }}>비밀번호는 8글자 이상의 숫자와 문자 조합이어야 합니다.</Label>
               </TextFieldContainer>
               <PrivacyContainer>
                 <TextArea

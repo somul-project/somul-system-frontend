@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import axios, { AxiosResponse } from 'axios';
 import { ISignUpData, ISignInData, IServerResponse } from 'interfaces/utils/user/IUserService';
+import { IForgotState } from 'interfaces/frameworks/web/components/organisms/SignIn/IForgot';
 import { SERVER_URL } from './constants';
 // import { getEnv } from 'utils/constants';
 
@@ -12,7 +13,7 @@ export class UserService {
    */
   public static signUpValidationCheck = (data: ISignUpData) => {
     const emailRegExp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
-    const passwordRegExp = /^(?=.*?[A-Za-z])(?=.*?[0-9])(?=.*[A-Za-z!@#$%^&+=_]).{8,15}$/i;
+    const passwordRegExp = /^(?=.*?[A-Za-z])(?=.*?[0-9])(?=.*[A-Za-z!@#$%^&+=_]).{8,100}$/i;
     const phoneRegExp = /^[0-9]*$/i;
 
     if (data.email === '' || data.name === '' || data.password === '' || data.phone === '' || data.rePassword === '') {
@@ -76,8 +77,19 @@ export class UserService {
     return result.data.statusCode;
   }
 
+  /**
+   * 이메일 인증 메일 재전송을 요청합니다.
+   * @returns 서버에서 돌아오는 status code
+   */
   public static requestResendEmail = async () => {
     const result: AxiosResponse<IServerResponse> = await axios.get(`${SERVER_URL}/auth/resend`);
+    return result.data.statusCode;
+  }
+
+  public static requestForgotCheck = async (data: IForgotState) => {
+    const result: AxiosResponse<IServerResponse> = await axios.post(`${SERVER_URL}/auth/login`, {
+      email: data.email,
+    });
     return result.data.statusCode;
   }
 }
