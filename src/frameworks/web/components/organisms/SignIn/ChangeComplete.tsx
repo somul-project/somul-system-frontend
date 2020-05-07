@@ -3,7 +3,7 @@ import theme from 'theme';
 import SingleCard from 'frameworks/web/components/molecules/SingleCard/SingleCard';
 import Label from 'frameworks/web/components/atoms/Label/Label';
 
-export default class ForgotComplete extends React.PureComponent {
+export default class ChangeComplete extends React.PureComponent {
   goLogin = () => {
     // eslint-disable-next-line no-undef
     window.location.href = '/signin';

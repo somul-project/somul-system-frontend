@@ -51,11 +51,11 @@ export default class SignButton extends React.PureComponent<ISignButton> {
 
     let siteString: string;
     if (siteType === 'google') {
-      siteString = 'Google 계정으로';
+      siteString = 'Google';
     } else if (siteType === 'github') {
-      siteString = 'Github 계정으로';
+      siteString = 'Github';
     } else {
-      siteString = '이메일로';
+      siteString = '이메일';
     }
 
     return (
@@ -63,6 +63,7 @@ export default class SignButton extends React.PureComponent<ISignButton> {
         <SignButtonImg src={`logo/${siteType}.svg`} siteType={siteType} />
         <SignButtonLabel>
           {siteString}
+          {siteType === 'email' ? '로' : ' 계정으로'}
           {' '}
           {buttonType === 'signin' ? '로그인' : '회원가입'}
         </SignButtonLabel>
