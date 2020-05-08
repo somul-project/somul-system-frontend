@@ -7,10 +7,6 @@ import {
   ISignButtonElement,
 } from 'interfaces/frameworks/web/components/atoms/SignButton/ISignButton';
 
-import GoogleLogo from 'assets/logo/google.svg';
-import GithubLogo from 'assets/logo/github.svg';
-import EmailLogo from 'assets/logo/email.svg';
-
 const SignButtonContainer = styled.div`
   background-color: ${(props: ISignButtonElement) => {
     if (props.siteType === 'github') {
@@ -45,10 +41,23 @@ const SignButtonLabel = styled.p`
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 16px;
   font-weight: bold;
-  margin: 19px 31px 19px 0px;
+  margin: 19px 31px 19px 0;
   float: right;
 `;
 
+export default function SignButton({
+  buttonType,
+  siteType,
+  onClick,
+}: ISignButton): React.ReactElement {
+  let siteString: string;
+  if (siteType === 'google') {
+    siteString = 'Google';
+  } else if (siteType === 'github') {
+    siteString = 'Github';
+  } else {
+    siteString = '이메일';
+  }
 export default class SignButton extends React.PureComponent<ISignButton> {
   render() {
     const { buttonType, siteType, onClick } = this.props;

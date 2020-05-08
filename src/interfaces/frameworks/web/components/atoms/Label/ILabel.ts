@@ -25,4 +25,5 @@ export interface ILabel extends ILabelMark {
   onClick?: any;
   color?: string;
   style?: object;
+  children?: any;
 }

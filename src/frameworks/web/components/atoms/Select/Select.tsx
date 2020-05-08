@@ -1,8 +1,8 @@
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import theme from 'theme';
-import React from 'react';
+
 import {
-  // eslint-disable-next-line no-unused-vars
   ISelect,
   ISelectElement,
   EdgeType,
@@ -54,51 +54,39 @@ const SelectContainer = styled.div`
   }
 `;
 
-export default class Select extends React.PureComponent<ISelect, ISelectState> {
-  constructor(props: Readonly<ISelect>) {
-    super(props);
-    this.state = {
-      selectNumber: -1,
-    };
-  }
+export default function Select(props: ISelect): React.ReactElement {
+  const { labels, onElementClick } = props;
 
-  handleClick(i: number) {
-    const { onElementClick } = this.props;
-    const { selectNumber } = this.state;
-    const elementNum = i === selectNumber ? -1 : i;
+  const [state, setState] = useState<ISelectState>({ selectNumber: -1 });
 
-    onElementClick(elementNum);
-    this.setState({
-      selectNumber: elementNum,
-    });
-  }
+  const handleClick = (i: number) => {
+    const idx = i === state.selectNumber ? -1 : i;
+    onElementClick(idx);
+    setState({ selectNumber: i });
+  };
 
-  render() {
-    const { labels } = this.props;
-    const { selectNumber } = this.state;
-    const selectElements: JSX.Element[] = [];
+  return (
+    <SelectContainer>
+      {labels.map((label, i) => {
+        let edge: EdgeType;
+        const active: boolean = state.selectNumber === i;
 
-    labels.forEach((label, i) => {
-      let edge: EdgeType;
-      const active: boolean = selectNumber === i;
+        if (i === 0) {
+          edge = 'left';
+        } else if (i === labels.length - 1) {
+          edge = 'right';
+        } else {
+          edge = 'none';
+        }
 
-      if (i === 0) {
-        edge = 'left';
-      } else if (i === labels.length - 1) {
-        edge = 'right';
-      } else {
-        edge = 'none';
-      }
-
-      selectElements.push(
-        <div>
-          <SelectElement edge={edge} active={active} onClick={() => this.handleClick(i)}>
-            {label}
-          </SelectElement>
-        </div>,
-      );
-    });
-
-    return <SelectContainer>{selectElements}</SelectContainer>;
-  }
+        return (
+          <div key={label}>
+            <SelectElement edge={edge} active={active} onClick={() => handleClick(i)}>
+              {label}
+            </SelectElement>
+          </div>
+        );
+      })}
+    </SelectContainer>
+  );
 }
