@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import theme from 'theme';
 import {
-  // eslint-disable-next-line no-unused-vars
   IRadioButton,
   IRadioButtonContainer,
   IRadioButtonElement,
@@ -75,24 +74,28 @@ const RadioButtonLabel = styled.label`
   line-height: 26px;
 `;
 
-export default class RadioButton extends React.PureComponent<IRadioButton> {
-  render() {
-    const { label, id, name, value, onRadioClick, edge, disabled } = this.props;
-
-    return (
-      <RadioButtonContainer edge={edge}>
-        <RadioButtonInput
-          type="radio"
-          id={id}
-          name={name}
-          value={value}
-          onClick={() => onRadioClick(label)}
-          disabled={disabled}
-        />
-        <RadioButtonLabel htmlFor={id} disabled={disabled}>
-          {label}
-        </RadioButtonLabel>
-      </RadioButtonContainer>
-    );
-  }
+export default function RadioButton({
+  label,
+  id,
+  name,
+  value,
+  onRadioClick,
+  edge,
+  disabled,
+}: IRadioButton): React.ReactElement {
+  return (
+    <RadioButtonContainer edge={edge}>
+      <RadioButtonInput
+        type="radio"
+        id={id}
+        name={name}
+        value={value}
+        onClick={() => onRadioClick(label)}
+        disabled={disabled}
+      />
+      <RadioButtonLabel htmlFor={id} disabled={disabled}>
+        {label}
+      </RadioButtonLabel>
+    </RadioButtonContainer>
+  );
 }

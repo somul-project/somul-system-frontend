@@ -1,7 +1,7 @@
+import React from 'react';
 import styled from 'styled-components';
 import theme from 'theme';
-import React from 'react';
-// eslint-disable-next-line no-unused-vars
+
 import {
   ISignButton,
   ISignButtonElement,
@@ -41,32 +41,32 @@ const SignButtonLabel = styled.p`
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 16px;
   font-weight: bold;
-  margin: 19px 31px 19px 0px;
+  margin: 19px 31px 19px 0;
   float: right;
 `;
 
-export default class SignButton extends React.PureComponent<ISignButton> {
-  render() {
-    const { buttonType, siteType, onClick } = this.props;
-
-    let siteString: string;
-    if (siteType === 'google') {
-      siteString = 'Google';
-    } else if (siteType === 'github') {
-      siteString = 'Github';
-    } else {
-      siteString = '이메일';
-    }
-
-    return (
-      <SignButtonContainer onClick={() => onClick()} siteType={siteType}>
-        <SignButtonImg src={`logo/${siteType}.svg`} siteType={siteType} />
-        <SignButtonLabel>
-          {siteString}
-          {siteType === 'email' ? '로' : ' 계정으로'}{' '}
-          {buttonType === 'signin' ? '로그인' : '회원가입'}
-        </SignButtonLabel>
-      </SignButtonContainer>
-    );
+export default function SignButton({
+  buttonType,
+  siteType,
+  onClick,
+}: ISignButton): React.ReactElement {
+  let siteString: string;
+  if (siteType === 'google') {
+    siteString = 'Google';
+  } else if (siteType === 'github') {
+    siteString = 'Github';
+  } else {
+    siteString = '이메일';
   }
+
+  return (
+    <SignButtonContainer onClick={() => onClick()} siteType={siteType}>
+      <SignButtonImg src={`logo/${siteType}.svg`} siteType={siteType} />
+      <SignButtonLabel>
+        {siteString}
+        {siteType === 'email' ? '로' : ' 계정으로'}{' '}
+        {buttonType === 'signin' ? '로그인' : '회원가입'}
+      </SignButtonLabel>
+    </SignButtonContainer>
+  );
 }

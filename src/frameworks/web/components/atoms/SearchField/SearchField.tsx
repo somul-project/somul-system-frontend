@@ -1,8 +1,8 @@
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import React from 'react';
 import theme from 'theme';
+
 import {
-  // eslint-disable-next-line no-unused-vars
   _ISearchFieldContainer,
   ISearchField,
   ISearchFieldState,
@@ -40,48 +40,34 @@ const SearchButton = styled.svg`
   cursor: pointer;
 `;
 
-export default class SearchField extends React.PureComponent<ISearchField, ISearchFieldState> {
-  constructor(props: ISearchField) {
-    super(props);
+export default function SearchField(props: ISearchField): React.ReactElement {
+  const { onValueChange, defaultLabel, onSearchButtonClick } = props;
 
-    this.state = {
-      isFocus: false,
-    };
-  }
+  const [state, setState] = useState<ISearchFieldState>({ isFocus: false });
 
-  onFocus() {
-    this.setState({
-      isFocus: true,
-    });
-  }
+  const onFocus = () => {
+    setState({ isFocus: true });
+  };
 
-  onBlur() {
-    this.setState({
-      isFocus: false,
-    });
-  }
+  const onBlur = () => {
+    setState({ isFocus: false });
+  };
 
-  onLabelChange(value: string) {
-    const { onValueChange } = this.props;
-    onValueChange!(value);
-  }
+  const onLabelChange = (value: string) => {
+    if (onValueChange) onValueChange(value);
+  };
 
-  render() {
-    const { defaultLabel, onSearchButtonClick } = this.props;
-    const { isFocus } = this.state;
-
-    return (
-      <SearchFieldContainer isFocus={isFocus}>
-        <InputBox
-          placeholder={defaultLabel}
-          onFocus={() => this.onFocus()}
-          onBlur={() => this.onBlur()}
-          onChange={(event) => this.onLabelChange(event.target.value)}
-        />
-        <SearchButton viewBox="0 0 24 24" onClick={onSearchButtonClick}>
-          <path d="M15.5 14h-.79l-.28-.27a6.51 6.51 0 10-.7.7l.27.28v.79l5 4.99L20.49 19zm-6 0A4.5 4.5 0 1114 9.5 4.494 4.494 0 019.5 14z" />
-        </SearchButton>
-      </SearchFieldContainer>
-    );
-  }
+  return (
+    <SearchFieldContainer isFocus={state.isFocus}>
+      <InputBox
+        placeholder={defaultLabel}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onChange={(event) => onLabelChange(event.target.value)}
+      />
+      <SearchButton viewBox="0 0 24 24" onClick={onSearchButtonClick}>
+        <path d="M15.5 14h-.79l-.28-.27a6.51 6.51 0 10-.7.7l.27.28v.79l5 4.99L20.49 19zm-6 0A4.5 4.5 0 1114 9.5 4.494 4.494 0 019.5 14z" />
+      </SearchButton>
+    </SearchFieldContainer>
+  );
 }

@@ -5,7 +5,6 @@ const Tag = styled.span`
   font-family: 'Muli', 'Noto Sans KR', sans-serif;
   font-weight: bold;
   font-size: 14px;
-  line-height: 24px;
   color: white;
   padding: 4px 8px;
   line-height: 1.5;
