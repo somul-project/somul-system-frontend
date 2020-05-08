@@ -1,9 +1,8 @@
+import React from 'react';
 import styled from 'styled-components';
 import theme from 'theme';
-// eslint-disable-next-line no-unused-vars
-import React, { ReactNode } from 'react';
+
 import {
-  // eslint-disable-next-line no-unused-vars
   EdgeType,
   IBaseButtonContentButton,
   IContentButton,
@@ -57,35 +56,30 @@ const EdgeContentButton = styled(BaseContentButton)`
     props.edge === 'right' ? '10px' : '4px'};
 `;
 
-export default class ContentSwitcher extends React.PureComponent<IContentSwitcher> {
-  render() {
-    const { index, labels } = this.props;
-    const contentButtons: ReactNode[] = [];
+export default function ContentSwitcher({ index, labels }: IContentSwitcher): React.ReactElement {
+  return (
+    <ContentSwitcherContainer>
+      <div className="row">
+        {labels.map((label, i) => {
+          let edge: EdgeType;
 
-    labels.forEach((label, i) => {
-      let edge: EdgeType;
+          if (i === 0) {
+            edge = 'left';
+          } else if (i === labels.length - 1) {
+            edge = 'right';
+          } else {
+            edge = 'none';
+          }
 
-      if (i === 0) {
-        edge = 'left';
-      } else if (i === labels.length - 1) {
-        edge = 'right';
-      } else {
-        edge = 'none';
-      }
-
-      contentButtons.push(
-        <div className="col">
-          <EdgeContentButton edge={edge} active={i === index}>
-            {label}
-          </EdgeContentButton>
-        </div>,
-      );
-    });
-
-    return (
-      <ContentSwitcherContainer>
-        <div className="row">{contentButtons}</div>
-      </ContentSwitcherContainer>
-    );
-  }
+          return (
+            <div key={label} className="col">
+              <EdgeContentButton edge={edge} active={i === index}>
+                {label}
+              </EdgeContentButton>
+            </div>
+          );
+        })}
+      </div>
+    </ContentSwitcherContainer>
+  );
 }

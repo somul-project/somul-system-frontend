@@ -1,7 +1,7 @@
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import React from 'react';
 import theme from 'theme';
-// eslint-disable-next-line no-unused-vars
+
 import {
   ITextArea,
   ITextAreaElement,
@@ -36,53 +36,34 @@ const TextAreaContainer = styled.div`
   display: flex;
 `;
 
-export default class TextArea extends React.PureComponent<ITextArea, ITextAreaElement> {
-  constructor(props: ITextArea) {
-    super(props);
+export default function TextArea(props: ITextArea): React.ReactElement {
+  const { defaultLabel, readOnly = false, height, style, customRef, onValueChange } = props;
 
-    this.state = {
-      isFocus: false,
-    };
-  }
+  const [state, setState] = useState<ITextAreaElement>({ isFocus: false });
 
-  onFocus() {
-    this.setState({
-      isFocus: true,
-    });
-  }
+  const onFocus = () => {
+    setState({ isFocus: true });
+  };
 
-  onBlur() {
-    this.setState({
-      isFocus: false,
-    });
-  }
+  const onBlur = () => {
+    setState({ isFocus: false });
+  };
 
-  onLabelChange(value: string) {
-    const { onValueChange } = this.props;
+  const onLabelChange = (value: string) => {
     onValueChange(value);
-  }
+  };
 
-  render() {
-    const { defaultLabel, readOnly, height, style, customRef } = this.props;
-    const { isFocus } = this.state;
-
-    return (
-      <TextAreaContainer
-        isFocus={isFocus}
-        readOnly={readOnly ?? false}
-        height={height}
-        style={style}
-      >
-        <InputBox
-          placeholder={defaultLabel}
-          isFocus={isFocus}
-          onFocus={() => this.onFocus()}
-          onBlur={() => this.onBlur()}
-          onChange={(event) => this.onLabelChange(event.target.value)}
-          readOnly={readOnly ?? false}
-          ref={customRef}
-        />
-      </TextAreaContainer>
-    );
-  }
+  return (
+    <TextAreaContainer isFocus={state.isFocus} readOnly={readOnly} height={height} style={style}>
+      <InputBox
+        placeholder={defaultLabel}
+        isFocus={state.isFocus}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onChange={(event) => onLabelChange(event.target.value)}
+        readOnly={readOnly}
+        ref={customRef}
+      />
+    </TextAreaContainer>
+  );
 }

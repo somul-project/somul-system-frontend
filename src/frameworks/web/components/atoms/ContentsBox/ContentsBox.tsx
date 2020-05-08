@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-// eslint-disable-next-line no-unused-vars
+
 import { IContentsBox } from 'interfaces/frameworks/web/components/atoms/ContentsBox/IContentsBox';
 
 const ContentsBox = styled.div`
