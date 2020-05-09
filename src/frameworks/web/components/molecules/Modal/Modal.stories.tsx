@@ -23,7 +23,7 @@ const handleModalClose = () => {
   store.set({ isModalOpen: false });
 };
 
-const sampleLongText = `
+const SAMPLE_LONG_TEXT = `
 따뜻한 평화스러운 얼음 심장의 청춘을 사막이다.
 않는 품고 반짝이는 때문이다. 위하여, 싸인 생의 가진 그들의 사막이다.
 얼음이 열락의 목숨이 들어 굳세게 위하여, 내려온 봄날의 대한 이것이다.
@@ -74,7 +74,7 @@ export const EmptyModalExample = () => {
 
 export const TopXButtonModal = () => {
   const title = text('Modal Title', 'Modal Heading');
-  const sampleText = text('Modal Content', sampleLongText);
+  const sampleText = text('Modal Content', SAMPLE_LONG_TEXT);
 
   return (
     <State store={store}>
@@ -97,7 +97,7 @@ export const TopXButtonModal = () => {
 
 export const BottomButtonModal = () => {
   const title = text('Modal Title', 'Modal Heading');
-  const sampleText = text('Modal Content', sampleLongText);
+  const sampleText = text('Modal Content', SAMPLE_LONG_TEXT);
   const extraButtonText = text('Extra Button Text', '오늘 하루 보지 않기');
 
   return (
