@@ -1,6 +1,7 @@
 {
   "files": [
-    "svg.d.ts"
+    "svg.d.ts",
+    "png.d.ts"
   ],
   "extends": "./tsconfig.paths.json",
   "compilerOptions": {
