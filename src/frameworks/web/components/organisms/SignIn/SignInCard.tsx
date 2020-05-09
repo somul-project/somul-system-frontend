@@ -47,7 +47,6 @@ const SingleLine = styled.div`
 `;
 
 const SignButtonContainer = styled.div`
-  margin-top: 24px;
   width: 350px;
   margin: 0 auto;
 `;
@@ -77,13 +76,11 @@ export default class SignInCard extends React.PureComponent<{}, ISignInData> {
   };
 
   googleLogin = () => {
-    const win = window.open(`${SERVER_URL}/auth/google`, '_blank');
-    win!.focus();
+    window.location.href = `${window.location.protocol}//${SERVER_URL}/auth/google`;
   };
 
   githubLogin = () => {
-    const win = window.open(`${SERVER_URL}/auth/github`, '_blank');
-    win!.focus();
+    window.location.href = `${window.location.protocol}//${SERVER_URL}/auth/github`;
   };
 
   render() {
