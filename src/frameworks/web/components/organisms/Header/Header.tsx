@@ -49,14 +49,7 @@ const HeaderSidebarButton = styled.img`
 
 export default function Header(): React.ReactElement {
   //  TODO: GraphQL 연동 필요
-  const [user, setUser] = useState<{ email: string; name: string } | null>(null);
-
-  const handleTest = () => {
-    setUser((prevState) => {
-      if (prevState) return null;
-      return { email: 'shin@gmail.com', name: '신수철' };
-    });
-  };
+  const [user] = useState<{ email: string; name: string } | null>(null);
 
   const handleClickInfo = () => {
     //    TODO
@@ -96,9 +89,7 @@ export default function Header(): React.ReactElement {
               <Visible xl>
                 <HeaderMenuContainer>
                   <a href="#landingAbout" style={{ textDecoration: 'none' }}>
-                    <Label onClick={handleTest} type="H5">
-                      소물이란?
-                    </Label>
+                    <Label type="H5">소물이란?</Label>
                   </a>
                   <Label type="H5" onClick={handleClickInfo}>
                     강연정보
