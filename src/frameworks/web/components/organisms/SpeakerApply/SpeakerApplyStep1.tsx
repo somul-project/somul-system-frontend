@@ -29,9 +29,7 @@ export default class SpeakerApplyStep1 extends React.PureComponent<ISpeakerApply
   introduce: HTMLTextAreaElement | undefined;
 
   render() {
-    const {
-      currentStep, handleChange, name, email, nextStep,
-    } = this.props;
+    const { currentStep, handleChange, name, email, nextStep } = this.props;
     if (currentStep !== 1) {
       return null;
     }
@@ -50,9 +48,15 @@ export default class SpeakerApplyStep1 extends React.PureComponent<ISpeakerApply
           right: (
             <div style={{ margin: '0 95px' }}>
               <TextLabelContainer>
-                <Label type="H5" style={{ marginTop: '14px' }} color={theme.color.secondary.Nickel}>이름</Label>
-                <Label type="H5" style={{ margin: '54px 0' }} color={theme.color.secondary.Nickel}>이메일</Label>
-                <Label type="H5" color={theme.color.secondary.Nickel}>소개</Label>
+                <Label type="H5" style={{ marginTop: '14px' }} color={theme.color.secondary.Nickel}>
+                  이름
+                </Label>
+                <Label type="H5" style={{ margin: '54px 0' }} color={theme.color.secondary.Nickel}>
+                  이메일
+                </Label>
+                <Label type="H5" color={theme.color.secondary.Nickel}>
+                  소개
+                </Label>
               </TextLabelContainer>
               <TextFieldContainer>
                 <TextField
@@ -82,9 +86,21 @@ export default class SpeakerApplyStep1 extends React.PureComponent<ISpeakerApply
                   height={120}
                   style={{ width: 'auto' }}
                 />
-                <Label type="P2" color={theme.color.secondary.Moon} style={{ float: 'right', paddingTop: '8px' }}>※ 강연 당일 리스트에 노출되는 내용입니다.</Label>
+                <Label
+                  type="P2"
+                  color={theme.color.secondary.Moon}
+                  style={{ float: 'right', paddingTop: '8px' }}
+                >
+                  ※ 강연 당일 리스트에 노출되는 내용입니다.
+                </Label>
               </TextFieldContainer>
-              <Button type="default" label="다음" isPrimary={false} onClick={nextStep} style={{ float: 'right' }} />
+              <Button
+                type="default"
+                label="다음"
+                isPrimary={false}
+                onClick={nextStep}
+                style={{ float: 'right' }}
+              />
             </div>
           ),
         }}

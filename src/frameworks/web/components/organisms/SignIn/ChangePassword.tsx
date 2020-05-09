@@ -35,24 +35,35 @@ export default class ChangePassword extends React.PureComponent<{}, IChangeState
   goComplete = () => {
     // eslint-disable-next-line no-undef
     window.location.href = '/signin/change-complete';
-  }
+  };
 
   render() {
+    const { password, rePassword } = this.state;
     return (
-      <SingleCard title="Change Password" buttonLabel={['변경하기']} buttonOnClick={[this.goComplete]}>
+      <SingleCard
+        title="Change Password"
+        buttonLabel={['변경하기']}
+        buttonOnClick={[this.goComplete]}
+      >
         <MiddleContainer>
           <TextLabelContainer>
-            <Label type="H5" color={theme.color.secondary.Moon} style={{ margin: '16px 0 56px 0' }}>새 비밀번호</Label>
-            <Label type="H5" color={theme.color.secondary.Moon}>비밀번호 확인</Label>
+            <Label type="H5" color={theme.color.secondary.Moon} style={{ margin: '16px 0 56px 0' }}>
+              새 비밀번호
+            </Label>
+            <Label type="H5" color={theme.color.secondary.Moon}>
+              비밀번호 확인
+            </Label>
           </TextLabelContainer>
           <TextFieldContainer>
             <TextField
+              value={password}
               defaultLabel="새 비밀번호를 입력하세요"
               onValueChange={(value) => this.setState({ password: value })}
               style={{ width: 'auto', marginBottom: '24px' }}
               type="password"
             />
             <TextField
+              value={rePassword}
               defaultLabel="비밀번호를 다시 한번 입력하세요"
               onValueChange={(value) => this.setState({ rePassword: value })}
               style={{ width: 'auto' }}

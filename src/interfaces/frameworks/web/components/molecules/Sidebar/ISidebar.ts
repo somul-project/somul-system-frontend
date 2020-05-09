@@ -1,3 +1,3 @@
 export interface ISidebar {
-  visible: boolean
+  visible: boolean;
 }

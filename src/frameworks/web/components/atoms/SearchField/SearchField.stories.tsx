@@ -30,7 +30,6 @@ export const DefaultSearchField = () => {
           onSearchButtonClick={() => openAlert(state.searchValue)}
         />,
       ]}
-
     </State>
   );
 };

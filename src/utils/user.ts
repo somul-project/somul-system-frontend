@@ -16,7 +16,13 @@ export class UserService {
     const passwordRegExp = /^(?=.*?[A-Za-z])(?=.*?[0-9])(?=.*[A-Za-z!@#$%^&+=_]).{8,100}$/i;
     const phoneRegExp = /^[0-9]*$/i;
 
-    if (data.email === '' || data.name === '' || data.password === '' || data.phone === '' || data.rePassword === '') {
+    if (
+      data.email === '' ||
+      data.name === '' ||
+      data.password === '' ||
+      data.phone === '' ||
+      data.rePassword === ''
+    ) {
       return '모든 칸을 입력해야 합니다.';
     }
     if (data.isPrivacyChecked === false) {
@@ -35,7 +41,7 @@ export class UserService {
       return '비밀번호가 일치하지 않습니다.';
     }
     return true;
-  }
+  };
 
   /**
    * 회원 가입 데이터를 서버에 보내 저장합니다.
@@ -50,7 +56,7 @@ export class UserService {
       password: data.password,
     });
     return result.data.statusCode;
-  }
+  };
 
   /**
    * 회원 로그인 데이터에 잘못된 값이 들어있는지 검사합니다.
@@ -62,7 +68,7 @@ export class UserService {
       return '모든 칸을 입력해야 합니다.';
     }
     return true;
-  }
+  };
 
   /**
    * 회원 로그인 데이터를 서버에 보냅니다.
@@ -75,7 +81,7 @@ export class UserService {
       password: data.password,
     });
     return result.data.statusCode;
-  }
+  };
 
   /**
    * 이메일 인증 메일 재전송을 요청합니다.
@@ -84,14 +90,14 @@ export class UserService {
   public static requestResendEmail = async () => {
     const result: AxiosResponse<IServerResponse> = await axios.get(`${SERVER_URL}/auth/resend`);
     return result.data.statusCode;
-  }
+  };
 
   public static requestForgotCheck = async (data: IForgotState) => {
     const result: AxiosResponse<IServerResponse> = await axios.post(`${SERVER_URL}/auth/login`, {
       email: data.email,
     });
     return result.data.statusCode;
-  }
+  };
 }
 
 export default UserService;

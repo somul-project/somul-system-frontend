@@ -2,7 +2,10 @@ import styled from 'styled-components';
 import theme from 'theme';
 import React from 'react';
 // eslint-disable-next-line no-unused-vars
-import { INavBar, INavBarState } from 'interfaces/frameworks/web/components/molecules/NavigationBar/INavigationBar';
+import {
+  INavBar,
+  INavBarState,
+} from 'interfaces/frameworks/web/components/molecules/NavigationBar/INavigationBar';
 import { SERVER_URL } from 'utils/constants';
 import Label from 'frameworks/web/components/atoms/Label/Label';
 
@@ -18,7 +21,8 @@ const MenuButtonContainer = styled.div`
   border-radius: 8px;
   margin-left: 115px;
   padding: 12px 8px 12px 16px;
-  background-color: ${(props: INavBarState) => (props.isEnable ? theme.color.secondary.Snow : 'none')};
+  background-color: ${(props: INavBarState) =>
+    props.isEnable ? theme.color.secondary.Snow : 'none'};
   display: flex;
   justify-content: space-between;
 
@@ -33,7 +37,7 @@ const MenuDropdownContainer = styled.div`
   cursor: pointer;
   display: ${(props: INavBarState) => (props.isEnable ? 'block' : 'none')};
   position: absolute;
-  background-image: url("etc/dropdown-box.svg");
+  background-image: url('etc/dropdown-box.svg');
   background-size: 255px 250px;
   width: 255px;
   height: 250px;
@@ -118,8 +122,14 @@ export default class NavigationBar extends React.PureComponent<INavBar, INavBarS
       <NavContainer>
         <MenuButtonContainer isEnable={isEnable} onClick={() => this.onMenuButtonClick()}>
           <img src="icon/person.svg" alt="회원 아이콘" style={{ width: '24px', height: '24px' }} />
-          <Label type="H5" style={{ width: '52px', textAlign: 'left' }}>{name}</Label>
-          <img src="icon/arrow-down.svg" alt="화살표 아이콘" style={{ width: '24px', height: '24px' }} />
+          <Label type="H5" style={{ width: '52px', textAlign: 'left' }}>
+            {name}
+          </Label>
+          <img
+            src="icon/arrow-down.svg"
+            alt="화살표 아이콘"
+            style={{ width: '24px', height: '24px' }}
+          />
         </MenuButtonContainer>
         <MenuDropdownContainer isEnable={isEnable}>
           <InfoContainer>
@@ -127,7 +137,9 @@ export default class NavigationBar extends React.PureComponent<INavBar, INavBarS
               <Label type="H5">{name}</Label>
               <Label type="P2">님</Label>
             </div>
-            <Label type="P1" color={theme.color.secondary.Moon}>{email}</Label>
+            <Label type="P1" color={theme.color.secondary.Moon}>
+              {email}
+            </Label>
           </InfoContainer>
           <MenuContainer>
             <MenuElementContainer onClick={this.notYetAlert}>
@@ -138,7 +150,9 @@ export default class NavigationBar extends React.PureComponent<INavBar, INavBarS
             </MenuElementContainer>
             <a href={`${SERVER_URL}/auth/logout`} style={{ textDecoration: 'none' }}>
               <MenuElementContainer>
-                <Label type="P1" color={theme.color.secondary.Moon}>로그아웃</Label>
+                <Label type="P1" color={theme.color.secondary.Moon}>
+                  로그아웃
+                </Label>
               </MenuElementContainer>
             </a>
           </MenuContainer>

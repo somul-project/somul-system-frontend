@@ -18,8 +18,8 @@ export interface IReducer {
 }
 
 export default interface ISessionActions {
-  login(id: string, pw: string): Promise<ILoginAction>
-  getToken(): string
-  setToken(token: string): ILoginAction
-  removeToken(): ILoginAction
-};
+  login(id: string, pw: string): Promise<ILoginAction>;
+  getToken(): string;
+  setToken(token: string): ILoginAction;
+  removeToken(): ILoginAction;
+}

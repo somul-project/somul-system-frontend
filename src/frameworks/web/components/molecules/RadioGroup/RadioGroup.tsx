@@ -18,9 +18,7 @@ const RadioGroupContainer = styled.div`
 export default class RadioGroup extends React.PureComponent<IRadioGroup> {
   render() {
     const radioElements: ReactNode[] = [];
-    const {
-      id, data, onDataSelectChange, disabled,
-    } = this.props;
+    const { id, data, onDataSelectChange, disabled } = this.props;
 
     data.forEach((d, i) => {
       let edge: edgeType;
@@ -45,10 +43,6 @@ export default class RadioGroup extends React.PureComponent<IRadioGroup> {
       );
     });
 
-    return (
-      <RadioGroupContainer>
-        {radioElements}
-      </RadioGroupContainer>
-    );
+    return <RadioGroupContainer>{radioElements}</RadioGroupContainer>;
   }
 }

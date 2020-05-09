@@ -1,7 +1,7 @@
+import React from 'react';
 import styled from 'styled-components';
 import theme from 'theme';
-import React from 'react';
-// eslint-disable-next-line no-unused-vars
+
 import { ILabel, ILabelMark } from 'interfaces/frameworks/web/components/atoms/Label/ILabel';
 
 const BaseLabel = styled.p`
@@ -89,14 +89,14 @@ const MobileLabelP2 = styled(BaseLabel)`
 `;
 
 const LabelMark = styled.mark`
-  ${(props: ILabelMark) => ((props.mark === 'underline') ? 'display: inline-block;' : '')}
-  line-height: ${(props: ILabelMark) => ((props.mark === 'full') ? -1 : 0)}em;
+  line-height: ${(props: ILabelMark) => (props.mark === 'full' ? -1 : 0)}em;
   padding-left: 10px;
   padding-right: 10px;
-  padding-bottom: ${(props: ILabelMark) => ((props.mark === 'full') ? 0 : 0.7)}em;
+  padding-bottom: ${(props: ILabelMark) => (props.mark === 'full' ? 0 : 0.7)}em;
   border-radius: 1em;
   background-color: ${(props: ILabelMark) => props.markColor ?? theme.color.alert.Warning};
   box-decoration-break: clone;
+  ${(props: ILabelMark) => (props.mark === 'underline' ? 'display: inline-block;' : '')}
 `;
 
 const LABEL = {
@@ -116,26 +116,28 @@ const LABEL = {
   MobileP2: MobileLabelP2,
 };
 
-export default class Label extends React.PureComponent<ILabel> {
-  render() {
-    const {
-      type, mark, markColor, children, onClick, color, style,
-    } = this.props;
-    let label = children;
-    const LabelComponent = LABEL[type ?? 'P1'];
+export default function Label({
+  type = 'P1',
+  mark,
+  markColor,
+  onClick,
+  color,
+  style,
+  children = null,
+}: ILabel): React.ReactElement {
+  let label = children;
+  const LabelComponent = LABEL[type];
 
-    if (typeof mark !== 'undefined' && mark !== 'none') {
-      label = <LabelMark mark={mark} markColor={markColor}>{label}</LabelMark>;
-    }
-    return (
-      <LabelComponent
-        onClick={onClick}
-        color={color}
-        mark={mark}
-        style={style}
-      >
+  if (typeof mark !== 'undefined' && mark !== 'none') {
+    label = (
+      <LabelMark mark={mark} markColor={markColor}>
         {label}
-      </LabelComponent>
+      </LabelMark>
     );
   }
+  return (
+    <LabelComponent onClick={onClick} color={color} mark={mark} style={style}>
+      {label}
+    </LabelComponent>
+  );
 }

@@ -4,11 +4,12 @@ export class FormService {
       // eslint-disable-next-line no-alert, no-undef
       alert(`제한 글자수 ${len}자를 초과했습니다.`);
       const cutStr = form.value.substr(0, len);
+      // eslint-disable-next-line no-param-reassign
       form.value = cutStr;
       return false;
     }
     return true;
-  }
+  };
 }
 
 export default FormService;

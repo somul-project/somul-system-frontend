@@ -1,4 +1,4 @@
 export interface IChangeState {
-  password: string
-  rePassword: string
+  password: string;
+  rePassword: string;
 }

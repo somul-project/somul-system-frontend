@@ -1,13 +1,13 @@
+import React from 'react';
 import styled from 'styled-components';
 import theme from 'theme';
-import React from 'react';
-// eslint-disable-next-line no-unused-vars
-import { IBaseButton, IButton } from 'interfaces/frameworks/web/components/atoms/Button/IButton';
 
+import { IBaseButton, IButton } from 'interfaces/frameworks/web/components/atoms/Button/IButton';
 
 const BaseButton = styled.button`
   font-family: 'Muli', 'Noto Sans KR', sans-serif;
-  background-color: ${(props: IBaseButton) => (props.isPrimary ? theme.color.primary.Scarlet : theme.color.primary.Black)};
+  background-color: ${(props: IBaseButton) =>
+    props.isPrimary ? theme.color.primary.Scarlet : theme.color.primary.Black};
   color: ${theme.color.primary.White} !important;
   border: none;
   outline: none;
@@ -18,7 +18,8 @@ const BaseButton = styled.button`
 
   @media (hover: hover) {
     &:hover {
-      background-color: ${(props: IBaseButton) => (props.isPrimary ? theme.color.primary.Salmon : theme.color.secondary.Nickel)};
+      background-color: ${(props: IBaseButton) =>
+        props.isPrimary ? theme.color.primary.Salmon : theme.color.secondary.Nickel};
     }
   }
 `;
@@ -65,22 +66,17 @@ const BUTTONS = {
   mobilewide: MobileWideButton,
 };
 
-export default class Button extends React.PureComponent<IButton> {
-  render() {
-    const {
-      type, label, isPrimary, onClick, style,
-    } = this.props;
-
-    const ButtonComponent = BUTTONS[type ?? 'default'];
-
-    return (
-      <ButtonComponent
-        isPrimary={isPrimary}
-        onClick={onClick}
-        style={style}
-      >
-        {label}
-      </ButtonComponent>
-    );
-  }
+export default function Button({
+  type = 'default',
+  label,
+  isPrimary = false,
+  onClick = null,
+  style,
+}: IButton): React.ReactElement {
+  const ButtonComponent = BUTTONS[type];
+  return (
+    <ButtonComponent isPrimary={isPrimary} onClick={onClick} style={style}>
+      {label}
+    </ButtonComponent>
+  );
 }

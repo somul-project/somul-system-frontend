@@ -1,3 +1,3 @@
 export interface IForgotState {
-  email: string
+  email: string;
 }

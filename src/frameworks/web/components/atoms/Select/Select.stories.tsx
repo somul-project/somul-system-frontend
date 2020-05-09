@@ -12,12 +12,7 @@ export const TwoElementsSelect = () => {
   const label1 = text('First Select Element', '네');
   const label2 = text('Second Select Element', '아니요');
 
-  return (
-    <Select
-      labels={[label1, label2]}
-      onElementClick={(clickedNum: number) => (clickedNum)}
-    />
-  );
+  return <Select labels={[label1, label2]} onElementClick={(clickedNum: number) => clickedNum} />;
 };
 
 export const ThreeElementsSelect = () => {
@@ -26,10 +21,7 @@ export const ThreeElementsSelect = () => {
   const label3 = text('Third Select Element', '3');
 
   return (
-    <Select
-      labels={[label1, label2, label3]}
-      onElementClick={(clickedNum: number) => (clickedNum)}
-    />
+    <Select labels={[label1, label2, label3]} onElementClick={(clickedNum: number) => clickedNum} />
   );
 };
 

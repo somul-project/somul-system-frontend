@@ -51,7 +51,9 @@ describe('user utils', () => {
         rePassword: 'test',
         isPrivacyChecked: false,
       };
-      expect(UserService.signUpValidationCheck(privacyFalseData)).toEqual('개인정보처리방침 동의가 필요합니다.');
+      expect(UserService.signUpValidationCheck(privacyFalseData)).toEqual(
+        '개인정보처리방침 동의가 필요합니다.',
+      );
     });
     it('gets wrong email signup data', () => {
       const notAtMarkEmailData = {
@@ -62,7 +64,9 @@ describe('user utils', () => {
         rePassword: 'test',
         isPrivacyChecked: true,
       };
-      expect(UserService.signUpValidationCheck(notAtMarkEmailData)).toEqual('이메일 형식이 올바르지 않습니다.');
+      expect(UserService.signUpValidationCheck(notAtMarkEmailData)).toEqual(
+        '이메일 형식이 올바르지 않습니다.',
+      );
       const notDotEmailData = {
         name: '박성우',
         email: 'test@somul',
@@ -71,7 +75,9 @@ describe('user utils', () => {
         rePassword: 'test',
         isPrivacyChecked: true,
       };
-      expect(UserService.signUpValidationCheck(notDotEmailData)).toEqual('이메일 형식이 올바르지 않습니다.');
+      expect(UserService.signUpValidationCheck(notDotEmailData)).toEqual(
+        '이메일 형식이 올바르지 않습니다.',
+      );
     });
     it('gets wrong phone signup data', () => {
       const dashPhoneData = {
@@ -82,7 +88,9 @@ describe('user utils', () => {
         rePassword: 'test',
         isPrivacyChecked: true,
       };
-      expect(UserService.signUpValidationCheck(dashPhoneData)).toEqual('휴대폰 번호 형식이 올바르지 않습니다.');
+      expect(UserService.signUpValidationCheck(dashPhoneData)).toEqual(
+        '휴대폰 번호 형식이 올바르지 않습니다.',
+      );
       const shortPhoneData = {
         name: '박성우',
         email: 'test@somul.kr',
@@ -91,7 +99,9 @@ describe('user utils', () => {
         rePassword: 'test',
         isPrivacyChecked: true,
       };
-      expect(UserService.signUpValidationCheck(shortPhoneData)).toEqual('휴대폰 번호 형식이 올바르지 않습니다.');
+      expect(UserService.signUpValidationCheck(shortPhoneData)).toEqual(
+        '휴대폰 번호 형식이 올바르지 않습니다.',
+      );
     });
     it('gets wrong password signup data', () => {
       const shortPasswordData = {
@@ -102,7 +112,9 @@ describe('user utils', () => {
         rePassword: 'test',
         isPrivacyChecked: true,
       };
-      expect(UserService.signUpValidationCheck(shortPasswordData)).toEqual('비밀번호 형식이 올바르지 않습니다.');
+      expect(UserService.signUpValidationCheck(shortPasswordData)).toEqual(
+        '비밀번호 형식이 올바르지 않습니다.',
+      );
       const onlyEngPasswordData = {
         name: '박성우',
         email: 'test@somul.kr',
@@ -111,7 +123,9 @@ describe('user utils', () => {
         rePassword: 'testtest',
         isPrivacyChecked: true,
       };
-      expect(UserService.signUpValidationCheck(onlyEngPasswordData)).toEqual('비밀번호 형식이 올바르지 않습니다.');
+      expect(UserService.signUpValidationCheck(onlyEngPasswordData)).toEqual(
+        '비밀번호 형식이 올바르지 않습니다.',
+      );
       const onlyNumPasswordData = {
         name: '박성우',
         email: 'test@somul.kr',
@@ -120,7 +134,9 @@ describe('user utils', () => {
         rePassword: '11111111',
         isPrivacyChecked: true,
       };
-      expect(UserService.signUpValidationCheck(onlyNumPasswordData)).toEqual('비밀번호 형식이 올바르지 않습니다.');
+      expect(UserService.signUpValidationCheck(onlyNumPasswordData)).toEqual(
+        '비밀번호 형식이 올바르지 않습니다.',
+      );
     });
     it('gets password different signup data', () => {
       const differentPasswordData = {
@@ -131,7 +147,9 @@ describe('user utils', () => {
         rePassword: 'testtest12',
         isPrivacyChecked: true,
       };
-      expect(UserService.signUpValidationCheck(differentPasswordData)).toEqual('비밀번호가 일치하지 않습니다.');
+      expect(UserService.signUpValidationCheck(differentPasswordData)).toEqual(
+        '비밀번호가 일치하지 않습니다.',
+      );
     });
   });
 
@@ -177,12 +195,16 @@ describe('user utils', () => {
         email: '',
         password: 'asdfasdf11',
       };
-      expect(UserService.signInValidationCheck(emptyEmailData)).toEqual('모든 칸을 입력해야 합니다.');
+      expect(UserService.signInValidationCheck(emptyEmailData)).toEqual(
+        '모든 칸을 입력해야 합니다.',
+      );
       const emptyPasswordData = {
         email: 'test@somul.kr',
         password: '',
       };
-      expect(UserService.signInValidationCheck(emptyPasswordData)).toEqual('모든 칸을 입력해야 합니다.');
+      expect(UserService.signInValidationCheck(emptyPasswordData)).toEqual(
+        '모든 칸을 입력해야 합니다.',
+      );
     });
   });
 

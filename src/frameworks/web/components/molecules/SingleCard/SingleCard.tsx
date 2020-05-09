@@ -32,9 +32,7 @@ const EachButtonContainer = styled.div`
 
 export default class SingleCard extends React.PureComponent<ISingleCard> {
   render() {
-    const {
-      title, children, buttonLabel, buttonOnClick,
-    } = this.props;
+    const { title, children, buttonLabel, buttonOnClick } = this.props;
     const buttonElements: ReactNode[] = [];
 
     buttonLabel.forEach((l, i) => {
@@ -47,13 +45,11 @@ export default class SingleCard extends React.PureComponent<ISingleCard> {
     });
     return (
       <CardContainer isDarkBackground={false}>
-        <Label type="H4" color={theme.color.primary.Azure}>{title}</Label>
-        <ContextContainer>
-          {children}
-        </ContextContainer>
-        <ButtonContainer>
-          {buttonElements}
-        </ButtonContainer>
+        <Label type="H4" color={theme.color.primary.Azure}>
+          {title}
+        </Label>
+        <ContextContainer>{children}</ContextContainer>
+        <ButtonContainer>{buttonElements}</ButtonContainer>
       </CardContainer>
     );
   }
