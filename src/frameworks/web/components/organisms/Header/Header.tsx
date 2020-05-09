@@ -16,6 +16,7 @@ const HeaderContainer = styled.div`
   width: 100%;
   z-index: 2;
   background-color: white;
+  box-shadow: 0 1px 0 rgba(12, 13, 14, 0.15);
 `;
 
 const HeaderMenuContainer = styled.div`
