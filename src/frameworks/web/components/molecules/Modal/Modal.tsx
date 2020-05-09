@@ -87,7 +87,7 @@ export default function Modal({
     case 'bottom-button':
       // eslint-disable-next-line no-case-declarations
       const buttonElements: ReactNode[] = [];
-      if (buttonLabel !== undefined) {
+      if (buttonLabel) {
         buttonElements.push(
           <EachButtonContainer>
             <Button label={buttonLabel!} type="field" onClick={buttonOnClick!} />
