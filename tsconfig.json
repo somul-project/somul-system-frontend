@@ -1,4 +1,7 @@
 {
+  "files": [
+    "png.d.ts"
+  ],
   "compilerOptions": {
     "target": "es5",
     "lib": [
