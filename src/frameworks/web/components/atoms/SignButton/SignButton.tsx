@@ -7,6 +7,10 @@ import {
   ISignButtonElement,
 } from 'interfaces/frameworks/web/components/atoms/SignButton/ISignButton';
 
+import GoogleLogo from 'assets/logo/google.svg';
+import GithubLogo from 'assets/logo/github.svg';
+import EmailLogo from 'assets/logo/email.svg';
+
 const SignButtonContainer = styled.div`
   background-color: ${(props: ISignButtonElement) => {
     if (props.siteType === 'github') {
@@ -49,18 +53,22 @@ export default class SignButton extends React.PureComponent<ISignButton> {
   render() {
     const { buttonType, siteType, onClick } = this.props;
 
+    let logo;
     let siteString: string;
     if (siteType === 'google') {
       siteString = 'Google';
+      logo = GoogleLogo;
     } else if (siteType === 'github') {
       siteString = 'Github';
+      logo = GithubLogo;
     } else {
       siteString = '이메일';
+      logo = EmailLogo;
     }
 
     return (
       <SignButtonContainer onClick={() => onClick()} siteType={siteType}>
-        <SignButtonImg src={`logo/${siteType}.svg`} siteType={siteType} />
+        <SignButtonImg src={logo} siteType={siteType} />
         <SignButtonLabel>
           {siteString}
           {siteType === 'email' ? '로' : ' 계정으로'}{' '}

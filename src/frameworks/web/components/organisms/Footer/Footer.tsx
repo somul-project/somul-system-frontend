@@ -4,6 +4,10 @@ import Label from 'frameworks/web/components/atoms/Label/Label';
 import theme from 'theme';
 import { Row, Col, Visible, Hidden } from 'react-grid-system';
 
+import FacebookLogo from 'assets/logo/facebook-footer.svg';
+import GithubLogo from 'assets/logo/github-footer.svg';
+import CodeclubLogo from 'assets/logo/codeclub.svg';
+
 const MaxContainer = styled.div`
   max-width: 1280px;
   margin: 0 auto;
@@ -28,7 +32,6 @@ const CodeClubLogo = styled.img`
 
 const FooterCenterContainer = styled.div`
   width: 100%;
-  height: ;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,13 +57,13 @@ export default class Footer extends React.PureComponent {
                 <Col lg={6}>
                   <div style={{ float: 'right', marginLeft: '230px' }}>
                     <a href="https://www.facebook.com/groups/may.somul/">
-                      <FooterSNSLogo src="logo/facebook-footer.svg" alt="footer facebook icon" />
+                      <FooterSNSLogo src={FacebookLogo} alt="footer facebook icon" />
                     </a>
                     <a href="https://github.com/somul-project">
-                      <FooterSNSLogo src="logo/github-footer.svg" alt="footer github icon" />
+                      <FooterSNSLogo src={GithubLogo} alt="footer github icon" />
                     </a>
                     <a href="https://codeclubkorea.org">
-                      <CodeClubLogo src="logo/codeclub.svg" alt="footer code-club icon" />
+                      <CodeClubLogo src={CodeclubLogo} alt="footer code-club icon" />
                     </a>
                   </div>
                   <Label type="P2" color={theme.color.secondary.Moon} style={{ float: 'right' }}>
@@ -73,13 +76,13 @@ export default class Footer extends React.PureComponent {
               <FooterCenterContainer>
                 <div>
                   <a href="https://www.facebook.com/groups/may.somul/">
-                    <FooterSNSLogo src="logo/facebook-footer.svg" alt="footer facebook icon" />
+                    <FooterSNSLogo src={FacebookLogo} alt="footer facebook icon" />
                   </a>
                   <a href="https://github.com/somul-project">
-                    <FooterSNSLogo src="logo/github-footer.svg" alt="footer github icon" />
+                    <FooterSNSLogo src={GithubLogo} alt="footer github icon" />
                   </a>
                   <a href="https://codeclubkorea.org">
-                    <CodeClubLogo src="logo/codeclub.svg" alt="footer code-club icon" />
+                    <CodeClubLogo src={CodeClubLogo} alt="footer code-club icon" />
                   </a>
                 </div>
                 <Label
