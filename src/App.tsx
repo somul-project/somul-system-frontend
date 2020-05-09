@@ -8,6 +8,7 @@ import SignIn from 'frameworks/web/components/pages/SignIn/SignIn';
 import SignUp from 'frameworks/web/components/pages/SignUp/SignUp';
 import Footer from 'frameworks/web/components/organisms/Footer/Footer';
 import SpeakerApply from 'frameworks/web/components/pages/SpeakerApply/SpeakerApply';
+import StatusPage from 'frameworks/web/components/pages/StatusPage/StatusPage';
 
 import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
@@ -25,6 +26,7 @@ function App() {
             path="/apply/speaker"
             render={() => <SpeakerApply email="test@somul.kr" name="테스트" />}
           />
+          <Route path="/status" component={StatusPage} />
         </Switch>
         <Footer />
       </Router>
