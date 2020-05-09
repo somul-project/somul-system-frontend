@@ -1,11 +1,22 @@
 {
   "env": {
+    "browser": true,
     "jest": true
   },
-  "extends": ["airbnb"],
-  "plugins": ["@typescript-eslint"],
+  "extends": [
+    "airbnb",
+    "plugin:prettier/recommended",
+    "plugin:json/recommended",
+    "prettier/react"
+  ],
+  "plugins": [
+    "@typescript-eslint",
+    "react",
+    "react-hooks",
+    "prettier"],
   "parser": "@typescript-eslint/parser",
   "rules": {
+    "prettier/prettier": "error",
     "import/no-unresolved": 0,
     "import/extensions": [0, "ignorePackages"],
     "import/no-extraneous-dependencies": [0, "ignorePackages"],
