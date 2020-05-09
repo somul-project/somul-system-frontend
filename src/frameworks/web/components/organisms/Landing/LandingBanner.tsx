@@ -1,11 +1,10 @@
 import React from 'react';
-// eslint-disable-next-line no-unused-vars
 import styled, { StyledComponent } from 'styled-components';
+import { Row, Col, Visible, Hidden, ScreenClassRender } from 'react-grid-system';
+
 import theme from 'theme';
 import Label from 'frameworks/web/components/atoms/Label/Label';
 import Button from 'frameworks/web/components/atoms/Button/Button';
-import { Row, Col, Visible, Hidden, ScreenClassRender } from 'react-grid-system';
-
 import { ILandingContainer } from 'interfaces/frameworks/web/components/organisms/LandingBanner/ILandingBanner';
 
 const BannerContainer = styled.div`
