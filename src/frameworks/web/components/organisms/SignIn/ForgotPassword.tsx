@@ -17,14 +17,22 @@ export default class ForgotPassword extends React.PureComponent<{}, IForgotState
   goComplete = () => {
     // eslint-disable-next-line no-undef
     window.location.href = '/signin/forgot-complete';
-  }
+  };
 
   render() {
+    const { email } = this.state;
     return (
-      <SingleCard title="Forgot Password?" buttonLabel={['전송하기']} buttonOnClick={[this.goComplete]}>
-        <Label type="H5" color={theme.color.secondary.Nickel}>가입된 이메일을 입력하세요.</Label>
+      <SingleCard
+        title="Forgot Password?"
+        buttonLabel={['전송하기']}
+        buttonOnClick={[this.goComplete]}
+      >
+        <Label type="H5" color={theme.color.secondary.Nickel}>
+          가입된 이메일을 입력하세요.
+        </Label>
         <div style={{ width: '350px', margin: '24px auto 0 auto' }}>
           <TextField
+            value={email}
             defaultLabel=""
             onValueChange={(value) => this.setState({ email: value })}
             style={{ width: 'auto' }}

@@ -22,11 +22,7 @@ export const SimpleTextDividedCard = () => {
             {leftLabel}
           </Label>
         ),
-        right: (
-          <Label type="P1">
-            {rightLabel}
-          </Label>
-        ),
+        right: <Label type="P1">{rightLabel}</Label>,
       }}
     </DividedCard>
   );
@@ -34,8 +30,6 @@ export const SimpleTextDividedCard = () => {
 
 SimpleTextDividedCard.story = {
   parameters: {
-    backgrounds: [
-      { name: 'Snow', value: theme.color.secondary.Snow, default: true },
-    ],
+    backgrounds: [{ name: 'Snow', value: theme.color.secondary.Snow, default: true }],
   },
 };

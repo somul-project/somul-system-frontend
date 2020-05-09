@@ -2,7 +2,10 @@ import styled from 'styled-components';
 import React from 'react';
 import theme from 'theme';
 // eslint-disable-next-line no-unused-vars
-import { ITextField, ITextFieldElement } from 'interfaces/frameworks/web/components/atoms/TextField/ITextField';
+import {
+  ITextField,
+  ITextFieldElement,
+} from 'interfaces/frameworks/web/components/atoms/TextField/ITextField';
 
 const InputBoxBase = styled.input`
   font-family: 'Muli', 'Noto Sans KR', sans-serif;
@@ -15,7 +18,8 @@ const InputBoxBase = styled.input`
 `;
 
 const InputBoxActivate = styled(InputBoxBase)`
-  background-color: ${(props: ITextFieldElement) => (props.isFocus ? theme.color.primary.White : theme.color.secondary.Snow)};
+  background-color: ${(props: ITextFieldElement) =>
+    props.isFocus ? theme.color.primary.White : theme.color.secondary.Snow};
   margin: ${(props: ITextFieldElement) => (props.isFocus ? '0 22px' : '0 24px')};
 `;
 
@@ -33,9 +37,10 @@ const TextFieldContainerBase = styled.div`
 `;
 
 const TextFieldContainerActivate = styled(TextFieldContainerBase)`
-  border: ${(props: ITextFieldElement) => (props.isFocus ? `2px solid ${theme.color.primary.Azure}` : '0')};
-  background-color:
-    ${(props: ITextFieldElement) => (props.isFocus ? theme.color.primary.White : theme.color.secondary.Snow)};
+  border: ${(props: ITextFieldElement) =>
+    props.isFocus ? `2px solid ${theme.color.primary.Azure}` : '0'};
+  background-color: ${(props: ITextFieldElement) =>
+    props.isFocus ? theme.color.primary.White : theme.color.secondary.Snow};
 `;
 
 const TextFieldContainerDeactivate = styled(TextFieldContainerBase)`
@@ -78,19 +83,22 @@ export default class TextField extends React.PureComponent<ITextField, ITextFiel
 
   render() {
     const {
-      defaultLabel, style, type, readOnly, value, isButton, buttonSrc, onButtonClicked, customRef,
+      defaultLabel,
+      style,
+      type,
+      readOnly,
+      value,
+      isButton,
+      buttonSrc,
+      onButtonClicked,
+      customRef,
     } = this.props;
     const { isFocus } = this.state;
 
     if (readOnly === true) {
       return (
         <TextFieldContainerDeactivate style={style}>
-          <InputBoxDeactivate
-            type={type ?? 'text'}
-            placeholder={value}
-            value={value}
-            readOnly
-          />
+          <InputBoxDeactivate type={type ?? 'text'} placeholder={value} value={value} readOnly />
         </TextFieldContainerDeactivate>
       );
     }

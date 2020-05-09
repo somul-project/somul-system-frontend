@@ -2,9 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Label from 'frameworks/web/components/atoms/Label/Label';
 import theme from 'theme';
-import {
-  Row, Col, Visible, Hidden,
-} from 'react-grid-system';
+import { Row, Col, Visible, Hidden } from 'react-grid-system';
 
 const MaxContainer = styled.div`
   max-width: 1280px;
@@ -46,8 +44,12 @@ export default class Footer extends React.PureComponent {
             <Visible lg xl>
               <Row align="center" justify="between" style={{ height: '100%', margin: '0' }}>
                 <Col md={4}>
-                  <Label type="H5" color={theme.color.secondary.Moon}>소프트웨어에 물들다</Label>
-                  <Label type="P2" color={theme.color.secondary.Moon}>Colored in Software</Label>
+                  <Label type="H5" color={theme.color.secondary.Moon}>
+                    소프트웨어에 물들다
+                  </Label>
+                  <Label type="P2" color={theme.color.secondary.Moon}>
+                    Colored in Software
+                  </Label>
                 </Col>
                 <Col lg={6}>
                   <div style={{ float: 'right', marginLeft: '230px' }}>
@@ -80,7 +82,11 @@ export default class Footer extends React.PureComponent {
                     <CodeClubLogo src="logo/codeclub.svg" alt="footer code-club icon" />
                   </a>
                 </div>
-                <Label type="MobileP2" color={theme.color.secondary.Moon} style={{ marginTop: '8px', textAlign: 'center' }}>
+                <Label
+                  type="MobileP2"
+                  color={theme.color.secondary.Moon}
+                  style={{ marginTop: '8px', textAlign: 'center' }}
+                >
                   Copyright © 2020 Colored by Software, All rights reserved.
                 </Label>
               </FooterCenterContainer>

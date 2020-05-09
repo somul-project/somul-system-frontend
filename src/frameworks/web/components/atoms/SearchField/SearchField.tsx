@@ -3,7 +3,9 @@ import React from 'react';
 import theme from 'theme';
 import {
   // eslint-disable-next-line no-unused-vars
-  _ISearchFieldContainer, ISearchField, ISearchFieldState,
+  _ISearchFieldContainer,
+  ISearchField,
+  ISearchFieldState,
 } from 'interfaces/frameworks/web/components/atoms/SearchField/ISearchField';
 
 const InputBox = styled.input`
@@ -19,15 +21,16 @@ const InputBox = styled.input`
 `;
 
 const SearchFieldContainer = styled.div`
-   width: 350px;
-   height: 56px;
-   border: 1px solid ${(props: _ISearchFieldContainer) => (props.isFocus
-    ? theme.color.primary.Azure : theme.color.secondary.Moon)};
-   border-radius: 10px;
-   display: flex;
-   flex-direction: row;
-   justify-content: space-between;
-   align-items: center;
+  width: 350px;
+  height: 56px;
+  border: 1px solid
+    ${(props: _ISearchFieldContainer) =>
+      props.isFocus ? theme.color.primary.Azure : theme.color.secondary.Moon};
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const SearchButton = styled.svg`
@@ -52,7 +55,6 @@ export default class SearchField extends React.PureComponent<ISearchField, ISear
     });
   }
 
-
   onBlur() {
     this.setState({
       isFocus: false,
@@ -76,10 +78,7 @@ export default class SearchField extends React.PureComponent<ISearchField, ISear
           onBlur={() => this.onBlur()}
           onChange={(event) => this.onLabelChange(event.target.value)}
         />
-        <SearchButton
-          viewBox="0 0 24 24"
-          onClick={onSearchButtonClick}
-        >
+        <SearchButton viewBox="0 0 24 24" onClick={onSearchButtonClick}>
           <path d="M15.5 14h-.79l-.28-.27a6.51 6.51 0 10-.7.7l.27.28v.79l5 4.99L20.49 19zm-6 0A4.5 4.5 0 1114 9.5 4.494 4.494 0 019.5 14z" />
         </SearchButton>
       </SearchFieldContainer>

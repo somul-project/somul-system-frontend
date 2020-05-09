@@ -5,7 +5,10 @@ import theme from 'theme';
 import ContentsBox from 'frameworks/web/components/atoms/ContentsBox/ContentsBox';
 import Label from 'frameworks/web/components/atoms/Label/Label';
 // eslint-disable-next-line no-unused-vars
-import { IDividedCard, IDividedCardLeft } from 'interfaces/frameworks/web/components/molecules/DividedCard/IDividedCard';
+import {
+  IDividedCard,
+  IDividedCardLeft,
+} from 'interfaces/frameworks/web/components/molecules/DividedCard/IDividedCard';
 
 const CardContainer = styled(ContentsBox)`
   width: 1100px;
@@ -37,12 +40,12 @@ export default class DividedCard extends React.PureComponent<IDividedCard> {
     return (
       <CardContainer isDarkBackground={false}>
         <LeftContainer leftPadding={leftPadding}>
-          <Label type="H4" color={theme.color.primary.White}>{title}</Label>
+          <Label type="H4" color={theme.color.primary.White}>
+            {title}
+          </Label>
           {left}
         </LeftContainer>
-        <RightContainer>
-          {right}
-        </RightContainer>
+        <RightContainer>{right}</RightContainer>
       </CardContainer>
     );
   }

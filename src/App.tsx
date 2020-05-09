@@ -21,7 +21,10 @@ function App() {
           <Route exact path="/" component={Landing} />
           <Route path="/signin" component={SignIn} />
           <Route path="/signup" component={SignUp} />
-          <Route path="/apply/speaker" render={() => <SpeakerApply email="test@somul.kr" name="테스트" />} />
+          <Route
+            path="/apply/speaker"
+            render={() => <SpeakerApply email="test@somul.kr" name="테스트" />}
+          />
         </Switch>
         <Footer />
       </Router>

@@ -1,6 +1,6 @@
 export interface ISignUpOAuthState {
-  name: string
-  email: string
-  phone: string
-  isPrivacyChecked: boolean
+  name: string;
+  email: string;
+  phone: string;
+  isPrivacyChecked: boolean;
 }

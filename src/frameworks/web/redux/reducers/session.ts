@@ -1,6 +1,9 @@
 import {
   // eslint-disable-next-line no-unused-vars
-  LOGIN, ILoginAction, IToken, IReducer,
+  LOGIN,
+  ILoginAction,
+  IToken,
+  IReducer,
 } from 'interfaces/frameworks/session';
 
 const initState: IToken = {

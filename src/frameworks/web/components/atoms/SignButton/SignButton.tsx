@@ -2,36 +2,38 @@ import styled from 'styled-components';
 import theme from 'theme';
 import React from 'react';
 // eslint-disable-next-line no-unused-vars
-import { ISignButton, ISignButtonElement } from 'interfaces/frameworks/web/components/atoms/SignButton/ISignButton';
+import {
+  ISignButton,
+  ISignButtonElement,
+} from 'interfaces/frameworks/web/components/atoms/SignButton/ISignButton';
 
 const SignButtonContainer = styled.div`
-  background-color:
-    ${(props: ISignButtonElement) => {
+  background-color: ${(props: ISignButtonElement) => {
     if (props.siteType === 'github') {
-      return (theme.color.primary.Black);
+      return theme.color.primary.Black;
     }
     if (props.siteType === 'google') {
-      return (theme.color.secondary.Ash);
+      return theme.color.secondary.Ash;
     }
-    return (theme.color.primary.White);
+    return theme.color.primary.White;
   }};
-  color:
-    ${(props: ISignButtonElement) => (props.siteType === 'github' ? theme.color.primary.White : theme.color.primary.Black)}
-    !important;
+  color: ${(props: ISignButtonElement) =>
+    props.siteType === 'github' ? theme.color.primary.White : theme.color.primary.Black} !important;
   outline: none;
   cursor: pointer;
   border-radius: 10px;
   border: solid 1px
-    ${(props: ISignButtonElement) => (props.siteType === 'github' ? theme.color.primary.Black : theme.color.secondary.Ash)};
+    ${(props: ISignButtonElement) =>
+      props.siteType === 'github' ? theme.color.primary.Black : theme.color.secondary.Ash};
   width: 350px;
   height: 64px;
 `;
 
 const SignButtonImg = styled.img`
   width: ${(props: ISignButtonElement) => (props.siteType === 'github' ? '32px' : '24px')};
-  height: ${(props: ISignButtonElement) => (props.siteType === 'github' ? '32px' : '24px')};;
-  margin:
-    ${(props: ISignButtonElement) => (props.siteType === 'github' ? '15px 0px 15px 19px' : '19px 0px 19px 23px')};;
+  height: ${(props: ISignButtonElement) => (props.siteType === 'github' ? '32px' : '24px')};
+  margin: ${(props: ISignButtonElement) =>
+    props.siteType === 'github' ? '15px 0px 15px 19px' : '19px 0px 19px 23px'};
   float: left;
 `;
 
@@ -45,9 +47,7 @@ const SignButtonLabel = styled.p`
 
 export default class SignButton extends React.PureComponent<ISignButton> {
   render() {
-    const {
-      buttonType, siteType, onClick,
-    } = this.props;
+    const { buttonType, siteType, onClick } = this.props;
 
     let siteString: string;
     if (siteType === 'google') {
@@ -63,8 +63,7 @@ export default class SignButton extends React.PureComponent<ISignButton> {
         <SignButtonImg src={`logo/${siteType}.svg`} siteType={siteType} />
         <SignButtonLabel>
           {siteString}
-          {siteType === 'email' ? '로' : ' 계정으로'}
-          {' '}
+          {siteType === 'email' ? '로' : ' 계정으로'}{' '}
           {buttonType === 'signin' ? '로그인' : '회원가입'}
         </SignButtonLabel>
       </SignButtonContainer>

@@ -1,13 +1,13 @@
 export interface ISearchField {
-  defaultLabel: string
-  onValueChange?: (value?: string) => void
-  onSearchButtonClick?: () => void
+  defaultLabel: string;
+  onValueChange?: (value?: string) => void;
+  onSearchButtonClick?: () => void;
 }
 
 export interface ISearchFieldState {
-  isFocus: boolean
+  isFocus: boolean;
 }
 
 export interface _ISearchFieldContainer {
-  isFocus: boolean
+  isFocus: boolean;
 }

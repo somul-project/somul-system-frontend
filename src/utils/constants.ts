@@ -2,7 +2,7 @@ export const NODE_ENV = process.env.NODE_ENV !== 'production' ? 'development' : 
 
 export const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
-export const ERROR_MESSAGE: {[code: string]: string} = {
+export const ERROR_MESSAGE: { [code: string]: string } = {
   0: '성공',
   1: '적절하지 않은 인자입니다.',
   100: '로그인에 실패했습니다.',

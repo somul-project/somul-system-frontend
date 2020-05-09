@@ -2,14 +2,14 @@
 import { ReactNode } from 'react';
 
 export interface IDividedCard {
-  title: string
+  title: string;
   children: {
-    left: ReactNode
-    right: ReactNode
-  }
-  leftPadding?: string
+    left: ReactNode;
+    right: ReactNode;
+  };
+  leftPadding?: string;
 }
 
 export interface IDividedCardLeft {
-  leftPadding?: string
+  leftPadding?: string;
 }

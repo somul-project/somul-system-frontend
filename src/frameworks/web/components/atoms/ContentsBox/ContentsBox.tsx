@@ -15,7 +15,8 @@ const ContentsBox = styled.div`
     }
     return props.height.toString().concat('px');
   }};
-  box-shadow: 0 5px 30px 0 rgba(155, 155, 155, ${(props: IContentsBox) => (props.isDarkBackground ? '0.1' : '0.2')});
+  box-shadow: 0 5px 30px 0
+    rgba(155, 155, 155, ${(props: IContentsBox) => (props.isDarkBackground ? '0.1' : '0.2')});
   background-color: white;
   border-radius: 30px;
 `;
