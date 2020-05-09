@@ -12,8 +12,7 @@ import Button from 'frameworks/web/components/atoms/Button/Button';
 import SignButton from 'frameworks/web/components/atoms/SignButton/SignButton';
 // eslint-disable-next-line no-unused-vars
 import { ISignInData } from 'interfaces/utils/user/IUserService';
-import UserService from 'utils/user';
-import { ERROR_MESSAGE, SERVER_URL } from 'utils/constants';
+import { SERVER_URL } from 'utils/constants';
 
 const SignInContainer = styled(ContentsBox)`
   width: 730px;
@@ -61,18 +60,18 @@ export default class SignInCard extends React.PureComponent<{}, ISignInData> {
   }
 
   login = async () => {
-    const signinPayload = this.state;
-    const valCheck = UserService.signInValidationCheck(signinPayload);
-    if (valCheck !== true) {
-      alert(valCheck);
-      return;
-    }
-    const signUpResult = await UserService.sendSignInData(signinPayload);
-    if (signUpResult === '0') {
-      window.location.href = '/';
-    } else {
-      alert(ERROR_MESSAGE[signUpResult] ?? ERROR_MESSAGE['500']);
-    }
+    // const signinPayload = this.state;
+    // const valCheck = UserService.signInValidationCheck(signinPayload);
+    // if (valCheck !== true) {
+    //   alert(valCheck);
+    //   return;
+    // }
+    // const signUpResult = await UserService.sendSignInData(signinPayload);
+    // if (signUpResult === '0') {
+    //   window.location.href = '/';
+    // } else {
+    //   alert(ERROR_MESSAGE[signUpResult] ?? ERROR_MESSAGE['500']);
+    // }
   };
 
   googleLogin = () => {
