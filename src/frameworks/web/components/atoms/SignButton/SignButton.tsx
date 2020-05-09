@@ -56,6 +56,7 @@ export default function SignButton({
 }: ISignButton): React.ReactElement {
   let logo;
   let siteString: string;
+  let logo;
   if (siteType === 'google') {
     siteString = 'Google';
     logo = GoogleLogo;
