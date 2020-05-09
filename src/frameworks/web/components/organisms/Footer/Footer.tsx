@@ -1,9 +1,7 @@
 import React from 'react';
 import theme from 'theme';
 import styled from 'styled-components';
-import {
-  Row, Col, Visible, Hidden,
-} from 'react-grid-system';
+import { Row, Col, Visible, Hidden } from 'react-grid-system';
 
 import Label from 'frameworks/web/components/atoms/Label/Label';
 
@@ -51,7 +49,7 @@ function FooterLogos({ style = null }: any): React.ReactElement {
 function CopyRightLabel({
   type = 'MobileP2',
   style = { marginTop: '8px', textAlign: 'center' },
-}: any) :React.ReactElement {
+}: any): React.ReactElement {
   return (
     <Label type={type} color={theme.color.secondary.Moon} style={style}>
       Copyright © 2020 Colored by Software, All rights reserved.
@@ -67,8 +65,12 @@ export default function Footer(): React.ReactElement {
           <Visible lg xl>
             <Row align="center" justify="between" style={{ height: '100%', margin: '0' }}>
               <Col md={4}>
-                <Label type="H5" color={theme.color.secondary.Moon}>소프트웨어에 물들다</Label>
-                <Label type="P2" color={theme.color.secondary.Moon}>Colored in Software</Label>
+                <Label type="H5" color={theme.color.secondary.Moon}>
+                  소프트웨어에 물들다
+                </Label>
+                <Label type="P2" color={theme.color.secondary.Moon}>
+                  Colored in Software
+                </Label>
               </Col>
               <Col lg={6}>
                 <FooterLogos style={{ float: 'right', marginLeft: '230px' }} />
