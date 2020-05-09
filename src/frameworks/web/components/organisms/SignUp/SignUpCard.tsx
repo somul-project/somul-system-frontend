@@ -24,17 +24,19 @@ export default class SignUpCard extends React.PureComponent {
   googleSignUp = () => {
     const win = window.open(`${SERVER_URL}/auth/google`, '_blank');
     win!.focus();
-  }
+  };
 
   githubSignUp = () => {
     const win = window.open(`${SERVER_URL}/auth/github`, '_blank');
     win!.focus();
-  }
+  };
 
   render() {
     return (
       <SignInContainer isDarkBackground>
-        <Label type="H4" color={theme.color.primary.Azure} style={{ textAlign: 'center' }}>SIGN UP</Label>
+        <Label type="H4" color={theme.color.primary.Azure} style={{ textAlign: 'center' }}>
+          SIGN UP
+        </Label>
         <SignButtonContainer>
           <div style={{ marginBottom: '24px' }}>
             <SignButton siteType="google" buttonType="signup" onClick={this.googleSignUp} />

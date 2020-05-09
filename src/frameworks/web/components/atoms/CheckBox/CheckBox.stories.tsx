@@ -23,13 +23,8 @@ export const DefaultCheckBox = () => {
   return (
     <State store={store}>
       {(state) => [
-        <CheckBox
-          label={label}
-          checked={state.isChecked}
-          onChange={handleCheckboxChange}
-        />,
+        <CheckBox label={label} checked={state.isChecked} onChange={handleCheckboxChange} />,
       ]}
-
     </State>
   );
 };
@@ -38,9 +33,7 @@ export const DisabledCheckBox = () => {
   const label = text('Text', '이용 약관에 동의합니다.');
   const isChecked = boolean('IsChecked', false);
 
-  return (
-    <CheckBox label={label} checked={isChecked} disabled />
-  );
+  return <CheckBox label={label} checked={isChecked} disabled />;
 };
 
 DefaultCheckBox.story = {

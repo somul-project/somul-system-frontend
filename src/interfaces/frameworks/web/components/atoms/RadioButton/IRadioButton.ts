@@ -1,19 +1,19 @@
 export type edgeType = 'left' | 'none' | 'right';
 
 export interface IRadioButtonContainer {
-  edge: edgeType
+  edge: edgeType;
 }
 
 export interface IRadioButton {
-  edge: edgeType
-  label: string
-  id: string
-  name: string
-  value: string
-  onRadioClick: (data: string) => void
-  disabled?: boolean
+  edge: edgeType;
+  label: string;
+  id: string;
+  name: string;
+  value: string;
+  onRadioClick: (data: string) => void;
+  disabled?: boolean;
 }
 
 export interface IRadioButtonElement {
-  disabled?: boolean
+  disabled?: boolean;
 }

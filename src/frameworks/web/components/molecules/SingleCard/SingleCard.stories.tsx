@@ -37,8 +37,6 @@ export const SimpleTextSingleCard = () => {
 
 SimpleTextSingleCard.story = {
   parameters: {
-    backgrounds: [
-      { name: 'Snow', value: theme.color.secondary.Snow, default: true },
-    ],
+    backgrounds: [{ name: 'Snow', value: theme.color.secondary.Snow, default: true }],
   },
 };

@@ -1,14 +1,14 @@
 export interface IBaseButtonContentButton {
-    active: boolean
+  active: boolean;
 }
 
 export type EdgeType = 'left' | 'right' | 'none';
 
 export interface IContentButton extends IBaseButtonContentButton {
-    edge: EdgeType
+  edge: EdgeType;
 }
 
 export interface IContentSwitcher {
-    index: number
-    labels: string[]
+  index: number;
+  labels: string[];
 }

@@ -19,7 +19,8 @@ ReactDOM.render(
     <GlobalStyle />
     <App />
     {/* eslint-disable-next-line no-undef */}
-  </ThemeProvider>, document.getElementById('root'),
+  </ThemeProvider>,
+  document.getElementById('root'),
 );
 
 serviceWorker.unregister();

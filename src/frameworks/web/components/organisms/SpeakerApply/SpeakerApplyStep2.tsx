@@ -10,7 +10,10 @@ import TextField from 'frameworks/web/components/atoms/TextField/TextField';
 import TextArea from 'frameworks/web/components/atoms/TextArea/TextArea';
 import Button from 'frameworks/web/components/atoms/Button/Button';
 // eslint-disable-next-line no-unused-vars
-import { ISpeakerApplyStep2, ISpeakerApplyStep2State } from 'interfaces/frameworks/web/components/organisms/SpeakerApply/ISpeakerApplyStep2';
+import {
+  ISpeakerApplyStep2,
+  ISpeakerApplyStep2State,
+} from 'interfaces/frameworks/web/components/organisms/SpeakerApply/ISpeakerApplyStep2';
 import FormService from 'utils/form';
 
 const TextLabelContainer = styled.div`
@@ -47,9 +50,10 @@ const AddImg = styled.img`
   height: 24px;
 `;
 
-export default class SpeakerApplyStep2
-  extends React.PureComponent<ISpeakerApplyStep2, ISpeakerApplyStep2State> {
-
+export default class SpeakerApplyStep2 extends React.PureComponent<
+  ISpeakerApplyStep2,
+  ISpeakerApplyStep2State
+> {
   sessionName: HTMLInputElement | undefined;
 
   sessionDesc: HTMLTextAreaElement | undefined;
@@ -69,7 +73,7 @@ export default class SpeakerApplyStep2
       linkArray,
     });
     handleChange('youtube', JSON.stringify(linkArray));
-  }
+  };
 
   addLinkField = () => {
     const { handleChange } = this.props;
@@ -80,7 +84,7 @@ export default class SpeakerApplyStep2
     });
     handleChange('youtube', JSON.stringify(linkArray));
     this.forceUpdate();
-  }
+  };
 
   delLinkField = () => {
     const { handleChange } = this.props;
@@ -91,7 +95,7 @@ export default class SpeakerApplyStep2
     });
     handleChange('youtube', JSON.stringify(linkArray));
     this.forceUpdate();
-  }
+  };
 
   render() {
     const { currentStep, handleChange, onSubmit } = this.props;
@@ -114,9 +118,19 @@ export default class SpeakerApplyStep2
           right: (
             <div style={{ margin: '0 95px 0 83px' }}>
               <TextLabelContainer>
-                <Label type="H5" style={{ marginTop: '14px' }} color={theme.color.secondary.Nickel}>강연 제목</Label>
-                <Label type="H5" style={{ margin: '54px 0 198px 0' }} color={theme.color.secondary.Nickel}>강연 내용</Label>
-                <Label type="H5" color={theme.color.secondary.Nickel}>유튜브 링크</Label>
+                <Label type="H5" style={{ marginTop: '14px' }} color={theme.color.secondary.Nickel}>
+                  강연 제목
+                </Label>
+                <Label
+                  type="H5"
+                  style={{ margin: '54px 0 198px 0' }}
+                  color={theme.color.secondary.Nickel}
+                >
+                  강연 내용
+                </Label>
+                <Label type="H5" color={theme.color.secondary.Nickel}>
+                  유튜브 링크
+                </Label>
               </TextLabelContainer>
               <TextFieldContainer>
                 <TextField
@@ -173,15 +187,27 @@ export default class SpeakerApplyStep2
                   <LinkAddButton onClick={() => this.addLinkField()}>
                     <LinkAddButtonContainer>
                       <AddImg src="icon/add-circle.svg" />
-                      <Label type="H5" color={theme.color.secondary.Nickel}>링크 추가</Label>
+                      <Label type="H5" color={theme.color.secondary.Nickel}>
+                        링크 추가
+                      </Label>
                     </LinkAddButtonContainer>
                   </LinkAddButton>
                 )}
-                <Label type="P2" color={theme.color.secondary.Moon} style={{ float: 'right', paddingTop: '8px' }}>
+                <Label
+                  type="P2"
+                  color={theme.color.secondary.Moon}
+                  style={{ float: 'right', paddingTop: '8px' }}
+                >
                   ※ 재생시간이 15분 이상인 경우, 영상을 분할하여 올리는 것을 추천합니다.
                 </Label>
               </TextFieldContainer>
-              <Button type="wide" label="제출하기" isPrimary onClick={() => onSubmit()} style={{ float: 'right' }} />
+              <Button
+                type="wide"
+                label="제출하기"
+                isPrimary
+                onClick={() => onSubmit()}
+                style={{ float: 'right' }}
+              />
             </div>
           ),
         }}

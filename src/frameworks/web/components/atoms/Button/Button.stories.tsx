@@ -17,21 +17,26 @@ export const DefaultButton = () => {
 export const FieldButton = () => {
   const label = text('Text', '바로가기');
   const isPrimary = boolean('IsPrimary', true);
-  return <Button type="field" label={label} isPrimary={isPrimary} onClick={action('button-clicked')} />;
+  return (
+    <Button type="field" label={label} isPrimary={isPrimary} onClick={action('button-clicked')} />
+  );
 };
 
 export const SmallButton = () => {
   const label = text('Text', '바로가기');
   const isPrimary = boolean('IsPrimary', true);
-  return <Button type="small" label={label} isPrimary={isPrimary} onClick={action('button-clicked')} />;
+  return (
+    <Button type="small" label={label} isPrimary={isPrimary} onClick={action('button-clicked')} />
+  );
 };
 
 export const WideButton = () => {
   const label = text('Text', '바로가기');
   const isPrimary = boolean('IsPrimary', true);
-  return <Button type="wide" label={label} isPrimary={isPrimary} onClick={action('button-clicked')} />;
+  return (
+    <Button type="wide" label={label} isPrimary={isPrimary} onClick={action('button-clicked')} />
+  );
 };
-
 
 DefaultButton.story = {
   name: 'Default Button',

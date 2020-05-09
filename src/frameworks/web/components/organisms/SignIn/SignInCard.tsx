@@ -79,17 +79,19 @@ export default class SignInCard extends React.PureComponent<{}, ISignInData> {
   googleLogin = () => {
     const win = window.open(`${SERVER_URL}/auth/google`, '_blank');
     win!.focus();
-  }
+  };
 
   githubLogin = () => {
     const win = window.open(`${SERVER_URL}/auth/github`, '_blank');
     win!.focus();
-  }
+  };
 
   render() {
     return (
       <SignInContainer isDarkBackground>
-        <Label type="H4" color={theme.color.primary.Azure} style={{ textAlign: 'center' }}>SIGN IN</Label>
+        <Label type="H4" color={theme.color.primary.Azure} style={{ textAlign: 'center' }}>
+          SIGN IN
+        </Label>
         <SignInFormContainer>
           <TextField
             defaultLabel="이메일을 입력하세요"
@@ -103,13 +105,11 @@ export default class SignInCard extends React.PureComponent<{}, ISignInData> {
             style={{ width: 'auto', margin: '8px 0' }}
           />
           <ForgotContainer>
-            <Label type="P2" color={theme.color.secondary.Moon}>비밀번호를 잊으셨나요?</Label>
+            <Label type="P2" color={theme.color.secondary.Moon}>
+              비밀번호를 잊으셨나요?
+            </Label>
             <Link to="/signin/forgot-password" style={{ textDecoration: 'none' }}>
-              <Label
-                type="P2"
-                color={theme.color.primary.Azure}
-                style={{ marginLeft: '16px' }}
-              >
+              <Label type="P2" color={theme.color.primary.Azure} style={{ marginLeft: '16px' }}>
                 비밀번호 변경
               </Label>
             </Link>
@@ -120,7 +120,9 @@ export default class SignInCard extends React.PureComponent<{}, ISignInData> {
         </SignInFormContainer>
         <BlockContainer>
           <SingleLine />
-          <Label type="P2" color={theme.color.secondary.Moon}>or</Label>
+          <Label type="P2" color={theme.color.secondary.Moon}>
+            or
+          </Label>
           <SingleLine />
         </BlockContainer>
         <SignButtonContainer>

@@ -4,7 +4,9 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import theme from 'theme';
 import {
   // eslint-disable-next-line no-unused-vars
-  speakerApplyElement, ISpeakerApplyState, ISpeakerApply,
+  speakerApplyElement,
+  ISpeakerApplyState,
+  ISpeakerApply,
 } from 'interfaces/frameworks/web/components/pages/SpeakerApply/ISpeakerApply';
 import SpeakerApplyStep1 from '../../organisms/SpeakerApply/SpeakerApplyStep1';
 import SpeakerApplyStep2 from '../../organisms/SpeakerApply/SpeakerApplyStep2';
@@ -39,23 +41,23 @@ export default class SpeakerApply extends React.PureComponent<ISpeakerApply, ISp
     };
     useState[nameValue] = value;
     this.setState(useState as Pick<ISpeakerApplyState, speakerApplyElement>);
-  }
+  };
 
   nextStep = () => {
     this.setState({
       currentStep: 2,
     });
-  }
+  };
 
   onSubmit = () => {
-    const {
-      introduce, sessionName, sessionDesc, youtube,
-    } = this.state;
+    const { introduce, sessionName, sessionDesc, youtube } = this.state;
     // eslint-disable-next-line no-undef, no-alert
-    alert(`introduce : ${introduce} / sessionName : ${sessionName} / sessionDesc : ${sessionDesc} / youtube : ${youtube}`);
+    alert(
+      `introduce : ${introduce} / sessionName : ${sessionName} / sessionDesc : ${sessionDesc} / youtube : ${youtube}`,
+    );
     // eslint-disable-next-line no-undef
     window.location.href = '/apply/speaker/complete';
-  }
+  };
 
   render() {
     const { currentStep } = this.state;

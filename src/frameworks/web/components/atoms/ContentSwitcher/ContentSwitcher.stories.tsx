@@ -19,9 +19,7 @@ export const DefaultContentSwitcher = () => {
   const label1 = text('First Button Label', '1');
   const label2 = text('Second Button Label', '2');
 
-  return (
-    <ContentSwitcher index={index} labels={[label1, label2]} />
-  );
+  return <ContentSwitcher index={index} labels={[label1, label2]} />;
 };
 
 export const ThreeButtonContentSwitcher = () => {
@@ -36,9 +34,7 @@ export const ThreeButtonContentSwitcher = () => {
   const label2 = text('Second Button Label', '2');
   const label3 = text('Third Button Label', '3');
 
-  return (
-    <ContentSwitcher index={index} labels={[label1, label2, label3]} />
-  );
+  return <ContentSwitcher index={index} labels={[label1, label2, label3]} />;
 };
 
 export const FourButtonContentSwitcher = () => {
@@ -54,9 +50,7 @@ export const FourButtonContentSwitcher = () => {
   const label3 = text('Third Button Label', '3');
   const label4 = text('Forth Button Label', '4');
 
-  return (
-    <ContentSwitcher index={index} labels={[label1, label2, label3, label4]} />
-  );
+  return <ContentSwitcher index={index} labels={[label1, label2, label3, label4]} />;
 };
 
 DefaultContentSwitcher.story = {

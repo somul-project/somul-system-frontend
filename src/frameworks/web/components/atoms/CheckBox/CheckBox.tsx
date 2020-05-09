@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 import React from 'react';
 // eslint-disable-next-line no-unused-vars
-import { IBaseCheckBox, ICheckBox } from 'interfaces/frameworks/web/components/atoms/CheckBox/ICheckBox';
+import {
+  IBaseCheckBox,
+  ICheckBox,
+} from 'interfaces/frameworks/web/components/atoms/CheckBox/ICheckBox';
 import theme from 'theme';
 import Label from 'frameworks/web/components/atoms/Label/Label';
 
@@ -28,13 +31,15 @@ const StyledCheckBox = styled.div`
   display: inline-block;
   width: 16px;
   height: 16px;
-  background: ${(props: IBaseCheckBox) => (props.checked ? theme.color.primary.Azure : 'transparent')};
+  background: ${(props: IBaseCheckBox) =>
+    props.checked ? theme.color.primary.Azure : 'transparent'};
   border-radius: 3px;
-  border: ${(props: IBaseCheckBox) => `2px solid ${props.checked ? theme.color.primary.Azure : theme.color.primary.Black}`};
+  border: ${(props: IBaseCheckBox) =>
+    `2px solid ${props.checked ? theme.color.primary.Azure : theme.color.primary.Black}`};
   transition: all 150ms;
-  
+
   ${Icon} {
-    visibility: ${(props: IBaseCheckBox) => (props.checked ? 'visible' : 'hidden')}
+    visibility: ${(props: IBaseCheckBox) => (props.checked ? 'visible' : 'hidden')};
   }
 `;
 
@@ -52,17 +57,16 @@ const LabelContainer = styled.div`
 
 export default class CheckBox extends React.PureComponent<ICheckBox> {
   render() {
-    const {
-      className, label, onChange, checked, disabled,
-    } = this.props;
+    const { className, label, onChange, checked, disabled } = this.props;
 
     return (
-    // eslint-disable-next-line jsx-a11y/label-has-associated-control
-      <label style={{
-        opacity: disabled ? '0.5' : undefined,
-        pointerEvents: disabled ? 'none' : 'inherit',
-        boxSizing: 'unset',
-      }}
+      // eslint-disable-next-line jsx-a11y/label-has-associated-control
+      <label
+        style={{
+          opacity: disabled ? '0.5' : undefined,
+          pointerEvents: disabled ? 'none' : 'inherit',
+          boxSizing: 'unset',
+        }}
       >
         <CheckBoxContainer className={className}>
           <HiddenCheckBox checked={checked} onChange={onChange} disabled={disabled} />
