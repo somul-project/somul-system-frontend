@@ -2,19 +2,18 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import styled from 'styled-components';
 import React, { ReactNode } from 'react';
-// import theme from 'theme';
+import theme from 'theme';
 import ContentsBox from 'frameworks/web/components/atoms/ContentsBox/ContentsBox';
 import Label from 'frameworks/web/components/atoms/Label/Label';
 import Button from 'frameworks/web/components/atoms/Button/Button';
 // eslint-disable-next-line no-unused-vars
 import {
   IModal,
-  IModalContainer,
+  IModalBackground,
 } from 'interfaces/frameworks/web/components/molecules/Modal/IModal';
-import theme from 'theme';
 
 const ModalBackground = styled.div`
-  display: ${(props: IModalContainer) => (props.isDisplay ? 'flex' : 'none')};
+  display: ${(props: IModalBackground) => (props.isOpen ? 'flex' : 'none')};
   position: fixed;
   z-index: 5;
   left: 0;
@@ -58,7 +57,7 @@ const EachButtonContainer = styled.div`
 
 export default function Modal({
   children,
-  isDisplay = false,
+  isOpen = false,
   onClose,
   type,
   title = '',
@@ -66,52 +65,56 @@ export default function Modal({
   buttonOnClick,
 }: IModal): React.ReactElement {
   let CardContent: ReactNode;
-  if (type === 'top-x-button') {
-    CardContent = (
-      <div>
-        <TopXButtonTitleContainer>
-          <Label type="H4" color={theme.color.primary.Azure} style={{ textAlign: 'left' }}>
+  switch (type) {
+    case 'top-x-button':
+      CardContent = (
+        <div>
+          <TopXButtonTitleContainer>
+            <Label type="H4" color={theme.color.primary.Azure} style={{ textAlign: 'left' }}>
+              {title}
+            </Label>
+            <img
+              src="icon/x.svg"
+              alt="닫기"
+              style={{ width: '30px', height: '30px', cursor: 'pointer' }}
+              onClick={() => onClose()}
+            />
+          </TopXButtonTitleContainer>
+          <ModalContentContainer style={{ marginBottom: '16px' }}>{children}</ModalContentContainer>
+        </div>
+      );
+      break;
+    case 'bottom-button':
+      // eslint-disable-next-line no-case-declarations
+      const buttonElements: ReactNode[] = [];
+      if (buttonLabel !== undefined) {
+        buttonElements.push(
+          <EachButtonContainer>
+            <Button label={buttonLabel!} type="field" onClick={buttonOnClick!} />
+          </EachButtonContainer>,
+        );
+      }
+      buttonElements.push(<Button type="field" label="닫기" isPrimary onClick={() => onClose()} />);
+      CardContent = (
+        <div>
+          <Label type="H4" color={theme.color.primary.Azure}>
             {title}
           </Label>
-          <img
-            src="icon/x.svg"
-            alt="닫기"
-            style={{ width: '30px', height: '30px', cursor: 'pointer' }}
-            onClick={() => onClose()}
-          />
-        </TopXButtonTitleContainer>
-        <ModalContentContainer style={{ marginBottom: '16px' }}>{children}</ModalContentContainer>
-      </div>
-    );
-  } else if (type === 'bottom-button') {
-    const buttonElements: ReactNode[] = [];
-    if (buttonLabel !== undefined) {
-      buttonElements.push(
-        <EachButtonContainer>
-          <Button label={buttonLabel!} type="field" isPrimary={false} onClick={buttonOnClick!} />
-        </EachButtonContainer>,
+          <ModalContentContainer style={{ margin: '40px 0' }}>{children}</ModalContentContainer>
+          <ModalButtonContainer>{buttonElements}</ModalButtonContainer>
+        </div>
       );
-    }
-    buttonElements.push(<Button type="field" label="닫기" isPrimary onClick={() => onClose()} />);
-    CardContent = (
-      <div>
-        <Label type="H4" color={theme.color.primary.Azure}>
-          {title}
-        </Label>
-        <ModalContentContainer style={{ margin: '40px 0' }}>{children}</ModalContentContainer>
-        <ModalButtonContainer>{buttonElements}</ModalButtonContainer>
-      </div>
-    );
-  } else {
-    CardContent = (
-      <div>
-        {children}
-        <Button type="field" label="닫기" isPrimary onClick={() => onClose()} />
-      </div>
-    );
+      break;
+    default:
+      CardContent = (
+        <div>
+          {children}
+          <Button type="field" label="닫기" isPrimary onClick={() => onClose()} />
+        </div>
+      );
   }
   return (
-    <ModalBackground isDisplay={isDisplay}>
+    <ModalBackground isOpen={isOpen}>
       <CardContainer isDarkBackground>{CardContent}</CardContainer>
     </ModalBackground>
   );

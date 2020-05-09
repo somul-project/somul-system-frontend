@@ -4,7 +4,7 @@ import React from 'react';
 type ModalType = 'bottom-button' | 'top-x-button' | 'empty';
 
 export interface IModal {
-  isDisplay: boolean;
+  isOpen: boolean;
   children: React.ReactNode;
   type: ModalType;
   onClose: Function;
@@ -13,6 +13,6 @@ export interface IModal {
   buttonOnClick?: Function;
 }
 
-export interface IModalContainer {
-  isDisplay: boolean;
+export interface IModalBackground {
+  isOpen: boolean;
 }
