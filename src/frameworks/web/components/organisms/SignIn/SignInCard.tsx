@@ -75,11 +75,11 @@ export default class SignInCard extends React.PureComponent<{}, ISignInData> {
   };
 
   googleLogin = () => {
-    window.location.href = `${window.location.protocol}//${SERVER_URL}/auth/google`;
+    window.location.href = `${SERVER_URL}/auth/google`;
   };
 
   githubLogin = () => {
-    window.location.href = `${window.location.protocol}//${SERVER_URL}/auth/github`;
+    window.location.href = `${SERVER_URL}/auth/github`;
   };
 
   render() {
