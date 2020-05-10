@@ -22,11 +22,11 @@ const SignButtonContainer = styled.div`
 
 export default class SignUpCard extends React.PureComponent {
   googleSignUp = () => {
-    window.location.href = `${window.location.protocol}//${SERVER_URL}/auth/google`;
+    window.location.href = `${SERVER_URL}/auth/google`;
   };
 
   githubSignUp = () => {
-    window.location.href = `${window.location.protocol}//${SERVER_URL}/auth/github`;
+    window.location.href = `${SERVER_URL}/auth/github`;
   };
 
   render() {

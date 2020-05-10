@@ -169,24 +169,30 @@ export default function SignUpNow(): React.ReactElement {
   const signUpTry = async () => {
     const signupPayload = { name, email, phoneNumber, password };
 
-    if (checkAllDataValidated()) {
+    if (!checkAllDataValidated()) {
+      return;
+    }
+
+    scrollTo(0, 0);
+
+    setTimeout(async () => {
+      setLoading(true);
+
       try {
-        scrollTo(0, 0);
+        const result = await apolloClient.mutate({
+          mutation: REGISTER_USER_QUERY,
+          variables: { body: signupPayload },
+        });
 
-        setTimeout(async () => {
-          setLoading(true);
-
-          const result = await apolloClient.mutate({
-            mutation: REGISTER_USER_QUERY,
-            variables: { signupPayload },
-          });
-          console.log(result.data);
-        }, 1000);
-      } catch (error) {
+        if (result.data.result.statusCode !== 0) {
+          alert(`회원가입을 진행할 수 없어요 :(\n${result.data.result.errorMessage}`);
+          setLoading(false);
+        }
+      } catch (e) {
         alert('회원가입을 진행할 수 없어요 :(\n계속 되지 않을 경우, 소물 팀에 문의 부탁드립니다!');
         setLoading(false);
       }
-    }
+    }, 1000);
   };
 
   return (
