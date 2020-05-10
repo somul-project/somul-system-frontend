@@ -1,6 +1,19 @@
 import styled from 'styled-components';
 import theme from 'theme';
-import React from 'react';
+import React, { useEffect } from 'react';
+// @ts-ignore
+import disableScroll from 'disable-scroll';
+
+const LoadingBarrier = styled.div`
+  width: 100% !important;
+  height: 100% !important;
+  top: 0 !important;
+  overflow: hidden;
+  z-index: 9999;
+  background: rgba(255, 255, 255, 0.3);
+  position: absolute;
+  pointer-events: none;
+`;
 
 const LoadingComponent = styled.div`
   width: 48px;
@@ -80,5 +93,17 @@ const LoadingComponent = styled.div`
 `;
 
 export default function Loading(): React.ReactElement {
-  return <LoadingComponent />;
+  useEffect(() => {
+    disableScroll.on();
+  }, []);
+
+  useEffect(() => {
+    return () => disableScroll.off();
+  }, []);
+
+  return (
+    <LoadingBarrier>
+      <LoadingComponent />
+    </LoadingBarrier>
+  );
 }
