@@ -6,10 +6,11 @@ import { IBaseButton, IButton } from 'interfaces/frameworks/web/components/atoms
 
 const BaseButton = styled.button`
   font-family: 'Muli', 'Noto Sans KR', sans-serif;
-  background-color: ${(props: IBaseButton) =>
-    props.isPrimary ? theme.color.primary.Scarlet : theme.color.primary.Black};
-  color: ${theme.color.primary.White} !important;
-  border: none;
+  background-color: ${(props: IBaseButton) => props.bgColor};
+  color: ${(props: IBaseButton) =>
+    props.isDisable ? theme.color.secondary.Moon : theme.color.primary.White} !important;
+  border: 1px solid
+    ${(props: IBaseButton) => (props.isDisable ? theme.color.secondary.Ash : props.bgColor)};
   outline: none;
   cursor: pointer;
   border-radius: 10px;
@@ -18,8 +19,8 @@ const BaseButton = styled.button`
 
   @media (hover: hover) {
     &:hover {
-      background-color: ${(props: IBaseButton) =>
-        props.isPrimary ? theme.color.primary.Salmon : theme.color.secondary.Nickel};
+      background-color: ${(props: IBaseButton) => props.hoverColor};
+      border-color: ${(props: IBaseButton) => props.hoverColor};
     }
   }
 `;
@@ -70,12 +71,31 @@ export default function Button({
   type = 'default',
   label,
   isPrimary = false,
-  onClick = null,
+  isDisable = false,
+  onClick = () => undefined,
   style,
 }: IButton): React.ReactElement {
   const ButtonComponent = BUTTONS[type];
+  let bgColor: string;
+  let hoverColor: string;
+  if (isDisable) {
+    bgColor = theme.color.primary.White;
+    hoverColor = bgColor;
+  } else if (isPrimary) {
+    bgColor = theme.color.primary.Scarlet;
+    hoverColor = theme.color.primary.Salmon;
+  } else {
+    bgColor = theme.color.primary.Black;
+    hoverColor = theme.color.secondary.Nickel;
+  }
   return (
-    <ButtonComponent isPrimary={isPrimary} onClick={onClick} style={style}>
+    <ButtonComponent
+      bgColor={bgColor}
+      hoverColor={hoverColor}
+      isDisable={isDisable}
+      onClick={() => onClick()}
+      style={style}
+    >
       {label}
     </ButtonComponent>
   );

@@ -2,6 +2,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-alert */
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from 'theme';
 import DividedCard from 'frameworks/web/components/molecules/DividedCard/DividedCard';
@@ -40,21 +41,21 @@ const WithdrawContainer = styled.div`
   justify-content: space-between;
 `;
 
-const onPasswordChangeClicked = () => {
-  // 비밀번호 변경 버튼 클릭시 작동되는 함수
-};
-
-const onSaveButtonClicked = () => {
-  // save 버튼 클릭시 작동되는 함수
-};
-
-const onWithdrawClicked = () => {
-  // 회원탈퇴 버튼 클릭시 작동되는 함수
-};
-
 export default function ProfileInfo(props: IProfile): React.ReactElement {
   const { name, email, phone } = props;
   const [state, setState] = useState<IProfileInfoState>({ name, phone, password: '' });
+  const history = useHistory();
+  const onPasswordChangeClicked = () => {
+    // 비밀번호 변경 버튼 클릭시 작동되는 함수
+  };
+
+  const onSaveButtonClicked = () => {
+    // save 버튼 클릭시 작동되는 함수
+  };
+
+  const onWithdrawClicked = () => {
+    history.push('/profile/withdraw');
+  };
   return (
     <div>
       <DividedCard title="PROFILE" leftPadding="70px 0 0 0">
@@ -123,7 +124,7 @@ export default function ProfileInfo(props: IProfile): React.ReactElement {
                     onValueChange={(data: string) =>
                       setState({ name: state.name, phone: state.phone, password: data })
                     }
-                    style={{ width: '250px', marginTop: '24px' }}
+                    style={{ width: '228px', marginTop: '24px' }}
                     value={state.password}
                   />
                 </div>
