@@ -59,10 +59,10 @@ export default function TextField(props: ITextField): React.ReactElement {
   const {
     defaultLabel,
     style,
-    type,
-    readOnly,
+    type = 'text',
+    readOnly = false,
     value,
-    isButton,
+    isButton = false,
     buttonSrc,
     onButtonClicked,
     onValueChange,
