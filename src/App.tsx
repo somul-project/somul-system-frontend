@@ -11,7 +11,7 @@ import SpeakerApply from 'frameworks/web/components/pages/SpeakerApply/SpeakerAp
 import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
 import apolloClient, { initStorage } from 'frameworks/web/apollo';
-import Loading from './frameworks/web/components/atoms/Loading/Loading';
+import Loading from 'frameworks/web/components/atoms/Loading/Loading';
 
 function App() {
   const [isLoaded, setLoaded] = useState(false);

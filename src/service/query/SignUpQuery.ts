@@ -10,3 +10,12 @@ export const REGISTER_USER_QUERY = gql`
     }
   }
 `;
+
+export const RESEND_EMAIL = gql`
+  query resendEmail {
+    person @rest(type: "ResendEmail", path: "auth/resend") {
+      statusCode
+      errorMessage
+    }
+  }
+`;

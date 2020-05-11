@@ -19,7 +19,7 @@ import { IRegisterUserValidateState } from 'interfaces/utils/IValidator';
 import { isEmail } from 'utils/validator';
 import apolloClient from 'frameworks/web/apollo';
 import { REGISTER_USER_QUERY } from 'service/query/SignUpQuery';
-import Loading from '../../atoms/Loading/Loading';
+import Loading from 'frameworks/web/components/atoms/Loading/Loading';
 
 const TextLabelContainer = styled.div`
   width: 65px;
@@ -167,7 +167,7 @@ export default function SignUpNow(): React.ReactElement {
   }, []);
 
   const signUpTry = async () => {
-    const signupPayload = { name, email, phoneNumber, password };
+    const signupPayload = { name, email, phonenumber: phoneNumber, password };
 
     if (!checkAllDataValidated()) {
       return;
@@ -175,24 +175,25 @@ export default function SignUpNow(): React.ReactElement {
 
     scrollTo(0, 0);
 
-    setTimeout(async () => {
-      setLoading(true);
+    setLoading(true);
 
-      try {
-        const result = await apolloClient.mutate({
-          mutation: REGISTER_USER_QUERY,
-          variables: { body: signupPayload },
-        });
+    try {
+      const result = await apolloClient.mutate({
+        mutation: REGISTER_USER_QUERY,
+        variables: { body: signupPayload },
+      });
 
-        if (result.data.result.statusCode !== 0) {
-          alert(`회원가입을 진행할 수 없어요 :(\n${result.data.result.errorMessage}`);
-          setLoading(false);
-        }
-      } catch (e) {
-        alert('회원가입을 진행할 수 없어요 :(\n계속 되지 않을 경우, 소물 팀에 문의 부탁드립니다!');
+      if (result.data.result.statusCode !== '0') {
+        alert(`회원가입을 진행할 수 없어요 :(\n${result.data.result.errorMessage}`);
         setLoading(false);
+      } else {
+        apolloClient.cache.writeData({ data: { signUpEmail: email } });
+        routerHistory.push('/signup/complete', { email });
       }
-    }, 1000);
+    } catch (e) {
+      alert('회원가입을 진행할 수 없어요 :(\n계속 되지 않을 경우, 소물 팀에 문의 부탁드립니다!');
+      setLoading(false);
+    }
   };
 
   return (
