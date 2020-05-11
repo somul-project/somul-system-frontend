@@ -94,7 +94,9 @@ const LoadingComponent = styled.div`
 
 export default function Loading(): React.ReactElement {
   useEffect(() => {
-    disableScroll.on();
+    setTimeout(() => {
+      disableScroll.on();
+    }, 1000);
   }, []);
 
   useEffect(() => {
