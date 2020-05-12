@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { RouteComponentProps, useHistory } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
 import theme from 'theme';
 import SingleCard from 'frameworks/web/components/molecules/SingleCard/SingleCard';
 import Label from 'frameworks/web/components/atoms/Label/Label';
@@ -12,7 +12,6 @@ const SignUpComplete = (props: RouteComponentProps) => {
 
   const [email, setEmail] = useState('');
   const [isLoading, setLoading] = useState(false);
-  const routerHistory = useHistory();
 
   useEffect(() => {
     // @ts-ignore
@@ -23,7 +22,7 @@ const SignUpComplete = (props: RouteComponentProps) => {
     setLoading(true);
 
     try {
-      const result = await apolloClient.query({ query: RESEND_EMAIL });
+      const result = await apolloClient.query({ query: RESEND_EMAIL, fetchPolicy: 'no-cache' });
 
       setLoading(false);
 
@@ -41,7 +40,7 @@ const SignUpComplete = (props: RouteComponentProps) => {
   };
 
   const gotoHome = () => {
-    routerHistory.push('/');
+    window.location.replace('/');
   };
 
   return (

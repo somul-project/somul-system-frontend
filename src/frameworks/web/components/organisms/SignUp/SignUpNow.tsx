@@ -148,7 +148,9 @@ export default function SignUpNow(): React.ReactElement {
 
   // 소셜 로그인 같은 경우, 계정에서 넘어온 이메일로 쓰도록
   useEffect(() => {
-    validateInputData('email');
+    if (email.length > 0) {
+      validateInputData('email');
+    }
   }, [email]);
 
   useEffect(() => {
@@ -161,8 +163,6 @@ export default function SignUpNow(): React.ReactElement {
     if (emailFromQueryString && emailFromQueryString.length > 0 && isEmail(emailFromQueryString)) {
       setEmail(emailFromQueryString);
       setEmailFieldEnabled(false);
-    } else {
-      routerHistory.push('/signup/start');
     }
   }, []);
 
@@ -174,20 +174,19 @@ export default function SignUpNow(): React.ReactElement {
     }
 
     scrollTo(0, 0);
-
     setLoading(true);
 
     try {
       const result = await apolloClient.mutate({
         mutation: REGISTER_USER_QUERY,
         variables: { body: signupPayload },
+        fetchPolicy: 'no-cache',
       });
 
       if (result.data.result.statusCode !== '0') {
         alert(`회원가입을 진행할 수 없어요 :(\n${result.data.result.errorMessage}`);
         setLoading(false);
       } else {
-        apolloClient.cache.writeData({ data: { signUpEmail: email } });
         routerHistory.push('/signup/complete', { email });
       }
     } catch (e) {
