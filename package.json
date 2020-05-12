@@ -33,7 +33,7 @@
     "typescript": "~3.7.2"
   },
   "scripts": {
-    "start": "cross-env NODE_ENV=development REACT_APP_SERVER_URL=http://localhost:8000 craco start",
+    "start": "cross-env NODE_ENV=development REACT_APP_SERVER_URL='http://localhost:8000' craco start",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",

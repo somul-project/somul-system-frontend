@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@apollo/client@^3.0.0-beta.44":
+"@apollo/client@~3.0.0-beta.44":
   version "3.0.0-beta.44"
   resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.0.0-beta.44.tgz#79c6083dc2fe81725ad64398bc78e641ed1c1d84"
   integrity sha512-udNiabIYs9WLHWvj2j6tlsaWPNhgMZsHrZyBTKOh+69fLpmZZ4Vv4mepWq/3WCzyHoWa3n3FPi/ajNljkO/Olg==
@@ -5342,7 +5342,7 @@ dir-glob@2.0.0:
     arrify "^1.0.1"
     path-type "^3.0.0"
 
-disable-scroll@^0.5.1:
+disable-scroll@~0.5.1:
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/disable-scroll/-/disable-scroll-0.5.1.tgz#f58ce9f64cc7375fecf19bc7c7434fa5634c4966"
   integrity sha512-3lngZdv1vCg0qioEZS0B+g9mYFofyGpkVvCs6P8sfDm5QomYqAXHuvPANF4iPMAQStaBO5WvY77oRSSB8xfKuA==
@@ -12236,7 +12236,7 @@ schema-utils@^2.0.1, schema-utils@^2.5.0, schema-utils@^2.6.0, schema-utils@^2.6
     ajv "^6.12.0"
     ajv-keywords "^3.4.1"
 
-scroll-to@^0.0.2:
+scroll-to@~0.0.2:
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/scroll-to/-/scroll-to-0.0.2.tgz#936d398a9133660a2492145c2c0081dfcb0728f3"
   integrity sha1-k205ipEzZgokkhRcLACB38sHKPM=

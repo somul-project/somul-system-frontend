@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unused-state */
 /* eslint-disable no-undef */
 /* eslint-disable no-alert */
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import theme from 'theme';
 import { Link } from 'react-router-dom';
@@ -11,8 +11,10 @@ import TextField from 'frameworks/web/components/atoms/TextField/TextField';
 import Button from 'frameworks/web/components/atoms/Button/Button';
 import SignButton from 'frameworks/web/components/atoms/SignButton/SignButton';
 // eslint-disable-next-line no-unused-vars
-import { ISignInData } from 'interfaces/utils/user/IUserService';
 import { SERVER_URL } from 'utils/constants';
+import { isEmail, isValidPassword } from 'utils/validator';
+import SignInRequest from 'service/request/SignInRequest';
+import Loading from 'frameworks/web/components/atoms/Loading/Loading';
 
 const SignInContainer = styled(ContentsBox)`
   width: 730px;
@@ -50,40 +52,46 @@ const SignButtonContainer = styled.div`
   margin: 0 auto;
 `;
 
-export default class SignInCard extends React.PureComponent<{}, ISignInData> {
-  constructor(props: Readonly<{}>) {
-    super(props);
-    this.state = {
-      email: '',
-      password: '',
-    };
-  }
+export default function SignInCard(): React.ReactElement {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  login = async () => {
-    // const signinPayload = this.state;
-    // const valCheck = UserService.signInValidationCheck(signinPayload);
-    // if (valCheck !== true) {
-    //   alert(valCheck);
-    //   return;
-    // }
-    // const signUpResult = await UserService.sendSignInData(signinPayload);
-    // if (signUpResult === '0') {
-    //   window.location.href = '/';
-    // } else {
-    //   alert(ERROR_MESSAGE[signUpResult] ?? ERROR_MESSAGE['500']);
-    // }
-  };
+  const [isLoading, setLoading] = useState(false);
 
-  googleLogin = () => {
+  const googleLogin = () => {
     window.location.href = `${SERVER_URL}/auth/google`;
   };
 
-  githubLogin = () => {
+  const githubLogin = () => {
     window.location.href = `${SERVER_URL}/auth/github`;
   };
 
-  render() {
-    return (
+  const login = async () => {
+    const loginPayload = { email, password };
+
+    if (isEmail(email) && isValidPassword(password)) {
+      setLoading(true);
+
+      try {
+        const result = await SignInRequest.login(loginPayload);
+        const resultData = result.data!;
+
+        if (resultData.result.statusCode === '0') {
+          window.location.replace('/');
+        } else {
+          alert(resultData.result.errorMessage);
+        }
+
+        setLoading(false);
+      } catch (e) {
+        alert('로그인을 할 수 없어요 :(\n계속 되지 않을 경우, 소물 팀에 문의 부탁드립니다!');
+        setLoading(false);
+      }
+    }
+  };
+
+  return (
+    <div>
       <SignInContainer isDarkBackground>
         <Label type="H4" color={theme.color.primary.Azure} style={{ textAlign: 'center' }}>
           SIGN IN
@@ -91,13 +99,13 @@ export default class SignInCard extends React.PureComponent<{}, ISignInData> {
         <SignInFormContainer>
           <TextField
             defaultLabel="이메일을 입력하세요"
-            onValueChange={(value) => this.setState({ email: value })}
+            onValueChange={(value) => setEmail(value)}
             style={{ width: 'auto', margin: '8px 0' }}
           />
           <TextField
             type="password"
             defaultLabel="비밀번호를 입력하세요"
-            onValueChange={(value) => this.setState({ password: value })}
+            onValueChange={(value) => setPassword(value)}
             style={{ width: 'auto', margin: '8px 0' }}
           />
           <ForgotContainer>
@@ -111,7 +119,7 @@ export default class SignInCard extends React.PureComponent<{}, ISignInData> {
             </Link>
           </ForgotContainer>
           <div style={{ padding: '32px 0 0 0', clear: 'right' }}>
-            <Button type="wide" label="로그인하기" isPrimary onClick={this.login} />
+            <Button type="wide" label="로그인하기" isPrimary onClick={login} />
           </div>
         </SignInFormContainer>
         <BlockContainer>
@@ -123,11 +131,12 @@ export default class SignInCard extends React.PureComponent<{}, ISignInData> {
         </BlockContainer>
         <SignButtonContainer>
           <div style={{ marginBottom: '24px' }}>
-            <SignButton siteType="google" buttonType="signin" onClick={this.googleLogin} />
+            <SignButton siteType="google" buttonType="signin" onClick={googleLogin} />
           </div>
-          <SignButton siteType="github" buttonType="signin" onClick={this.githubLogin} />
+          <SignButton siteType="github" buttonType="signin" onClick={githubLogin} />
         </SignButtonContainer>
       </SignInContainer>
-    );
-  }
+      {isLoading && <Loading />}
+    </div>
+  );
 }
