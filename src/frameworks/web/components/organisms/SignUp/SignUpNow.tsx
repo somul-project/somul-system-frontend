@@ -16,10 +16,9 @@ import CheckBox from 'frameworks/web/components/atoms/CheckBox/CheckBox';
 
 import SignUpIllust from 'assets/illust/signup-illustration.png';
 import { IRegisterUserValidateState } from 'interfaces/utils/IValidator';
-import { isEmail } from 'utils/validator';
-import apolloClient from 'frameworks/web/apollo';
-import { REGISTER_USER_QUERY } from 'service/query/SignUpQuery';
+import { isEmail, isName, isPhoneNumber, isValidPassword } from 'utils/validator';
 import Loading from 'frameworks/web/components/atoms/Loading/Loading';
+import SignUpRequest from '../../../../../service/request/SignUpRequest';
 
 const TextLabelContainer = styled.div`
   width: 65px;
@@ -54,6 +53,8 @@ const PrivacyContainer = styled.div`
 `;
 
 export default function SignUpNow(): React.ReactElement {
+  const emailFromQueryString = new URLSearchParams(window.location.search).get('email');
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -68,7 +69,7 @@ export default function SignUpNow(): React.ReactElement {
 
   const routerHistory = useHistory();
 
-  // -1 : 초기 상태, 0 : 유저가 입력하려고 포커스까진 했음, 1 : 특정 오류, 2 : 비어있는 칸 오류, 3 : 정상
+  // -1 : 초기 상태, 0 : 유저가 입력하려고 포커스까진 했음, 1: 오류, 2: 정상
   const [validate, setValidate] = useState<IRegisterUserValidateState>({
     nameValidStatus: -1,
     emailValidStatus: -1,
@@ -78,7 +79,7 @@ export default function SignUpNow(): React.ReactElement {
 
   const checkAllDataValidated = (): boolean => {
     // @ts-ignore
-    const isFieldPass = Object.keys(validate).filter((key) => validate[key] !== 3).length === 0;
+    const isFieldPass = Object.keys(validate).filter((key) => validate[key] !== 2).length === 0;
     setRegisterButtonEnabled(isFieldPass && isAgreeLicense);
 
     return isFieldPass && isAgreeLicense;
@@ -86,69 +87,23 @@ export default function SignUpNow(): React.ReactElement {
 
   const validateInputData = (type: 'name' | 'email' | 'phoneNumber' | 'password') => {
     if (type === 'name') {
-      if (!name || name.length <= 0) {
-        setValidate({ ...validate, nameValidStatus: 2 });
-      } else {
-        setValidate({ ...validate, nameValidStatus: 3 });
-      }
+      setValidate({ ...validate, nameValidStatus: isName(name) ? 2 : 1 });
     } else if (type === 'email') {
-      if (!email || email.length <= 0) {
-        setValidate({ ...validate, emailValidStatus: 2 });
-      } else if (!isEmail(email)) {
-        setValidate({ ...validate, emailValidStatus: 1 });
-      } else {
-        setValidate({ ...validate, emailValidStatus: 3 });
-      }
+      setValidate({ ...validate, emailValidStatus: isEmail(email) ? 2 : 1 });
     } else if (type === 'phoneNumber') {
-      if (!phoneNumber || phoneNumber.length <= 0) {
-        setValidate({ ...validate, phoneNumberValidStatus: 2 });
-      } else {
-        setValidate({ ...validate, phoneNumberValidStatus: 3 });
-      }
+      setValidate({ ...validate, phoneNumberValidStatus: isPhoneNumber(phoneNumber) ? 2 : 1 });
     } else if (type === 'password') {
-      if (!password || password.length <= 0) {
-        setValidate({ ...validate, passwordValidStatus: 2 });
-      } else if (rePassword && password !== rePassword) {
+      if (password.length > 0 && rePassword.length > 0 && password !== rePassword) {
         setValidate({ ...validate, passwordValidStatus: 1 });
-      } else if (password === rePassword) {
-        setValidate({ ...validate, passwordValidStatus: 3 });
+      } else {
+        setValidate({ ...validate, passwordValidStatus: isValidPassword(password) ? 2 : 1 });
       }
     }
-  };
-
-  // 이건 나중에 오류 문구가 들어가야 할 때 쓰라우...!
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
-  const getErrorMessage = (type: 'name' | 'email' | 'phoneNumber' | 'password') => {
-    if (type === 'name') {
-      if (validate.nameValidStatus === 2) {
-        return '이름 칸은 비어있을 수 없습니다.';
-      }
-    } else if (type === 'email') {
-      if (validate.emailValidStatus === 1) {
-        return '잘못된 이메일이 입력되었습니다.';
-      }
-      if (validate.emailValidStatus === 2) {
-        return '이메일 칸은 비어있을 수 없습니다.';
-      }
-    } else if (type === 'phoneNumber') {
-      if (validate.phoneNumberValidStatus === 2) {
-        return '휴대폰 칸은 비어있을 수 없습니다.';
-      }
-    } else if (type === 'password') {
-      if (validate.passwordValidStatus === 1) {
-        return '비밀번호가 일치하지 않습니다.';
-      }
-      if (validate.passwordValidStatus === 2) {
-        return '비밀번호 칸은 비어있을 수 없습니다.';
-      }
-    }
-
-    return undefined;
   };
 
   // 소셜 로그인 같은 경우, 계정에서 넘어온 이메일로 쓰도록
   useEffect(() => {
-    if (email.length > 0) {
+    if (emailFromQueryString?.length ?? -1 > 0) {
       validateInputData('email');
     }
   }, [email]);
@@ -158,8 +113,6 @@ export default function SignUpNow(): React.ReactElement {
   }, [validate, isAgreeLicense]);
 
   useEffect(() => {
-    const emailFromQueryString = new URLSearchParams(window.location.search).get('email');
-
     if (emailFromQueryString && emailFromQueryString.length > 0 && isEmail(emailFromQueryString)) {
       setEmail(emailFromQueryString);
       setEmailFieldEnabled(false);
@@ -167,7 +120,7 @@ export default function SignUpNow(): React.ReactElement {
   }, []);
 
   const signUpTry = async () => {
-    const signupPayload = { name, email, phonenumber: phoneNumber, password };
+    const signupPayload = { name, email, phonenumber: phoneNumber.replace(/-/gi, ''), password };
 
     if (!checkAllDataValidated()) {
       return;
@@ -177,14 +130,11 @@ export default function SignUpNow(): React.ReactElement {
     setLoading(true);
 
     try {
-      const result = await apolloClient.mutate({
-        mutation: REGISTER_USER_QUERY,
-        variables: { body: signupPayload },
-        fetchPolicy: 'no-cache',
-      });
+      const result = await SignUpRequest.signUp(signupPayload);
+      const resultData = result.data!;
 
-      if (result.data.result.statusCode !== '0') {
-        alert(`회원가입을 진행할 수 없어요 :(\n${result.data.result.errorMessage}`);
+      if (resultData.result.statusCode !== '0') {
+        alert(`회원가입을 진행할 수 없어요 :(\n${resultData.result.errorMessage}`);
         setLoading(false);
       } else {
         routerHistory.push('/signup/complete', { email });
@@ -243,7 +193,7 @@ export default function SignUpNow(): React.ReactElement {
                     if (!value) validateInputData('name');
                   }}
                   style={{ width: 'auto' }}
-                  isError={validate.nameValidStatus === 1 || validate.nameValidStatus === 2}
+                  isError={validate.nameValidStatus === 1}
                 />
                 <div style={{ height: '24px' }} />
                 <TextField
@@ -253,7 +203,7 @@ export default function SignUpNow(): React.ReactElement {
                   onFocusChanged={(value) => {
                     if (!value) validateInputData('email');
                   }}
-                  isError={validate.emailValidStatus === 1 || validate.emailValidStatus === 2}
+                  isError={validate.emailValidStatus === 1}
                   style={{ width: 'auto' }}
                   readOnly={!isEmailFieldEnabled}
                 />
@@ -273,14 +223,12 @@ export default function SignUpNow(): React.ReactElement {
                   </div>
                 </WarningTextContainer>
                 <TextField
-                  defaultLabel="휴대폰 번호를 입력하세요 (01012345678)"
+                  defaultLabel="휴대폰 번호를 입력하세요 (010-1234-5678)"
                   onValueChange={(value) => setPhoneNumber(value)}
                   onFocusChanged={(value) => {
                     if (!value) validateInputData('phoneNumber');
                   }}
-                  isError={
-                    validate.phoneNumberValidStatus === 1 || validate.phoneNumberValidStatus === 2
-                  }
+                  isError={validate.phoneNumberValidStatus === 1}
                   style={{ width: 'auto', clear: 'right' }}
                 />
                 <PasswordContainer>
@@ -291,9 +239,7 @@ export default function SignUpNow(): React.ReactElement {
                       onFocusChanged={(value) => {
                         if (!value) validateInputData('password');
                       }}
-                      isError={
-                        validate.passwordValidStatus === 1 || validate.passwordValidStatus === 2
-                      }
+                      isError={validate.passwordValidStatus === 1}
                       style={{ width: 'auto' }}
                       type="password"
                     />
@@ -305,9 +251,7 @@ export default function SignUpNow(): React.ReactElement {
                       onFocusChanged={(value) => {
                         if (!value) validateInputData('password');
                       }}
-                      isError={
-                        validate.passwordValidStatus === 1 || validate.passwordValidStatus === 2
-                      }
+                      isError={validate.passwordValidStatus === 1}
                       style={{ width: 'auto' }}
                       type="password"
                     />

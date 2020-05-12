@@ -13,7 +13,7 @@ export const REGISTER_USER_QUERY = gql`
 
 export const RESEND_EMAIL = gql`
   query resendEmail {
-    result @rest(type: "ResendEmail", path: "auth/resend") {
+    result @rest(type: "ResendEmail", path: "auth/resend/token") {
       statusCode
       errorMessage
     }

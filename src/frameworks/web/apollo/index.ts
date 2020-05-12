@@ -17,6 +17,7 @@ const restLink = new RestLink({
     // eslint-disable-next-line no-return-await
     return await response.json();
   },
+  credentials: 'include',
 });
 
 const apolloClient = new ApolloClient({
@@ -30,6 +31,7 @@ export const initStorage = async () => {
     cache,
     // @ts-ignore
     storage: window.localStorage,
+    key: 'somul-api-cache',
   });
 };
 
