@@ -1,8 +1,11 @@
 /* eslint-disable react/no-unused-state */
 /* eslint-disable no-undef */
 /* eslint-disable no-alert */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+// @ts-ignore
+import scrollTo from 'scroll-to';
 import theme from 'theme';
 import DividedCard from 'frameworks/web/components/molecules/DividedCard/DividedCard';
 import Label from 'frameworks/web/components/atoms/Label/Label';
@@ -10,10 +13,12 @@ import TextField from 'frameworks/web/components/atoms/TextField/TextField';
 import TextArea from 'frameworks/web/components/atoms/TextArea/TextArea';
 import Button from 'frameworks/web/components/atoms/Button/Button';
 import CheckBox from 'frameworks/web/components/atoms/CheckBox/CheckBox';
-// eslint-disable-next-line no-unused-vars
-import { ISignUpData } from 'interfaces/utils/user/IUserService';
-import UserService from 'utils/user';
-import { ERROR_MESSAGE } from 'utils/constants';
+
+import SignUpIllust from 'assets/illust/signup-illustration.png';
+import { IRegisterUserValidateState } from 'interfaces/utils/IValidator';
+import { isEmail, isName, isPhoneNumber, isValidPassword } from 'utils/validator';
+import Loading from 'frameworks/web/components/atoms/Loading/Loading';
+import SignUpRequest from 'service/request/SignUpRequest';
 
 const TextLabelContainer = styled.div`
   width: 65px;
@@ -47,43 +52,107 @@ const PrivacyContainer = styled.div`
   clear: both;
 `;
 
-export default class SignUpNow extends React.PureComponent<{}, ISignUpData> {
-  constructor(props: Readonly<{}>) {
-    super(props);
-    this.state = {
-      name: '',
-      email: '',
-      phone: '',
-      password: '',
-      rePassword: '',
-      isPrivacyChecked: false,
-    };
-  }
+export default function SignUpNow(): React.ReactElement {
+  const emailFromQueryString = new URLSearchParams(window.location.search).get('email');
 
-  signupTry = async () => {
-    const signupPayload = this.state;
-    const valCheck = UserService.signUpValidationCheck(signupPayload);
-    if (valCheck !== true) {
-      alert(valCheck);
-      return;
-    }
-    const signUpResult = await UserService.sendSignUpData(signupPayload);
-    if (signUpResult === '0') {
-      window.location.href = `/signup/complete?email=${signupPayload.email}`;
-      return;
-    }
-    alert(ERROR_MESSAGE[signUpResult] ?? ERROR_MESSAGE['500']);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [password, setPassword] = useState('');
+  const [rePassword, setRePassword] = useState('');
+  const [isAgreeLicense, setAgreeLicense] = useState(false);
+
+  const [isEmailFieldEnabled, setEmailFieldEnabled] = useState(true);
+  const [isRegisterButtonEnabled, setRegisterButtonEnabled] = useState(false);
+
+  const [isLoading, setLoading] = useState(false);
+
+  const routerHistory = useHistory();
+
+  // -1 : 초기 상태, 0 : 유저가 입력하려고 포커스까진 했음, 1: 오류, 2: 정상
+  const [validate, setValidate] = useState<IRegisterUserValidateState>({
+    nameValidStatus: -1,
+    emailValidStatus: -1,
+    phoneNumberValidStatus: -1,
+    passwordValidStatus: -1,
+  });
+
+  const checkAllDataValidated = (): boolean => {
+    // @ts-ignore
+    const isFieldPass = Object.keys(validate).filter((key) => validate[key] !== 2).length === 0;
+    setRegisterButtonEnabled(isFieldPass && isAgreeLicense);
+
+    return isFieldPass && isAgreeLicense;
   };
 
-  render() {
-    const { isPrivacyChecked } = this.state;
-    return (
+  const validateInputData = (type: 'name' | 'email' | 'phoneNumber' | 'password') => {
+    if (type === 'name') {
+      setValidate({ ...validate, nameValidStatus: isName(name) ? 2 : 1 });
+    } else if (type === 'email') {
+      setValidate({ ...validate, emailValidStatus: isEmail(email) ? 2 : 1 });
+    } else if (type === 'phoneNumber') {
+      setValidate({ ...validate, phoneNumberValidStatus: isPhoneNumber(phoneNumber) ? 2 : 1 });
+    } else if (type === 'password') {
+      if (password.length > 0 && rePassword.length > 0 && password !== rePassword) {
+        setValidate({ ...validate, passwordValidStatus: 1 });
+      } else {
+        setValidate({ ...validate, passwordValidStatus: isValidPassword(password) ? 2 : 1 });
+      }
+    }
+  };
+
+  // 소셜 로그인 같은 경우, 계정에서 넘어온 이메일로 쓰도록
+  useEffect(() => {
+    if (emailFromQueryString?.length ?? -1 > 0) {
+      validateInputData('email');
+    }
+  }, [email]);
+
+  useEffect(() => {
+    checkAllDataValidated();
+  }, [validate, isAgreeLicense]);
+
+  useEffect(() => {
+    if (emailFromQueryString && emailFromQueryString.length > 0 && isEmail(emailFromQueryString)) {
+      setEmail(emailFromQueryString);
+      setEmailFieldEnabled(false);
+    }
+  }, []);
+
+  const signUpTry = async () => {
+    const signupPayload = { name, email, phonenumber: phoneNumber.replace(/-/gi, ''), password };
+
+    if (!checkAllDataValidated()) {
+      return;
+    }
+
+    scrollTo(0, 0);
+    setLoading(true);
+
+    try {
+      const result = await SignUpRequest.signUp(signupPayload);
+      const resultData = result.data!;
+
+      if (resultData.result.statusCode !== '0') {
+        alert(`회원가입을 진행할 수 없어요 :(\n${resultData.result.errorMessage}`);
+        setLoading(false);
+      } else {
+        routerHistory.push('/signup/complete', { email });
+      }
+    } catch (e) {
+      alert('회원가입을 진행할 수 없어요 :(\n계속 되지 않을 경우, 소물 팀에 문의 부탁드립니다!');
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div>
       <DividedCard title="SIGN UP NOW">
         {{
           left: (
             <div>
               <img
-                src="illust/signup-illustration.png"
+                src={SignUpIllust}
                 alt="회원가입 이미지"
                 style={{ width: '380px', height: '580px', margin: '73px 0 18px 0' }}
               />
@@ -119,13 +188,24 @@ export default class SignUpNow extends React.PureComponent<{}, ISignUpData> {
               <TextFieldContainer>
                 <TextField
                   defaultLabel="이름을 입력하세요"
-                  onValueChange={(value) => this.setState({ name: value })}
-                  style={{ width: 'auto', marginBottom: '24px' }}
-                />
-                <TextField
-                  defaultLabel="이메일을 입력하세요"
-                  onValueChange={(value) => this.setState({ email: value })}
+                  onValueChange={(value) => setName(value)}
+                  onFocusChanged={(value) => {
+                    if (!value) validateInputData('name');
+                  }}
                   style={{ width: 'auto' }}
+                  isError={validate.nameValidStatus === 1}
+                />
+                <div style={{ height: '24px' }} />
+                <TextField
+                  value={email}
+                  defaultLabel="이메일을 입력하세요"
+                  onValueChange={(value) => setEmail(value)}
+                  onFocusChanged={(value) => {
+                    if (!value) validateInputData('email');
+                  }}
+                  isError={validate.emailValidStatus === 1}
+                  style={{ width: 'auto' }}
+                  readOnly={!isEmailFieldEnabled}
                 />
                 <WarningTextContainer>
                   <img
@@ -143,15 +223,23 @@ export default class SignUpNow extends React.PureComponent<{}, ISignUpData> {
                   </div>
                 </WarningTextContainer>
                 <TextField
-                  defaultLabel="휴대폰 번호를 입력하세요 (01012345678)"
-                  onValueChange={(value) => this.setState({ phone: value })}
+                  defaultLabel="휴대폰 번호를 입력하세요 (010-1234-5678)"
+                  onValueChange={(value) => setPhoneNumber(value)}
+                  onFocusChanged={(value) => {
+                    if (!value) validateInputData('phoneNumber');
+                  }}
+                  isError={validate.phoneNumberValidStatus === 1}
                   style={{ width: 'auto', clear: 'right' }}
                 />
                 <PasswordContainer>
                   <div style={{ width: '210px' }}>
                     <TextField
                       defaultLabel="비밀번호를 입력하세요"
-                      onValueChange={(value) => this.setState({ password: value })}
+                      onValueChange={(value) => setPassword(value)}
+                      onFocusChanged={(value) => {
+                        if (!value) validateInputData('password');
+                      }}
+                      isError={validate.passwordValidStatus === 1}
                       style={{ width: 'auto' }}
                       type="password"
                     />
@@ -159,7 +247,11 @@ export default class SignUpNow extends React.PureComponent<{}, ISignUpData> {
                   <div style={{ width: '210px' }}>
                     <TextField
                       defaultLabel="비밀번호를 재입력하세요"
-                      onValueChange={(value) => this.setState({ rePassword: value })}
+                      onValueChange={(value) => setRePassword(value)}
+                      onFocusChanged={(value) => {
+                        if (!value) validateInputData('password');
+                      }}
+                      isError={validate.passwordValidStatus === 1}
                       style={{ width: 'auto' }}
                       type="password"
                     />
@@ -180,16 +272,25 @@ export default class SignUpNow extends React.PureComponent<{}, ISignUpData> {
                 <div style={{ float: 'right', marginTop: '16px' }}>
                   <CheckBox
                     label="위 약관을 자세히 읽었으며, 개인정보처리방침에 동의합니다."
-                    checked={isPrivacyChecked}
-                    onChange={() => this.setState({ isPrivacyChecked: !isPrivacyChecked })}
+                    checked={isAgreeLicense}
+                    onChange={() => {
+                      setAgreeLicense(!isAgreeLicense);
+                    }}
                   />
                 </div>
               </PrivacyContainer>
-              <Button type="wide" label="회원가입" isPrimary={false} onClick={this.signupTry} />
+              <Button
+                type="wide"
+                label="회원가입"
+                isPrimary={false}
+                isEnabled={isRegisterButtonEnabled}
+                onClick={signUpTry}
+              />
             </div>
           ),
         }}
       </DividedCard>
-    );
-  }
+      {isLoading && <Loading />}
+    </div>
+  );
 }

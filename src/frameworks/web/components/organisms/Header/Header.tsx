@@ -5,6 +5,8 @@ import Button from 'frameworks/web/components/atoms/Button/Button';
 import { Visible, Hidden, ScreenClassRender } from 'react-grid-system';
 import { Link } from 'react-router-dom';
 
+import SomulLogo from 'assets/logo/logo.svg';
+
 const HeaderContainer = styled.div`
   position: fixed;
   min-width: auto;
@@ -57,9 +59,9 @@ export default class Header extends React.PureComponent {
                   margin: sClass === 'xs' ? '0 24px' : '0 85px',
                 }}
               >
-                <a href="https://www.somul.kr">
+                <a href="/">
                   <img
-                    src="logo/logo.svg"
+                    src={SomulLogo}
                     alt="소프트웨어에 물들다 (로고)"
                     style={{
                       margin: sClass === 'xs' ? '16px 0' : '30px 76px 30px 0',
@@ -71,7 +73,7 @@ export default class Header extends React.PureComponent {
                 </a>
                 <Visible xl>
                   <HeaderMenuContainer>
-                    <a href="#landingAbout" style={{ textDecoration: 'none' }}>
+                    <a href="/#landingAbout" style={{ textDecoration: 'none' }}>
                       <Label type="H5">소물이란?</Label>
                     </a>
                     <Label type="H5" onClick={notYetAlert}>
@@ -80,7 +82,7 @@ export default class Header extends React.PureComponent {
                     <Link to="/apply/speaker" style={{ textDecoration: 'none' }}>
                       <Label type="H5">참가신청</Label>
                     </Link>
-                    <a href="#landingSponsor" style={{ textDecoration: 'none' }}>
+                    <a href="/#landingSponsor" style={{ textDecoration: 'none' }}>
                       <Label type="H5">후원안내</Label>
                     </a>
                     <Label type="H5" onClick={notYetAlert}>

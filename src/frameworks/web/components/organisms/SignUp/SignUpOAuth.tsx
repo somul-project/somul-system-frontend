@@ -12,8 +12,6 @@ import Button from 'frameworks/web/components/atoms/Button/Button';
 import CheckBox from 'frameworks/web/components/atoms/CheckBox/CheckBox';
 // eslint-disable-next-line no-unused-vars
 import { RouteComponentProps } from 'react-router-dom';
-import UserService from 'utils/user';
-import { ERROR_MESSAGE } from 'utils/constants';
 // eslint-disable-next-line no-unused-vars
 import { ISignUpOAuthState } from 'interfaces/frameworks/web/components/organisms/SignUp/ISignUpOAuth';
 
@@ -49,18 +47,18 @@ export default class SignUpOAuth extends React.PureComponent<
   }
 
   signupTry = async () => {
-    const signupPayload = this.state;
-    const valCheck = UserService.signUpOAuthValidationCheck(signupPayload);
-    if (valCheck !== true) {
-      alert(valCheck);
-      return;
-    }
-    const signUpResult = await UserService.sendSignUpOAuthData(signupPayload);
-    if (signUpResult === '0') {
-      window.location.href = `/signup/complete?email=${signupPayload.email}`;
-      return;
-    }
-    alert(ERROR_MESSAGE[signUpResult] ?? ERROR_MESSAGE['500']);
+    // const signupPayload = this.state;
+    // const valCheck = UserService.signUpOAuthValidationCheck(signupPayload);
+    // if (valCheck !== true) {
+    //   alert(valCheck);
+    //   return;
+    // }
+    // const signUpResult = await UserService.sendSignUpOAuthData(signupPayload);
+    // if (signUpResult === '0') {
+    //   window.location.href = `/signup/complete?email=${signupPayload.email}`;
+    //   return;
+    // }
+    // alert(ERROR_MESSAGE[signUpResult] ?? ERROR_MESSAGE['500']);
   };
 
   render() {

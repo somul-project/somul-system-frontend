@@ -14,7 +14,6 @@ import {
   ISpeakerApplyStep2,
   ISpeakerApplyStep2State,
 } from 'interfaces/frameworks/web/components/organisms/SpeakerApply/ISpeakerApplyStep2';
-import FormService from 'utils/form';
 
 const TextLabelContainer = styled.div`
   width: 78px;
@@ -98,7 +97,7 @@ export default class SpeakerApplyStep2 extends React.PureComponent<
   };
 
   render() {
-    const { currentStep, handleChange, onSubmit } = this.props;
+    const { currentStep, onSubmit } = this.props;
     const { linkArray } = this.state;
     if (currentStep !== 2) {
       return null;
@@ -138,10 +137,10 @@ export default class SpeakerApplyStep2 extends React.PureComponent<
                     this.sessionName = instance!;
                   }}
                   defaultLabel="강연 제목을 입력하세요 (공백포함 최대 50자)"
-                  onValueChange={(data: string) => {
-                    if (FormService.checkTextLength(this.sessionName!, 50)) {
-                      handleChange('sessionName', data);
-                    }
+                  onValueChange={() => {
+                    // if (FormService.checkTextLength(this.sessionName!, 50)) {
+                    //   handleChange('sessionName', data);
+                    // }
                   }}
                   style={{ width: 'auto' }}
                 />
@@ -150,10 +149,10 @@ export default class SpeakerApplyStep2 extends React.PureComponent<
                     this.sessionDesc = instance!;
                   }}
                   defaultLabel="강연 내용을 입력하세요 (공백포함 최대 500자)"
-                  onValueChange={(data: string) => {
-                    if (FormService.checkTextLength(this.sessionDesc!, 500)) {
-                      handleChange('sessionDesc', data);
-                    }
+                  onValueChange={() => {
+                    // if (FormService.checkTextLength(this.sessionDesc!, 500)) {
+                    //   handleChange('sessionDesc', data);
+                    // }
                   }}
                   height={200}
                   style={{ width: 'auto', margin: '24px 0' }}
