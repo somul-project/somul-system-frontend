@@ -4,7 +4,7 @@ import { useHistory, useLocation } from 'react-router';
 import theme from 'theme';
 import SingleCard from 'frameworks/web/components/molecules/SingleCard/SingleCard';
 import Label from 'frameworks/web/components/atoms/Label/Label';
-import { IForgotState as IForgotLocation } from '../../../../../interfaces/frameworks/web/components/organisms/SignIn/IForgot';
+import { IForgotState as IForgotLocation } from 'interfaces/frameworks/web/components/organisms/SignIn/IForgot';
 
 export default function ForgotComplete(): React.ReactElement {
   const {
