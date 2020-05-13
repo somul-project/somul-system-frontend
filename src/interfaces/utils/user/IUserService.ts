@@ -4,7 +4,7 @@ export interface ISignUpData {
   phone: string;
   password: string;
   rePassword: string;
-  isPrivacyChecked: boolean;
+  isAgreeLicense: boolean;
 }
 
 export interface IServerResponse {

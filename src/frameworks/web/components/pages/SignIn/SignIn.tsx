@@ -7,6 +7,13 @@ import ForgotPassword from 'frameworks/web/components/organisms/SignIn/ForgotPas
 import ForgotComplete from 'frameworks/web/components/organisms/SignIn/ForgotComplete';
 import ChangePassword from 'frameworks/web/components/organisms/SignIn/ChangePassword';
 import ChangeComplete from 'frameworks/web/components/organisms/SignIn/ChangeComplete';
+import {
+  ROUTE_SIGN_IN,
+  ROUTE_SIGN_IN_CHANGE_PASSWORD,
+  ROUTE_SIGN_IN_CHANGE_PASSWORD_COMPLETE,
+  ROUTE_SIGN_IN_FORGOT_COMPLETE,
+  ROUTE_SIGN_IN_FORGOT_PASSWORD,
+} from 'utils/constants';
 
 const SignInContainer = styled.div`
   padding: 120px 0;
@@ -19,11 +26,21 @@ export default class SignIn extends React.PureComponent {
       <Router>
         <SignInContainer>
           <Switch>
-            <Route exact path="/signin" component={SignInCard} />
-            <Route path="/signin/forgot-password" component={ForgotPassword} />
-            <Route path="/signin/forgot-complete" component={ForgotComplete} />
-            <Route path="/signin/change-password" component={ChangePassword} />
-            <Route path="/signin/change-complete" component={ChangeComplete} />
+            <Route exact path={ROUTE_SIGN_IN}>
+              <SignInCard />
+            </Route>
+            <Route path={ROUTE_SIGN_IN_FORGOT_PASSWORD}>
+              <ForgotPassword />
+            </Route>
+            <Route path={ROUTE_SIGN_IN_FORGOT_COMPLETE}>
+              <ForgotComplete />
+            </Route>
+            <Route path={ROUTE_SIGN_IN_CHANGE_PASSWORD}>
+              <ChangePassword />
+            </Route>
+            <Route path={ROUTE_SIGN_IN_CHANGE_PASSWORD_COMPLETE}>
+              <ChangeComplete />
+            </Route>
           </Switch>
         </SignInContainer>
       </Router>

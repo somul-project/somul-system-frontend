@@ -9,9 +9,10 @@ const BaseButton = styled.button`
   background-color: ${(props: IBaseButton) =>
     props.isPrimary ? theme.color.primary.Scarlet : theme.color.primary.Black};
   color: ${theme.color.primary.White} !important;
+  opacity: ${(props: IBaseButton) => (props.isEnabled ? '1' : '0.3')};
   border: none;
   outline: none;
-  cursor: pointer;
+  cursor: ${(props: IBaseButton) => (props.isEnabled ? 'pointer' : 'inherit')};
   border-radius: 10px;
   font-size: 16px;
   transition: all 0.2s;
@@ -71,11 +72,17 @@ export default function Button({
   label,
   isPrimary = false,
   onClick = null,
+  isEnabled = true,
   style,
 }: IButton): React.ReactElement {
   const ButtonComponent = BUTTONS[type];
   return (
-    <ButtonComponent isPrimary={isPrimary} onClick={onClick} style={style}>
+    <ButtonComponent
+      isPrimary={isPrimary}
+      onClick={isEnabled ? onClick : undefined}
+      isEnabled={isEnabled}
+      style={style}
+    >
       {label}
     </ButtonComponent>
   );
