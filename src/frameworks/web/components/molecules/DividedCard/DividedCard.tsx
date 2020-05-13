@@ -1,10 +1,9 @@
-import styled from 'styled-components';
-// eslint-disable-next-line no-unused-vars
 import React from 'react';
+import styled from 'styled-components';
 import theme from 'theme';
+
 import ContentsBox from 'frameworks/web/components/atoms/ContentsBox/ContentsBox';
 import Label from 'frameworks/web/components/atoms/Label/Label';
-// eslint-disable-next-line no-unused-vars
 import {
   IDividedCard,
   IDividedCardLeft,
@@ -32,21 +31,20 @@ const RightContainer = styled.div`
   padding: 80px 0;
 `;
 
-export default class DividedCard extends React.PureComponent<IDividedCard> {
-  render() {
-    const { title, children, leftPadding } = this.props;
-    const { left, right } = children;
-
-    return (
-      <CardContainer isDarkBackground={false}>
-        <LeftContainer leftPadding={leftPadding}>
-          <Label type="H4" color={theme.color.primary.White}>
-            {title}
-          </Label>
-          {left}
-        </LeftContainer>
-        <RightContainer>{right}</RightContainer>
-      </CardContainer>
-    );
-  }
+export default function DividedCard({
+  title,
+  children: { left, right },
+  leftPadding,
+}: IDividedCard): React.ReactElement {
+  return (
+    <CardContainer isDarkBackground={false}>
+      <LeftContainer leftPadding={leftPadding}>
+        <Label type="H4" color={theme.color.primary.White}>
+          {title}
+        </Label>
+        {left}
+      </LeftContainer>
+      <RightContainer>{right}</RightContainer>
+    </CardContainer>
+  );
 }

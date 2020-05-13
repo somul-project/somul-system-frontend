@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import theme from 'theme';
 
 import {
+  IOptionalLabelElement,
   ITextField,
   ITextFieldElement,
 } from 'interfaces/frameworks/web/components/atoms/TextField/ITextField';
@@ -20,7 +21,7 @@ const InputBoxBase = styled.input`
 const InputBoxActivate = styled(InputBoxBase)`
   background-color: ${(props: ITextFieldElement) =>
     props.isFocus ? theme.color.primary.White : theme.color.secondary.Snow};
-  margin: ${(props: ITextFieldElement) => (props.isFocus ? '0 22px' : '0 24px')};
+  margin: 0 22px;
 `;
 
 const InputBoxDeactivate = styled(InputBoxBase)`
@@ -37,8 +38,14 @@ const TextFieldContainerBase = styled.div`
 `;
 
 const TextFieldContainerActivate = styled(TextFieldContainerBase)`
-  border: ${(props: ITextFieldElement) =>
-    props.isFocus ? `2px solid ${theme.color.primary.Azure}` : '0'};
+  border: 2px solid
+    ${(props: ITextFieldElement) =>
+      // eslint-disable-next-line no-nested-ternary
+      props.isError
+        ? theme.color.alert.Failure
+        : props.isFocus
+        ? theme.color.primary.Azure
+        : theme.color.secondary.Snow};
   background-color: ${(props: ITextFieldElement) =>
     props.isFocus ? theme.color.primary.White : theme.color.secondary.Snow};
 `;
@@ -55,6 +62,16 @@ const ImgButton = styled.img`
   margin-right: ${(props: ITextFieldElement) => (props.isFocus ? '22px' : '24px')};
 `;
 
+const OptionalLabel = styled.p<IOptionalLabelElement>`
+  font-family: 'Muli', 'Noto Sans KR', sans-serif;
+  position: absolute;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+  text-align: left;
+  color: ${(props) => (!props.isError ? theme.color.secondary.Moon : theme.color.alert.Failure)};
+`;
+
 export default function TextField(props: ITextField): React.ReactElement {
   const {
     defaultLabel,
@@ -63,20 +80,29 @@ export default function TextField(props: ITextField): React.ReactElement {
     readOnly,
     value,
     isButton,
+    isError,
     buttonSrc,
     onButtonClicked,
+    onFocusChanged,
     onValueChange,
     customRef,
+    optionalString,
   } = props;
 
-  const [state, setState] = useState<ITextFieldElement>({ isFocus: false });
+  const [state, setState] = useState<ITextFieldElement>({ isFocus: false, isError: false });
 
   const onFocus = () => {
     setState({ isFocus: true });
+    if (onFocusChanged) {
+      onFocusChanged(true);
+    }
   };
 
   const onBlur = () => {
     setState({ isFocus: false });
+    if (onFocusChanged) {
+      onFocusChanged(false);
+    }
   };
 
   const onLabelChange = (newValue: string) => {
@@ -92,20 +118,24 @@ export default function TextField(props: ITextField): React.ReactElement {
   }
 
   return (
-    <TextFieldContainerActivate isFocus={state.isFocus} style={style}>
-      <InputBoxActivate
-        ref={customRef}
-        type={type ?? 'text'}
-        placeholder={defaultLabel}
-        isFocus={state.isFocus}
-        onFocus={onFocus}
-        onBlur={onBlur}
-        onChange={(event) => onLabelChange(event.target.value)}
-        value={value}
-      />
-      {isButton && (
-        <ImgButton src={buttonSrc} onClick={() => onButtonClicked!()} isFocus={state.isFocus} />
-      )}
-    </TextFieldContainerActivate>
+    <div>
+      <TextFieldContainerActivate isFocus={state.isFocus} style={style} isError={isError}>
+        <InputBoxActivate
+          ref={customRef}
+          type={type ?? 'text'}
+          placeholder={defaultLabel}
+          isFocus={state.isFocus}
+          isError={isError}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          onChange={(event) => onLabelChange(event.target.value)}
+          value={value}
+        />
+        {isButton && (
+          <ImgButton src={buttonSrc} onClick={() => onButtonClicked!()} isFocus={state.isFocus} />
+        )}
+      </TextFieldContainerActivate>
+      {optionalString && <OptionalLabel isError={isError ?? false}>{optionalString}</OptionalLabel>}
+    </div>
   );
 }
