@@ -15,8 +15,10 @@ const store = new Store({
 
 export const DefaultTextField = () => {
   const defaultLabel = text('Default Label', '내용을 입력해주세요.');
+  const optionalLabel = text('Optional Label', '');
   const readOnly = boolean('readOnly', false);
   const isButton = boolean('isButton', false);
+  const isError = boolean('isError', false);
 
   return (
     <State store={store}>
@@ -25,7 +27,9 @@ export const DefaultTextField = () => {
         onValueChange={(value) => store.set({ textValue: value })}
         readOnly={readOnly}
         isButton={isButton}
+        isError={isError}
         buttonSrc="icon/highlight-off.svg"
+        optionalString={optionalLabel}
         onButtonClicked={action('button-clicked')}
       />
     </State>

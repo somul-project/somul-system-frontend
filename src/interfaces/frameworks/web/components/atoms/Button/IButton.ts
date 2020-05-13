@@ -1,14 +1,14 @@
 type ButtonType = 'default' | 'field' | 'small' | 'wide' | 'mobilewide';
 
 export interface IBaseButton {
-  isDisable: boolean;
+  isEnabled?: boolean;
   bgColor: string;
   hoverColor: string;
 }
 
 export interface IButton {
   isPrimary?: boolean;
-  isDisable?: boolean;
+  isEnabled?: boolean;
   type?: ButtonType;
   label: string;
   onClick?: Function;

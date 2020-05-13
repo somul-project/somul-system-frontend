@@ -2,6 +2,22 @@ export const NODE_ENV = process.env.NODE_ENV !== 'production' ? 'development' : 
 
 export const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
+export const ROUTE_HOME = '/';
+export const ROUTE_SIGN_IN = '/signin';
+export const ROUTE_SIGN_IN_FORGOT_PASSWORD = '/signin/forgot-password';
+export const ROUTE_SIGN_IN_FORGOT_COMPLETE = '/signin/forgot-complete';
+export const ROUTE_SIGN_IN_CHANGE_PASSWORD = '/signin/change-password';
+export const ROUTE_SIGN_IN_CHANGE_PASSWORD_COMPLETE = '/signin/change-complete';
+export const ROUTE_SIGN_UP = '/signup';
+export const ROUTE_SIGN_UP_START = '/signup/start';
+export const ROUTE_SIGN_UP_COMPLETE = '/signup/complete';
+export const ROUTE_SIGN_UP_OAUTH = '/signup/oauth';
+export const ROUTE_APPLY_SPEAKER = '/apply/speaker';
+export const ROUTE_APPLY_SPEAKER_COMPLETE = '/apply/speaker/complete';
+export const ROUTE_STATUS = '/status';
+export const ROUTE_PROFILE = '/profile';
+export const ROUTE_PROFILE_WITHDRAW = '/profile/withdraw';
+
 export const ERROR_MESSAGE: { [code: string]: string } = {
   0: '성공',
   1: '적절하지 않은 인자입니다.',

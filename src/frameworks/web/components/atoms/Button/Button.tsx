@@ -8,11 +8,11 @@ const BaseButton = styled.button`
   font-family: 'Muli', 'Noto Sans KR', sans-serif;
   background-color: ${(props: IBaseButton) => props.bgColor};
   color: ${(props: IBaseButton) =>
-    props.isDisable ? theme.color.secondary.Moon : theme.color.primary.White} !important;
+    props.isEnabled ? theme.color.primary.White : theme.color.secondary.Moon} !important;
   border: 1px solid
-    ${(props: IBaseButton) => (props.isDisable ? theme.color.secondary.Ash : props.bgColor)};
+    ${(props: IBaseButton) => (props.isEnabled ? props.bgColor : theme.color.secondary.Ash)};
   outline: none;
-  cursor: pointer;
+  cursor: ${(props: IBaseButton) => (props.isEnabled ? 'pointer' : 'inherit')};
   border-radius: 10px;
   font-size: 16px;
   transition: all 0.2s;
@@ -20,7 +20,8 @@ const BaseButton = styled.button`
   @media (hover: hover) {
     &:hover {
       background-color: ${(props: IBaseButton) => props.hoverColor};
-      border-color: ${(props: IBaseButton) => props.hoverColor};
+      border-color: ${(props: IBaseButton) =>
+        props.isEnabled ? props.hoverColor : theme.color.secondary.Ash};
     }
   }
 `;
@@ -71,14 +72,14 @@ export default function Button({
   type = 'default',
   label,
   isPrimary = false,
-  isDisable = false,
   onClick = () => undefined,
+  isEnabled = true,
   style,
 }: IButton): React.ReactElement {
   const ButtonComponent = BUTTONS[type];
   let bgColor: string;
   let hoverColor: string;
-  if (isDisable) {
+  if (!isEnabled) {
     bgColor = theme.color.primary.White;
     hoverColor = bgColor;
   } else if (isPrimary) {
@@ -92,8 +93,8 @@ export default function Button({
     <ButtonComponent
       bgColor={bgColor}
       hoverColor={hoverColor}
-      isDisable={isDisable}
-      onClick={() => onClick()}
+      isEnabled={isEnabled}
+      onClick={() => (isEnabled ? onClick() : undefined)}
       style={style}
     >
       {label}

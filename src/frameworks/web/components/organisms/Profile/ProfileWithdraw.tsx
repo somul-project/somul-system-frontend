@@ -75,7 +75,7 @@ const ProfileWithdraw = () => {
           <Button
             label="삭제하기"
             isPrimary
-            isDisable={checkText !== '삭제하겠습니다'}
+            isEnabled={checkText === '삭제하겠습니다'}
             onClick={onDeleteButtonClicked}
           />
         </EachButtonContainer>
