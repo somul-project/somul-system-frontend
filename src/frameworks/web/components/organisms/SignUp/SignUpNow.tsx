@@ -18,7 +18,7 @@ import SignUpIllust from 'assets/illust/signup-illustration.png';
 import { IRegisterUserValidateState } from 'interfaces/utils/IValidator';
 import { isEmail, isName, isPhoneNumber, isValidPassword } from 'utils/validator';
 import Loading from 'frameworks/web/components/atoms/Loading/Loading';
-import SignUpRequest from '../../../../../service/request/SignUpRequest';
+import SignUpRequest from 'service/request/SignUpRequest';
 
 const TextLabelContainer = styled.div`
   width: 65px;

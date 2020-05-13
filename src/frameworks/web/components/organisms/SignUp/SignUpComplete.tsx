@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import theme from 'theme';
 import SingleCard from 'frameworks/web/components/molecules/SingleCard/SingleCard';
 import Label from 'frameworks/web/components/atoms/Label/Label';
@@ -7,8 +7,8 @@ import apolloClient from 'frameworks/web/apollo';
 import Loading from 'frameworks/web/components/atoms/Loading/Loading';
 import { RESEND_EMAIL } from 'service/query/SignUpQuery';
 
-const SignUpComplete = (props: RouteComponentProps) => {
-  const { location } = props;
+const SignUpComplete = () => {
+  const location = useLocation();
 
   const [email, setEmail] = useState('');
   const [isLoading, setLoading] = useState(false);
