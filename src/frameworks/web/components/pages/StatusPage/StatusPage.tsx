@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from 'theme';
 import Label from 'frameworks/web/components/atoms/Label/Label';
@@ -22,9 +23,9 @@ const NoStatusContainer = styled.div`
 `;
 
 export default function StatusPage({ isApply = false }: IStatusPage): React.ReactElement {
+  const history = useHistory();
   const linkToApply = () => {
-    // eslint-disable-next-line no-undef
-    window.location.href = '/apply/speaker';
+    history.push('/apply/speaker');
   };
   return (
     <StatusContainer>

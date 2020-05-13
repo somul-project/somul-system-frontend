@@ -14,6 +14,7 @@ export const ROUTE_SIGN_UP_COMPLETE = '/signup/complete';
 export const ROUTE_SIGN_UP_OAUTH = '/signup/oauth';
 export const ROUTE_APPLY_SPEAKER = '/apply/speaker';
 export const ROUTE_APPLY_SPEAKER_COMPLETE = '/apply/speaker/complete';
+export const ROUTE_STATUS = '/status';
 
 export const ERROR_MESSAGE: { [code: string]: string } = {
   0: '성공',

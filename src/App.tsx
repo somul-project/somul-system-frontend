@@ -10,10 +10,17 @@ import SignIn from 'frameworks/web/components/pages/SignIn/SignIn';
 import SignUp from 'frameworks/web/components/pages/SignUp/SignUp';
 import Footer from 'frameworks/web/components/organisms/Footer/Footer';
 import SpeakerApply from 'frameworks/web/components/pages/SpeakerApply/SpeakerApply';
+import StatusPage from 'frameworks/web/components/pages/StatusPage/StatusPage';
 
 import apolloClient, { initStorage } from 'frameworks/web/apollo';
 import Loading from 'frameworks/web/components/atoms/Loading/Loading';
-import { ROUTE_APPLY_SPEAKER, ROUTE_HOME, ROUTE_SIGN_IN, ROUTE_SIGN_UP } from 'utils/constants';
+import {
+  ROUTE_APPLY_SPEAKER,
+  ROUTE_HOME,
+  ROUTE_SIGN_IN,
+  ROUTE_SIGN_UP,
+  ROUTE_STATUS,
+} from 'utils/constants';
 
 function App() {
   const [isLoaded, setLoaded] = useState(false);
@@ -42,6 +49,9 @@ function App() {
             </Route>
             <Route path={ROUTE_APPLY_SPEAKER}>
               <SpeakerApply email="test@somul.kr" name="테스트" />
+            </Route>
+            <Route path={ROUTE_STATUS}>
+              <StatusPage />
             </Route>
           </Switch>
           <Footer />
