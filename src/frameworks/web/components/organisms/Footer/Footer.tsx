@@ -1,9 +1,14 @@
 import React from 'react';
-import theme from 'theme';
 import styled from 'styled-components';
+import Label from 'frameworks/web/components/atoms/Label/Label';
+import theme from 'theme';
 import { Row, Col, Visible, Hidden } from 'react-grid-system';
 
-import Label from 'frameworks/web/components/atoms/Label/Label';
+import FacebookLogo from 'assets/logo/facebook-footer.svg';
+import GithubLogo from 'assets/logo/github-footer.svg';
+import CodeClubLogo from 'assets/logo/codeclub.svg';
+
+import { ILabel } from 'interfaces/frameworks/web/components/atoms/Label/ILabel';
 
 const MaxContainer = styled.div`
   max-width: 1280px;
@@ -34,13 +39,13 @@ function FooterLogos({ style = null }: any): React.ReactElement {
   return (
     <div style={style}>
       <a href="https://www.facebook.com/groups/may.somul/">
-        <FooterLogo src="logo/facebook-footer.svg" alt="footer facebook icon" />
+        <FooterLogo src={FacebookLogo} alt="footer facebook icon" />
       </a>
       <a href="https://github.com/somul-project">
-        <FooterLogo src="logo/github-footer.svg" alt="footer github icon" />
+        <FooterLogo src={GithubLogo} alt="footer github icon" />
       </a>
       <a href="https://codeclubkorea.org">
-        <FooterLogo src="logo/codeclub.svg" alt="footer code-club icon" />
+        <FooterLogo src={CodeClubLogo} alt="footer code-club icon" />
       </a>
     </div>
   );
@@ -49,7 +54,7 @@ function FooterLogos({ style = null }: any): React.ReactElement {
 function CopyRightLabel({
   type = 'MobileP2',
   style = { marginTop: '8px', textAlign: 'center' },
-}: any): React.ReactElement {
+}: ILabel): React.ReactElement {
   return (
     <Label type={type} color={theme.color.secondary.Moon} style={style}>
       Copyright © 2020 Colored by Software, All rights reserved.

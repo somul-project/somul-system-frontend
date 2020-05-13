@@ -7,6 +7,7 @@ import Label from 'frameworks/web/components/atoms/Label/Label';
 import ContentsBox from 'frameworks/web/components/atoms/ContentsBox/ContentsBox';
 import SignButton from 'frameworks/web/components/atoms/SignButton/SignButton';
 import { SERVER_URL } from 'utils/constants';
+import * as ROUTES from 'utils/routes';
 
 const SignInContainer = styled(ContentsBox)`
   width: 730px;
@@ -22,13 +23,11 @@ const SignButtonContainer = styled.div`
 
 export default function SignUpCard(): React.ReactElement {
   const googleSignUp = () => {
-    const win = window.open(`${SERVER_URL}/auth/google`, '_blank');
-    win!.focus();
+    window.location.href = `${SERVER_URL}/auth/google`;
   };
 
   const githubSignUp = () => {
-    const win = window.open(`${SERVER_URL}/auth/github`, '_blank');
-    win!.focus();
+    window.location.href = `${SERVER_URL}/auth/github`;
   };
 
   return (
@@ -43,7 +42,7 @@ export default function SignUpCard(): React.ReactElement {
         <div style={{ marginBottom: '24px' }}>
           <SignButton siteType="github" buttonType="signup" onClick={githubSignUp} />
         </div>
-        <Link to="/signup">
+        <Link to={ROUTES.SIGN_UP}>
           <SignButton siteType="email" buttonType="signup" onClick={() => undefined} />
         </Link>
       </SignButtonContainer>

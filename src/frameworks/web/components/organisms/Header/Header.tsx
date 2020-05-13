@@ -8,6 +8,11 @@ import Button from 'frameworks/web/components/atoms/Button/Button';
 import NavigationBar from 'frameworks/web/components/molecules/NavigationBar/NavigationBar';
 import { IHeaderItem } from 'interfaces/frameworks/web/components/organisms/Header/IHeader';
 
+import * as ROUTES from 'utils/routes';
+
+import SomulLogo from 'assets/logo/logo.svg';
+import HamburgerMenu from 'assets/icon/mobile-menu.svg';
+
 const HeaderContainer = styled.div`
   position: fixed;
   min-width: auto;
@@ -76,7 +81,7 @@ export default function Header(): React.ReactElement {
             >
               <a href="https://www.somul.kr">
                 <img
-                  src="logo/logo.svg"
+                  src={SomulLogo}
                   alt="소프트웨어에 물들다 (로고)"
                   style={{
                     margin: sClass === 'xs' ? '16px 0' : '30px 76px 30px 0',
@@ -94,7 +99,7 @@ export default function Header(): React.ReactElement {
                   <Label type="H5" onClick={handleClickInfo}>
                     강연정보
                   </Label>
-                  <Link to="/apply/speaker" style={{ textDecoration: 'none' }}>
+                  <Link to={ROUTES.APPLY_SPEAKER} style={{ textDecoration: 'none' }}>
                     <Label type="H5">참가신청</Label>
                   </Link>
                   <a href="#landingSponsor" style={{ textDecoration: 'none' }}>
@@ -109,7 +114,7 @@ export default function Header(): React.ReactElement {
                     <NavigationBar name={user.name} email={user.email} />
                   ) : (
                     <>
-                      <Link to="/signup/start">
+                      <Link to={ROUTES.SIGN_UP_START}>
                         <Button
                           type="small"
                           label="회원가입"
@@ -118,7 +123,7 @@ export default function Header(): React.ReactElement {
                           style={{ marginLeft: '20px' }}
                         />
                       </Link>
-                      <Link to="/signin">
+                      <Link to={ROUTES.SIGN_IN}>
                         <Button type="small" label="로그인" isPrimary onClick={() => undefined} />
                       </Link>
                     </>
@@ -127,7 +132,7 @@ export default function Header(): React.ReactElement {
               </Visible>
               <Hidden xl>
                 <HeaderSidebarButton
-                  src="icon/mobile-menu.svg"
+                  src={HamburgerMenu}
                   alt="사이드 메뉴"
                   onClick={handleClickSideMenu}
                   size={sClass}

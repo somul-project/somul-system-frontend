@@ -45,6 +45,19 @@ export default function SignUpOAuth(): React.ReactElement {
   const signUpTry = async () => {
     // TODO: SignUp Logic 추가
     console.log(name, email, phoneNumber);
+
+    // const signupPayload = this.state;
+    // const valCheck = UserService.signUpOAuthValidationCheck(signupPayload);
+    // if (valCheck !== true) {
+    //   alert(valCheck);
+    //   return;
+    // }
+    // const signUpResult = await UserService.sendSignUpOAuthData(signupPayload);
+    // if (signUpResult === '0') {
+    //   window.location.href = `/signup/complete?email=${signupPayload.email}`;
+    //   return;
+    // }
+    // alert(ERROR_MESSAGE[signUpResult] ?? ERROR_MESSAGE['500']);
   };
 
   return (

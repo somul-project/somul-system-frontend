@@ -28,7 +28,7 @@ export default function ForgotPassword(): React.ReactElement {
   };
 
   const goComplete = () => {
-    const result = Valid.emailFormat(email);
+    const result = Valid.isEmail(email);
     setValid(result);
 
     if (result) {
