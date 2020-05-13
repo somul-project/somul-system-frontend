@@ -11,7 +11,6 @@ const graphqlLink = createHttpLink({ uri: `${SERVER_URL}/graphql` });
 const restLink = new RestLink({
   uri: `${SERVER_URL}/`,
   headers: { 'Content-Type': 'application/json' },
-  // @ts-ignore
   responseTransformer: async (response) => {
     // @ts-ignore
     // eslint-disable-next-line no-return-await
