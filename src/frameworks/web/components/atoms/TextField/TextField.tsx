@@ -21,7 +21,7 @@ const InputBoxBase = styled.input`
 const InputBoxActivate = styled(InputBoxBase)`
   background-color: ${(props: ITextFieldElement) =>
     props.isFocus ? theme.color.primary.White : theme.color.secondary.Snow};
-  margin: ${(props: ITextFieldElement) => (props.isFocus ? '0 22px' : '0 24px')};
+  margin: 0 22px;
 `;
 
 const InputBoxDeactivate = styled(InputBoxBase)`
@@ -38,10 +38,14 @@ const TextFieldContainerBase = styled.div`
 `;
 
 const TextFieldContainerActivate = styled(TextFieldContainerBase)`
-  border: ${(props: ITextFieldElement) =>
-    props.isFocus
-      ? `2px solid ${!props.isError ? theme.color.primary.Azure : theme.color.alert.Failure}`
-      : `${props.isError ? `2px solid ${theme.color.alert.Failure}` : '0'}`};
+  border: 2px solid
+    ${(props: ITextFieldElement) =>
+      // eslint-disable-next-line no-nested-ternary
+      props.isError
+        ? theme.color.alert.Failure
+        : props.isFocus
+        ? theme.color.primary.Azure
+        : theme.color.secondary.Snow};
   background-color: ${(props: ITextFieldElement) =>
     props.isFocus ? theme.color.primary.White : theme.color.secondary.Snow};
 `;
