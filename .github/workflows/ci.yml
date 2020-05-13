@@ -1,0 +1,38 @@
+name: Run Test
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Check Commit Message Format
+      uses: gsactions/commit-message-checker@v1
+      with:
+        pattern: '^((feat|fix|build|ci|chore|docs|pref|refactor|revert|style|test)?(?:\(([^\A-Z)\s]+)?\))?(\!)?: (.+))(\n{2}|$)(((?:^.+(\n|$))+(?:\n|$){0,2}?)+(?:(^.+(\n|$))+)|(?:^.+$))?'
+        error: 'The commit message must follow the format of the git karma (http://karma-runner.github.io/4.0/dev/git-commit-msg.html).'
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Install Yarn
+      run: npm install -g yarn
+    - name: Install Packages
+      run: yarn
+      env:
+        CI: true
+    - name: Check Lint
+      run: yarn lint
+    - name: Run Testcode
+      run: yarn test
+      env:
+        CI: true
