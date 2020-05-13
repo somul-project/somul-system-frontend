@@ -44,7 +44,7 @@ const HeaderSidebarButton = styled.img`
 
   width: ${(props: IHeaderItem) => (props.size === 'xs' ? '20px' : '40px')};
   height: ${(props: IHeaderItem) => (props.size === 'xs' ? '20px' : '40px')};
-  margin: ${(props: IHeaderItem) => (props.size === 'xs' ? '14px 0' : '20px 0')}px;
+  margin: ${(props: IHeaderItem) => (props.size === 'xs' ? '14px' : '20px')} 0px;
 `;
 
 export default function Header(): React.ReactElement {
