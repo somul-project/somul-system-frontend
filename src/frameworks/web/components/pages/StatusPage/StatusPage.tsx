@@ -5,6 +5,7 @@ import theme from 'theme';
 import Label from 'frameworks/web/components/atoms/Label/Label';
 import Button from 'frameworks/web/components/atoms/Button/Button';
 import ContentsBox from 'frameworks/web/components/atoms/ContentsBox/ContentsBox';
+import StatusContent from 'frameworks/web/components/organisms/StatusPage/StatusContent';
 import { IStatusPage } from 'interfaces/frameworks/web/components/pages/StatusPage/IStatusPage';
 
 const StatusContainer = styled.div`
@@ -22,7 +23,7 @@ const NoStatusContainer = styled.div`
   padding: 120px 0;
 `;
 
-export default function StatusPage({ isApply = false }: IStatusPage): React.ReactElement {
+export default function StatusPage({ isApply = true }: IStatusPage): React.ReactElement {
   const history = useHistory();
   const linkToApply = () => {
     history.push('/apply/speaker');
@@ -41,6 +42,7 @@ export default function StatusPage({ isApply = false }: IStatusPage): React.Reac
             <Button label="신청하기" onClick={linkToApply} />
           </NoStatusContainer>
         )}
+        {isApply && <StatusContent statusNum={0} />}
       </StatusContentContainer>
     </StatusContainer>
   );
