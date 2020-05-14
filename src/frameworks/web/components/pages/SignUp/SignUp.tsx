@@ -5,7 +5,7 @@ import theme from 'theme';
 import SignUpNow from 'frameworks/web/components/organisms/SignUp/SignUpNow';
 import SignUpComplete from 'frameworks/web/components/organisms/SignUp/SignUpComplete';
 import SignUpCard from 'frameworks/web/components/organisms/SignUp/SignUpCard';
-import { ROUTE_SIGN_UP, ROUTE_SIGN_UP_COMPLETE, ROUTE_SIGN_UP_START } from 'utils/constants';
+import * as ROUTES from 'utils/routes';
 
 const SignUpContainer = styled.div`
   padding: 120px 0;
@@ -18,13 +18,13 @@ export default class SignIn extends React.PureComponent {
       <Router>
         <SignUpContainer>
           <Switch>
-            <Route exact path={ROUTE_SIGN_UP}>
+            <Route exact path={ROUTES.SIGN_UP}>
               <SignUpNow />
             </Route>
-            <Route path={ROUTE_SIGN_UP_START}>
+            <Route path={ROUTES.SIGN_UP_START}>
               <SignUpCard />
             </Route>
-            <Route path={ROUTE_SIGN_UP_COMPLETE}>
+            <Route path={ROUTES.SIGN_UP_COMPLETE}>
               <SignUpComplete />
             </Route>
           </Switch>

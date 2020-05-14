@@ -1,20 +1,20 @@
-/* eslint-disable react/no-unused-state */
-/* eslint-disable no-undef */
-/* eslint-disable no-alert */
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import theme from 'theme';
 import { Link } from 'react-router-dom';
+
+import theme from 'theme';
+
 import Label from 'frameworks/web/components/atoms/Label/Label';
 import ContentsBox from 'frameworks/web/components/atoms/ContentsBox/ContentsBox';
 import TextField from 'frameworks/web/components/atoms/TextField/TextField';
 import Button from 'frameworks/web/components/atoms/Button/Button';
 import SignButton from 'frameworks/web/components/atoms/SignButton/SignButton';
-// eslint-disable-next-line no-unused-vars
+import Loading from 'frameworks/web/components/atoms/Loading/Loading';
+
 import { SERVER_URL } from 'utils/constants';
+import * as ROUTES from 'utils/routes';
 import { isEmail, isValidPassword } from 'utils/validator';
 import SignInRequest from 'service/request/SignInRequest';
-import Loading from 'frameworks/web/components/atoms/Loading/Loading';
 
 const SignInContainer = styled(ContentsBox)`
   width: 730px;
@@ -112,7 +112,7 @@ export default function SignInCard(): React.ReactElement {
             <Label type="P2" color={theme.color.secondary.Moon}>
               비밀번호를 잊으셨나요?
             </Label>
-            <Link to="/signin/forgot-password" style={{ textDecoration: 'none' }}>
+            <Link to={ROUTES.SIGN_IN_FORGOT_PASSWORD} style={{ textDecoration: 'none' }}>
               <Label type="P2" color={theme.color.primary.Azure} style={{ marginLeft: '16px' }}>
                 비밀번호 변경
               </Label>

@@ -1,16 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+
 import theme from 'theme';
+import * as ROUTES from 'utils/routes';
+
+import SpeakerApplyStep1 from 'frameworks/web/components/organisms/SpeakerApply/SpeakerApplyStep1';
+import SpeakerApplyStep2 from 'frameworks/web/components/organisms/SpeakerApply/SpeakerApplyStep2';
+import SpeakerApplyComplete from 'frameworks/web/components/organisms/SpeakerApply/SpeakerApplyComplete';
+
 import {
-  // eslint-disable-next-line no-unused-vars
   speakerApplyElement,
   ISpeakerApplyState,
   ISpeakerApply,
 } from 'interfaces/frameworks/web/components/pages/SpeakerApply/ISpeakerApply';
-import SpeakerApplyStep1 from '../../organisms/SpeakerApply/SpeakerApplyStep1';
-import SpeakerApplyStep2 from '../../organisms/SpeakerApply/SpeakerApplyStep2';
-import SpeakerApplyComplete from '../../organisms/SpeakerApply/SpeakerApplyComplete';
 
 const SpeakerApplyContainer = styled.div`
   padding: 120px 0;
@@ -65,10 +68,10 @@ export default class SpeakerApply extends React.PureComponent<ISpeakerApply, ISp
     return (
       <Router>
         <SpeakerApplyContainer>
-          <Route exact path="/apply/speaker/complete" component={SpeakerApplyComplete} />
+          <Route exact path={ROUTES.APPLY_SPEAKER_COMPLETE} component={SpeakerApplyComplete} />
           <Route
             exact
-            path="/apply/speaker"
+            path={ROUTES.APPLY_SPEAKER}
             render={() => (
               <div>
                 <SpeakerApplyStep1

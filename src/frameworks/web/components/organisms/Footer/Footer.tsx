@@ -6,7 +6,9 @@ import { Row, Col, Visible, Hidden } from 'react-grid-system';
 
 import FacebookLogo from 'assets/logo/facebook-footer.svg';
 import GithubLogo from 'assets/logo/github-footer.svg';
-import CodeclubLogo from 'assets/logo/codeclub.svg';
+import CodeClubLogo from 'assets/logo/codeclub.svg';
+
+import { ILabel } from 'interfaces/frameworks/web/components/atoms/Label/ILabel';
 
 const MaxContainer = styled.div`
   max-width: 1280px;
@@ -18,16 +20,11 @@ const FooterContainer = styled.div`
   background: ${theme.color.primary.Black};
 `;
 
-const FooterSNSLogo = styled.img`
-  width: 32px;
-  height: 32px;
-  margin: 8px 8px;
-`;
-
-const CodeClubLogo = styled.img`
-  width: 48px;
-  height: 48px;
-  margin-left: 8px;
+const FOOTER_LOGO_WIDTH = 40;
+const FooterLogo = styled.img`
+  width: ${FOOTER_LOGO_WIDTH}px;
+  height: ${FOOTER_LOGO_WIDTH}px;
+  margin: 8px;
 `;
 
 const FooterCenterContainer = styled.div`
@@ -38,65 +35,62 @@ const FooterCenterContainer = styled.div`
   flex-direction: column;
 `;
 
-export default class Footer extends React.PureComponent {
-  render() {
-    return (
-      <div style={{ background: theme.color.primary.Black }}>
-        <MaxContainer>
-          <FooterContainer>
-            <Visible lg xl>
-              <Row align="center" justify="between" style={{ height: '100%', margin: '0' }}>
-                <Col md={4}>
-                  <Label type="H5" color={theme.color.secondary.Moon}>
-                    소프트웨어에 물들다
-                  </Label>
-                  <Label type="P2" color={theme.color.secondary.Moon}>
-                    Colored in Software
-                  </Label>
-                </Col>
-                <Col lg={6}>
-                  <div style={{ float: 'right', marginLeft: '230px' }}>
-                    <a href="https://www.facebook.com/groups/may.somul/">
-                      <FooterSNSLogo src={FacebookLogo} alt="footer facebook icon" />
-                    </a>
-                    <a href="https://github.com/somul-project">
-                      <FooterSNSLogo src={GithubLogo} alt="footer github icon" />
-                    </a>
-                    <a href="https://codeclubkorea.org">
-                      <CodeClubLogo src={CodeclubLogo} alt="footer code-club icon" />
-                    </a>
-                  </div>
-                  <Label type="P2" color={theme.color.secondary.Moon} style={{ float: 'right' }}>
-                    Copyright © 2020 Colored by Software, All rights reserved.
-                  </Label>
-                </Col>
-              </Row>
-            </Visible>
-            <Hidden lg xl>
-              <FooterCenterContainer>
-                <div>
-                  <a href="https://www.facebook.com/groups/may.somul/">
-                    <FooterSNSLogo src={FacebookLogo} alt="footer facebook icon" />
-                  </a>
-                  <a href="https://github.com/somul-project">
-                    <FooterSNSLogo src={GithubLogo} alt="footer github icon" />
-                  </a>
-                  <a href="https://codeclubkorea.org">
-                    <CodeClubLogo src={CodeClubLogo} alt="footer code-club icon" />
-                  </a>
-                </div>
-                <Label
-                  type="MobileP2"
-                  color={theme.color.secondary.Moon}
-                  style={{ marginTop: '8px', textAlign: 'center' }}
-                >
-                  Copyright © 2020 Colored by Software, All rights reserved.
+function FooterLogos({ style = null }: any): React.ReactElement {
+  return (
+    <div style={style}>
+      <a href="https://www.facebook.com/groups/may.somul/">
+        <FooterLogo src={FacebookLogo} alt="footer facebook icon" />
+      </a>
+      <a href="https://github.com/somul-project">
+        <FooterLogo src={GithubLogo} alt="footer github icon" />
+      </a>
+      <a href="https://codeclubkorea.org">
+        <FooterLogo src={CodeClubLogo} alt="footer code-club icon" />
+      </a>
+    </div>
+  );
+}
+
+function CopyRightLabel({
+  type = 'MobileP2',
+  style = { marginTop: '8px', textAlign: 'center' },
+}: ILabel): React.ReactElement {
+  return (
+    <Label type={type} color={theme.color.secondary.Moon} style={style}>
+      Copyright © 2020 Colored by Software, All rights reserved.
+    </Label>
+  );
+}
+
+export default function Footer(): React.ReactElement {
+  return (
+    <div style={{ background: theme.color.primary.Black }}>
+      <MaxContainer>
+        <FooterContainer>
+          <Visible lg xl>
+            <Row align="center" justify="between" style={{ height: '100%', margin: '0' }}>
+              <Col md={4}>
+                <Label type="H5" color={theme.color.secondary.Moon}>
+                  소프트웨어에 물들다
                 </Label>
-              </FooterCenterContainer>
-            </Hidden>
-          </FooterContainer>
-        </MaxContainer>
-      </div>
-    );
-  }
+                <Label type="P2" color={theme.color.secondary.Moon}>
+                  Colored in Software
+                </Label>
+              </Col>
+              <Col lg={6}>
+                <FooterLogos style={{ float: 'right', marginLeft: '230px' }} />
+                <CopyRightLabel type="P2" style={{ float: 'right' }} />
+              </Col>
+            </Row>
+          </Visible>
+          <Hidden lg xl>
+            <FooterCenterContainer>
+              <FooterLogos />
+              <CopyRightLabel />
+            </FooterCenterContainer>
+          </Hidden>
+        </FooterContainer>
+      </MaxContainer>
+    </div>
+  );
 }
