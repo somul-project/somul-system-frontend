@@ -23,6 +23,11 @@ export const isPhoneNumber = (pNumber: string): boolean => {
   return phoneNumberRegex.test(pNumber.trim());
 };
 
+export const isValidYoutubeLink = (link: string): boolean => {
+  const youtubeLinkRegex = /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w-]+\?v=|embed\/|v\/)?)([\w-]+)(\S+)?$/;
+  return youtubeLinkRegex.test(String(link.trim()));
+};
+
 export const isValidPassword = (password: string): boolean => {
   if (password.trim().length < 8) {
     return false;
