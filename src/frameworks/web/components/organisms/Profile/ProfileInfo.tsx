@@ -11,6 +11,7 @@ import TextField from 'frameworks/web/components/atoms/TextField/TextField';
 import Button from 'frameworks/web/components/atoms/Button/Button';
 import { IProfile } from 'interfaces/frameworks/web/components/pages/Profile/IProfile';
 import { IProfileInfoState } from 'interfaces/frameworks/web/components/organisms/Profile/IProfileInfo';
+import ProfileIllust from 'assets/illust/speaker-apply-illustration.png';
 
 const TextLabelContainer = styled.div`
   width: 93px;
@@ -63,7 +64,7 @@ export default function ProfileInfo(props: IProfile): React.ReactElement {
           left: (
             <div>
               <img
-                src="illust/speaker-apply-illustration.png"
+                src={ProfileIllust}
                 alt="강연자 지원 이미지"
                 style={{ width: '380px', height: '450px', margin: '75px 0 0 0' }}
               />

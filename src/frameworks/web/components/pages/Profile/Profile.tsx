@@ -5,7 +5,7 @@ import theme from 'theme';
 import { IProfile } from 'interfaces/frameworks/web/components/pages/Profile/IProfile';
 import ProfileInfo from 'frameworks/web/components/organisms/Profile/ProfileInfo';
 import ProfileWithdraw from 'frameworks/web/components/organisms/Profile/ProfileWithdraw';
-import { ROUTE_PROFILE, ROUTE_PROFILE_WITHDRAW } from 'utils/constants';
+import * as ROUTES from 'utils/routes';
 
 const ProfileContainer = styled.div`
   padding: 200px 0 120px 0;
@@ -17,10 +17,10 @@ export default function Profile({ name, email, phone }: IProfile): React.ReactEl
     <Router>
       <ProfileContainer>
         <Switch>
-          <Route exact path={ROUTE_PROFILE}>
+          <Route exact path={ROUTES.PROFILE}>
             <ProfileInfo name={name} email={email} phone={phone} />
           </Route>
-          <Route path={ROUTE_PROFILE_WITHDRAW}>
+          <Route path={ROUTES.PROFILE_WITHDRAW}>
             <ProfileWithdraw />
           </Route>
         </Switch>

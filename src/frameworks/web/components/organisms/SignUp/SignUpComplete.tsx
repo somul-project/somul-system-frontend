@@ -7,7 +7,7 @@ import apolloClient from 'frameworks/web/apollo';
 import Loading from 'frameworks/web/components/atoms/Loading/Loading';
 import { RESEND_EMAIL } from 'service/query/SignUpQuery';
 
-const SignUpComplete = () => {
+export default function SignUpComplete(): React.ReactElement {
   const location = useLocation();
 
   const [email, setEmail] = useState('');
@@ -61,6 +61,4 @@ const SignUpComplete = () => {
       {isLoading && <Loading />}
     </div>
   );
-};
-
-export default SignUpComplete;
+}

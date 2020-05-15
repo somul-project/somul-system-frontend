@@ -7,10 +7,10 @@ export const isEmail = (email: string): boolean => {
     return false;
   }
 
-  const re = new RegExp(
+  const emailRegex = new RegExp(
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
   );
-  return re.test(String(email.trim()).toLowerCase());
+  return emailRegex.test(String(email.trim()).toLowerCase());
 };
 
 export const isPhoneNumber = (pNumber: string): boolean => {
