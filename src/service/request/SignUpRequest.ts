@@ -1,7 +1,7 @@
 import { SignUpPayload } from 'interfaces/service/request/ISignUpRequest';
 import { FetchResult } from 'apollo-link';
 import apolloClient from 'frameworks/web/apollo';
-import { REGISTER_USER_QUERY, RESEND_EMAIL } from 'service/query/SignUpQuery';
+import { REGISTER_USER_QUERY, RESEND_EMAIL } from 'service/graphql/rest/SignUpQuery';
 
 export default class SignUpRequest {
   static signUp(payload: SignUpPayload): Promise<FetchResult> {

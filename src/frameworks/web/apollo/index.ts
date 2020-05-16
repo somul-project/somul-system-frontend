@@ -7,7 +7,7 @@ import { ApolloLink } from 'apollo-link';
 import { SERVER_URL } from 'utils/constants';
 
 const cache = new InMemoryCache();
-const graphqlLink = createHttpLink({ uri: `${SERVER_URL}/graphql` });
+const graphqlLink = createHttpLink({ uri: `${SERVER_URL}/graphql`, credentials: 'include' });
 const restLink = new RestLink({
   uri: `${SERVER_URL}/`,
   headers: { 'Content-Type': 'application/json' },
