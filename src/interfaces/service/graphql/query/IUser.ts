@@ -1,4 +1,4 @@
-import { IUser } from '../schema/IUser';
+import { IUser } from 'interfaces/service/graphql/schema/IUser';
 
 export interface IUserData {
   user: IUser;

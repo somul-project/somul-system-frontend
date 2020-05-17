@@ -1,6 +1,6 @@
-import { ILibrary } from './ILibrary';
-import { ISession } from './ISession';
-import { IVolunteer } from './IVolunteer';
+import { ILibrary } from 'interfaces/service/graphql/schema/ILibrary';
+import { ISession } from 'interfaces/service/graphql/schema/ISession';
+import { IVolunteer } from 'interfaces/service/graphql/schema/IVolunteer';
 
 export interface IUser {
   email: string;

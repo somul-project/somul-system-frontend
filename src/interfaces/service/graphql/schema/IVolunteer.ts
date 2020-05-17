@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
-import { IUser } from './IUser';
-import { ILibrary } from './ILibrary';
+import { IUser } from 'interfaces/service/graphql/schema/IUser';
+import { ILibrary } from 'interfaces/service/graphql/schema/ILibrary';
 
 export interface IVolunteer {
   id: number;
