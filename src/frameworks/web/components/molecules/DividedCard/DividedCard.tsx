@@ -28,7 +28,7 @@ const LeftContainer = styled.div`
 const RightContainer = styled.div`
   width: 730px;
   height: 100%;
-  padding: 80px 0;
+  align-self: center;
 `;
 
 export default function DividedCard({
