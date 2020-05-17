@@ -37,8 +37,17 @@ const TextAreaContainer = styled.div`
 `;
 
 export default function TextArea(props: ITextArea): React.ReactElement {
-  const { defaultLabel, readOnly = false, height, style, customRef, onValueChange } = props;
+  const {
+    defaultLabel,
+    readOnly = false,
+    height,
+    style,
+    customRef,
+    onValueChange,
+    maxLength = 99999,
+  } = props;
 
+  const [value, setValue] = useState<string>('');
   const [state, setState] = useState<ITextAreaElement>({ isFocus: false });
 
   const onFocus = () => {
@@ -49,8 +58,11 @@ export default function TextArea(props: ITextArea): React.ReactElement {
     setState({ isFocus: false });
   };
 
-  const onLabelChange = (value: string) => {
-    onValueChange(value);
+  const onLabelChange = (newValue: string) => {
+    if (maxLength >= newValue.length) {
+      setValue(newValue);
+      if (onValueChange) onValueChange(newValue);
+    }
   };
 
   return (
@@ -60,6 +72,7 @@ export default function TextArea(props: ITextArea): React.ReactElement {
         isFocus={state.isFocus}
         onFocus={onFocus}
         onBlur={onBlur}
+        value={value}
         onChange={(event) => onLabelChange(event.target.value)}
         readOnly={readOnly}
         ref={customRef}
