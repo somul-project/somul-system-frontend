@@ -5,7 +5,7 @@ import SingleCard from 'frameworks/web/components/molecules/SingleCard/SingleCar
 import Label from 'frameworks/web/components/atoms/Label/Label';
 import apolloClient from 'frameworks/web/apollo';
 import Loading from 'frameworks/web/components/atoms/Loading/Loading';
-import { RESEND_EMAIL } from 'service/query/SignUpQuery';
+import { RESEND_EMAIL } from 'service/graphql/rest/SignUpQuery';
 
 export default function SignUpComplete(): React.ReactElement {
   const location = useLocation();
