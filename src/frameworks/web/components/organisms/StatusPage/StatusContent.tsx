@@ -4,7 +4,7 @@ import { Row, Col } from 'react-grid-system';
 import theme from 'theme';
 import Label from 'frameworks/web/components/atoms/Label/Label';
 import { IStatusContent } from 'interfaces/frameworks/web/components/organisms/StatusPage/IStatusContent';
-import VideoButton from '../../atoms/VideoButton/VideoButton';
+import VideoButton from 'frameworks/web/components/atoms/VideoButton/VideoButton';
 
 const ContentHeaderContainer = styled.div`
   padding: 16px 95px;
@@ -59,7 +59,7 @@ export default function StatusContent({ statusNum = 0 }: IStatusContent): React.
     theme.color.secondary.Moon,
     theme.color.alert.Success,
   ];
-  const videoArray = ['https://youtube.com', 'https://youtube.com', 'https://youtube.com'];
+  const videoArray = new Array(3).fill('https://youtube.com');
   return (
     <div>
       <ContentHeaderContainer>
