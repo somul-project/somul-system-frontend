@@ -30,7 +30,7 @@ const EachButtonContainer = styled.div`
   margin: 0 15px 0 15px;
 `;
 
-const ProfileWithdraw = () => {
+export default function ProfileWithdraw(): React.ReactElement {
   const [checkText, setCheckText] = useState('');
   const history = useHistory();
 
@@ -82,6 +82,4 @@ const ProfileWithdraw = () => {
       </ButtonContainer>
     </CardContainer>
   );
-};
-
-export default ProfileWithdraw;
+}
