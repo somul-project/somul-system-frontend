@@ -8,6 +8,15 @@ export const GET_USER = gql`
       phonenumber
       createdAt
       updateAt
+      librarys {
+        id
+      }
+      volunteers {
+        id
+      }
+      sessions {
+        id
+      }
     }
   }
 `;
