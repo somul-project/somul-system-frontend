@@ -11,6 +11,8 @@ const StatusContainer = styled.div`
   padding: 160px 85px 120px 85px;
   background-color: ${theme.color.secondary.Ash};
   text-align: center;
+  height: auto;
+  min-height: calc(100vh - 163px);
 `;
 
 const StatusContentContainer = styled(ContentsBox)`
