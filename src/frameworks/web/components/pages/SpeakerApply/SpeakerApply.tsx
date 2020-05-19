@@ -16,7 +16,7 @@ import {
 } from 'interfaces/frameworks/web/components/pages/SpeakerApply/ISpeakerApply';
 
 const SpeakerApplyContainer = styled.div`
-  padding: 120px 0;
+  padding: 202px 0 120px 0;
   background-color: ${theme.color.secondary.Ash};
 `;
 

@@ -8,8 +8,13 @@ import SignUpCard from 'frameworks/web/components/organisms/SignUp/SignUpCard';
 import * as ROUTES from 'utils/routes';
 
 const SignUpContainer = styled.div`
-  padding: 120px 0;
+  padding: 202px 0 120px 0;
   background-color: ${theme.color.secondary.Ash};
+  height: auto;
+  min-height: calc(100vh - 163px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export default class SignIn extends React.PureComponent {
