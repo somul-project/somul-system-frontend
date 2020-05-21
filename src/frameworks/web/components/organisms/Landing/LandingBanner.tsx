@@ -109,7 +109,7 @@ export default class LandingBanner extends React.PureComponent {
                           >
                             2020년 05월 30일 14:00 ~
                           </Label>
-                          <a href="#landingAbout" style={{ textDecoration: 'none' }}>
+                          <a href="/?goto=landingAbout" style={{ textDecoration: 'none' }}>
                             <Button
                               isPrimary={false}
                               label="자세히보기"

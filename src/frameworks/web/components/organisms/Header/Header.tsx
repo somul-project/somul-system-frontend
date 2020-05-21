@@ -93,7 +93,7 @@ export default function Header(): React.ReactElement {
               </a>
               <Visible xl>
                 <HeaderMenuContainer>
-                  <a href="#landingAbout" style={{ textDecoration: 'none' }}>
+                  <a href="/?goto=landingAbout" style={{ textDecoration: 'none' }}>
                     <Label type="H5">소물이란?</Label>
                   </a>
                   <Label type="H5" onClick={handleClickInfo}>
@@ -102,7 +102,7 @@ export default function Header(): React.ReactElement {
                   <Link to={ROUTES.APPLY_SPEAKER} style={{ textDecoration: 'none' }}>
                     <Label type="H5">참가신청</Label>
                   </Link>
-                  <a href="#landingSponsor" style={{ textDecoration: 'none' }}>
+                  <a href="/?goto=landingSponsor" style={{ textDecoration: 'none' }}>
                     <Label type="H5">후원안내</Label>
                   </a>
                   <Label type="H5" onClick={handleClickFAQ}>
