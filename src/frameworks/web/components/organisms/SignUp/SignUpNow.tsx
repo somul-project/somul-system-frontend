@@ -1,6 +1,5 @@
 /* eslint-disable react/no-unused-state */
 /* eslint-disable no-undef */
-/* eslint-disable no-alert */
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
@@ -13,7 +12,9 @@ import TextField from 'frameworks/web/components/atoms/TextField/TextField';
 import TextArea from 'frameworks/web/components/atoms/TextArea/TextArea';
 import Button from 'frameworks/web/components/atoms/Button/Button';
 import CheckBox from 'frameworks/web/components/atoms/CheckBox/CheckBox';
+import Modal from 'frameworks/web/components/molecules/Modal/Modal';
 
+import SomulLogo from 'assets/logo/logo.svg';
 import SignUpIllust from 'assets/illust/signup-illustration.png';
 import { IRegisterUserValidateState } from 'interfaces/utils/IValidator';
 import { isEmail, isName, isPhoneNumber, isValidPassword } from 'utils/validator';
@@ -66,6 +67,8 @@ export default function SignUpNow(): React.ReactElement {
   const [isRegisterButtonEnabled, setRegisterButtonEnabled] = useState(false);
 
   const [isLoading, setLoading] = useState(false);
+  const [isAlert, setAlert] = useState(false);
+  const [alertDescription, setAlertDescription] = useState('');
 
   const routerHistory = useHistory();
 
@@ -76,6 +79,11 @@ export default function SignUpNow(): React.ReactElement {
     phoneNumberValidStatus: -1,
     passwordValidStatus: -1,
   });
+
+  const openAlert = (description: string) => {
+    setAlert(true);
+    setAlertDescription(description);
+  };
 
   const checkAllDataValidated = (): boolean => {
     // @ts-ignore
@@ -134,19 +142,19 @@ export default function SignUpNow(): React.ReactElement {
       const resultData = result.data!;
 
       if (resultData.result.statusCode !== '0') {
-        alert(`회원가입을 진행할 수 없어요 :(\n${resultData.result.errorMessage}`);
+        openAlert(resultData.result.errorMessage);
         setLoading(false);
       } else {
         routerHistory.push('/signup/complete', { email });
       }
     } catch (e) {
-      alert('회원가입을 진행할 수 없어요 :(\n계속 되지 않을 경우, 소물 팀에 문의 부탁드립니다!');
+      openAlert('계속 되지 않을 경우, 소물 팀에 문의 부탁드립니다!');
       setLoading(false);
     }
   };
 
   return (
-    <div>
+    <>
       <DividedCard title="SIGN UP NOW">
         {{
           left: (
@@ -291,6 +299,15 @@ export default function SignUpNow(): React.ReactElement {
         }}
       </DividedCard>
       {isLoading && <Loading />}
-    </div>
+      <Modal type="empty" isOpen={isAlert} onClose={() => setAlert(false)}>
+        <img src={SomulLogo} alt="소물 로고" style={{ width: '112.5px', height: '20px' }} />
+        <Label type="H4" color={theme.color.primary.Azure} style={{ padding: '48px 0 16px 0' }}>
+          회원가입을 진행할 수 없어요 :(
+        </Label>
+        <Label type="P1" style={{ paddingBottom: '48px' }}>
+          {alertDescription}
+        </Label>
+      </Modal>
+    </>
   );
 }
