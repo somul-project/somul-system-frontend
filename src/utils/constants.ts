@@ -2,8 +2,6 @@ export const NODE_ENV = process.env.NODE_ENV !== 'production' ? 'development' : 
 
 export const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
-export const CURRENT_EMAIL_VALUE = 'somul-cur-email';
-
 export const ERROR_MESSAGE: { [code: string]: string } = {
   0: '성공',
   1: '적절하지 않은 인자입니다.',
