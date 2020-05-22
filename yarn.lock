@@ -12537,7 +12537,7 @@ slice-ansi@^4.0.0:
     astral-regex "^2.0.0"
     is-fullwidth-code-point "^3.0.0"
 
-smooth-scroll-into-view-if-needed@^1.1.27:
+smooth-scroll-into-view-if-needed@~1.1.27:
   version "1.1.27"
   resolved "https://registry.yarnpkg.com/smooth-scroll-into-view-if-needed/-/smooth-scroll-into-view-if-needed-1.1.27.tgz#88405e84448a9d3dd4e2c94f970e61d4d7187374"
   integrity sha512-1BUbpRHzwro4MNhNpYCPA+d7G77G8k89UXPSx2A+UeJoAt3WiqrUHwT2oskXnir3p0wc4VTiRj41PQN9TEEIUw==
