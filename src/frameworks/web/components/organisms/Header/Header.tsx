@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Visible, Hidden, ScreenClassRender } from 'react-grid-system';
 import { Link } from 'react-router-dom';
-
-import { Query } from 'react-apollo';
 
 import Label from 'frameworks/web/components/atoms/Label/Label';
 import Loading from 'frameworks/web/components/atoms/Loading/Loading';
@@ -15,11 +13,7 @@ import * as ROUTES from 'utils/routes';
 
 import SomulLogo from 'assets/logo/logo.svg';
 import HamburgerMenu from 'assets/icon/mobile-menu.svg';
-import { GET_USER } from 'service/graphql/query/User';
-import { IUserData } from 'interfaces/service/graphql/query/IUser';
-import apolloClient from 'frameworks/web/apollo';
-import { isEmail } from 'utils/validator';
-import { CURRENT_EMAIL_VALUE } from 'utils/constants';
+import useCurrentSession from 'frameworks/web/hooks/CurrentSessionHook';
 
 const HeaderContainer = styled.div`
   position: fixed;
@@ -44,7 +38,6 @@ const HeaderMenuContainer = styled.div`
 
 const HeaderButtonContainer = styled.div`
   float: right;
-  width: 260px;
   margin-top: 20px;
 
   display: flex;
@@ -61,45 +54,7 @@ const HeaderSidebarButton = styled.img`
 `;
 
 export default function Header(): React.ReactElement {
-  const [email, setEmail] = useState('');
-
-  const getCurrentSessionEmail = (): string | undefined => {
-    const emailFromQueryString = new URLSearchParams(window.location.search).get('email');
-    const codeFromQueryString = new URLSearchParams(window.location.search).get('statusCode');
-
-    let cached = false;
-    let loadedEmail: string;
-    const savedEmail = window.localStorage.getItem(CURRENT_EMAIL_VALUE);
-
-    if (savedEmail) {
-      cached = true;
-      loadedEmail = savedEmail;
-    } else {
-      loadedEmail = emailFromQueryString!;
-    }
-
-    if (loadedEmail && loadedEmail.length > 0 && isEmail(loadedEmail)) {
-      if (cached) {
-        return loadedEmail;
-      }
-
-      if (!cached && codeFromQueryString === '0') {
-        return loadedEmail;
-      }
-    }
-
-    return undefined;
-  };
-
-  useEffect(() => {
-    const currentEmail = getCurrentSessionEmail();
-
-    if (currentEmail) {
-      setEmail(currentEmail);
-      window.localStorage.setItem(CURRENT_EMAIL_VALUE, currentEmail);
-      window.history.replaceState(null, document.title, window.location.href.split('?')[0]);
-    }
-  }, []);
+  const [isLoaded, currentSession] = useCurrentSession();
 
   const handleClickInfo = () => {
     //    TODO
@@ -155,37 +110,36 @@ export default function Header(): React.ReactElement {
                     FAQ
                   </Label>
                 </HeaderMenuContainer>
-                <HeaderButtonContainer>
-                  <Query<IUserData> query={GET_USER} client={apolloClient} variables={{ email }}>
-                    {({ loading, error, data }) => {
-                      if (loading) return <Loading />;
-                      if (!error && data!.user.name && data!.user.email) {
-                        return <NavigationBar name={data!.user.name} email={data!.user.email} />;
-                      }
-                      return (
-                        <div>
-                          <Link to={ROUTES.SIGN_UP_START}>
-                            <Button
-                              type="small"
-                              label="회원가입"
-                              isPrimary={false}
-                              onClick={() => undefined}
-                              style={{ marginLeft: '20px' }}
-                            />
-                          </Link>
-                          <Link to={ROUTES.SIGN_IN} style={{ marginLeft: '20px' }}>
-                            <Button
-                              type="small"
-                              label="로그인"
-                              isPrimary
-                              onClick={() => undefined}
-                            />
-                          </Link>
-                        </div>
-                      );
-                    }}
-                  </Query>
-                </HeaderButtonContainer>
+                {!isLoaded ? (
+                  <HeaderButtonContainer style={{ margin: '25px 0' }}>
+                    <Loading useBarrier={false} />
+                  </HeaderButtonContainer>
+                ) : (
+                  <HeaderButtonContainer>
+                    {currentSession?.name && currentSession?.name ? (
+                      <NavigationBar
+                        name={currentSession?.name}
+                        email={currentSession?.email}
+                        style={{ marginTop: '-3px' }}
+                      />
+                    ) : (
+                      <>
+                        <Link to={ROUTES.SIGN_UP_START}>
+                          <Button
+                            type="small"
+                            label="회원가입"
+                            isPrimary={false}
+                            onClick={() => undefined}
+                            style={{ marginRight: '20px' }}
+                          />
+                        </Link>
+                        <Link to={ROUTES.SIGN_IN}>
+                          <Button type="small" label="로그인" isPrimary onClick={() => undefined} />
+                        </Link>
+                      </>
+                    )}
+                  </HeaderButtonContainer>
+                )}
               </Visible>
               <Hidden xl>
                 <HeaderSidebarButton
