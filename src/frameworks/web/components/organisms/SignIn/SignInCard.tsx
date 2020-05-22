@@ -91,7 +91,7 @@ export default function SignInCard(): React.ReactElement {
   };
 
   return (
-    <div>
+    <>
       <SignInContainer isDarkBackground>
         <Label type="H4" color={theme.color.primary.Azure} style={{ textAlign: 'center' }}>
           SIGN IN
@@ -137,6 +137,6 @@ export default function SignInCard(): React.ReactElement {
         </SignButtonContainer>
       </SignInContainer>
       {isLoading && <Loading />}
-    </div>
+    </>
   );
 }

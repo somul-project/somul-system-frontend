@@ -44,7 +44,7 @@ export default function SignUpComplete(): React.ReactElement {
   };
 
   return (
-    <div>
+    <>
       <SingleCard
         title="인증메일이 전송되었습니다!"
         buttonLabel={['재전송', '확인']}
@@ -59,6 +59,6 @@ export default function SignUpComplete(): React.ReactElement {
         </Label>
       </SingleCard>
       {isLoading && <Loading />}
-    </div>
+    </>
   );
 }
