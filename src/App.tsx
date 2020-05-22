@@ -11,6 +11,7 @@ import SignIn from 'frameworks/web/components/pages/SignIn/SignIn';
 import SignUp from 'frameworks/web/components/pages/SignUp/SignUp';
 import Footer from 'frameworks/web/components/organisms/Footer/Footer';
 import SpeakerApply from 'frameworks/web/components/pages/SpeakerApply/SpeakerApply';
+import Profile from 'frameworks/web/components/pages/Profile/Profile';
 import StatusPage from 'frameworks/web/components/pages/StatusPage/StatusPage';
 
 import apolloClient, { initStorage } from 'frameworks/web/apollo';
@@ -47,6 +48,9 @@ function App() {
             </Route>
             <Route path={ROUTES.STATUS}>
               <StatusPage />
+            </Route>
+            <Route path={ROUTES.PROFILE}>
+              <Profile email="test@somul.kr" name="테스트" phone="010-1234-5678" />
             </Route>
           </Switch>
           <Footer />

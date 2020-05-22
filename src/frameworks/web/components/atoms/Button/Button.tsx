@@ -6,11 +6,11 @@ import { IBaseButton, IButton } from 'interfaces/frameworks/web/components/atoms
 
 const BaseButton = styled.button`
   font-family: 'Muli', 'Noto Sans KR', sans-serif;
-  background-color: ${(props: IBaseButton) =>
-    props.isPrimary ? theme.color.primary.Scarlet : theme.color.primary.Black};
-  color: ${theme.color.primary.White} !important;
-  opacity: ${(props: IBaseButton) => (props.isEnabled ? '1' : '0.3')};
-  border: none;
+  background-color: ${(props: IBaseButton) => props.bgColor};
+  color: ${(props: IBaseButton) =>
+    props.isEnabled ? theme.color.primary.White : theme.color.secondary.Moon} !important;
+  border: 1px solid
+    ${(props: IBaseButton) => (props.isEnabled ? props.bgColor : theme.color.secondary.Ash)};
   outline: none;
   cursor: ${(props: IBaseButton) => (props.isEnabled ? 'pointer' : 'inherit')};
   border-radius: 10px;
@@ -19,8 +19,9 @@ const BaseButton = styled.button`
 
   @media (hover: hover) {
     &:hover {
-      background-color: ${(props: IBaseButton) =>
-        props.isPrimary ? theme.color.primary.Salmon : theme.color.secondary.Nickel};
+      background-color: ${(props: IBaseButton) => props.hoverColor};
+      border-color: ${(props: IBaseButton) =>
+        props.isEnabled ? props.hoverColor : theme.color.secondary.Ash};
     }
   }
 `;
@@ -71,16 +72,29 @@ export default function Button({
   type = 'default',
   label,
   isPrimary = false,
-  onClick = null,
+  onClick = () => undefined,
   isEnabled = true,
   style,
 }: IButton): React.ReactElement {
   const ButtonComponent = BUTTONS[type];
+  let bgColor: string;
+  let hoverColor: string;
+  if (!isEnabled) {
+    bgColor = theme.color.primary.White;
+    hoverColor = bgColor;
+  } else if (isPrimary) {
+    bgColor = theme.color.primary.Scarlet;
+    hoverColor = theme.color.primary.Salmon;
+  } else {
+    bgColor = theme.color.primary.Black;
+    hoverColor = theme.color.secondary.Nickel;
+  }
   return (
     <ButtonComponent
-      isPrimary={isPrimary}
-      onClick={isEnabled ? onClick : undefined}
+      bgColor={bgColor}
+      hoverColor={hoverColor}
       isEnabled={isEnabled}
+      onClick={() => (isEnabled ? onClick() : undefined)}
       style={style}
     >
       {label}
