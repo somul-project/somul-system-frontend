@@ -10,6 +10,7 @@ import SomulLogo from 'assets/logo/logo.svg';
 import apolloClient from 'frameworks/web/apollo';
 import Loading from 'frameworks/web/components/atoms/Loading/Loading';
 import { RESEND_EMAIL } from 'service/graphql/rest/SignUpQuery';
+import { TEMP_EMAIL_VERIFY_PENDING } from 'utils/constants';
 
 export default function SignUpComplete(): React.ReactElement {
   const location = useLocation();
@@ -27,6 +28,7 @@ export default function SignUpComplete(): React.ReactElement {
   useEffect(() => {
     // @ts-ignore
     setEmail(location.state.email);
+    window.localStorage.setItem(TEMP_EMAIL_VERIFY_PENDING, 'true');
   }, []);
 
   const resendEmail = async () => {

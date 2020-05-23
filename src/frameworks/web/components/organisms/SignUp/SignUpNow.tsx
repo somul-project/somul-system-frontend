@@ -23,6 +23,8 @@ import Loading from 'frameworks/web/components/atoms/Loading/Loading';
 import SignUpRequest from 'service/request/SignUpRequest';
 import useCurrentSession from 'frameworks/web/hooks/CurrentSessionHook';
 
+import * as ROUTES from 'utils/routes';
+
 const TextLabelContainer = styled.div`
   width: 65px;
   float: left;
@@ -172,9 +174,9 @@ export default function SignUpNow(): React.ReactElement {
         openAlert(resultData.result.errorMessage);
         setLoading(false);
       } else if (isOAuthStep) {
-        routerHistory.replace('/', { oAuthComplete: true });
+        routerHistory.replace(ROUTES.HOME, { oAuthComplete: true });
       } else {
-        routerHistory.push('/signup/complete', { email });
+        routerHistory.push(ROUTES.SIGN_UP_COMPLETE, { email });
       }
     } catch (e) {
       openAlert('계속 되지 않을 경우, 소물 팀에 문의 부탁드립니다!');
