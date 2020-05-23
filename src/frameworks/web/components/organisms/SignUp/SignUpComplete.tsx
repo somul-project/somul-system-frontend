@@ -74,7 +74,7 @@ export default function SignUpComplete(): React.ReactElement {
           type="H4"
           color={theme.color.primary.Azure}
           style={{
-            paddingTop: '48px 0 16px 0',
+            padding: '48px 0 16px 0',
             paddingBottom: alertDescription !== '' ? '16px' : '48px',
           }}
         >
