@@ -14,6 +14,7 @@ import Loading from 'frameworks/web/components/atoms/Loading/Loading';
 import Label from 'frameworks/web/components/atoms/Label/Label';
 import TextField from 'frameworks/web/components/atoms/TextField/TextField';
 import Button from 'frameworks/web/components/atoms/Button/Button';
+import Modal from 'frameworks/web/components/molecules/Modal/Modal';
 import DividedCard from 'frameworks/web/components/molecules/DividedCard/DividedCard';
 
 import { CREATE_SESSION } from 'service/graphql/mutation/Session';
@@ -26,6 +27,8 @@ import SpeakerApplyAsset from 'assets/illust/speaker-apply-illustration.png';
 import AddButtonAsset from 'assets/icon/add-circle.svg';
 import OffButtonAsset from 'assets/icon/highlight-off.svg';
 import useCurrentSession from 'frameworks/web/hooks/CurrentSessionHook';
+
+import SomulLogo from 'assets/logo/logo.svg';
 
 const SCSpeakerApplyImage = styled.img`
   width: 380px;
@@ -126,6 +129,10 @@ export default function SpeakerApplyForm(): React.ReactElement {
   const [step, setStep] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
 
+  const [isModalOpened, setModalOpened] = useState<boolean>(false);
+  const [modalTitle, setModalTitle] = useState<string>('');
+  const [modalDescription, setModalDescription] = useState<string>('');
+
   const [email, setEmail] = useState<string>('');
   const [name, setName] = useState<string>('');
   const [bio, setBio] = useState<string>('');
@@ -154,6 +161,16 @@ export default function SpeakerApplyForm(): React.ReactElement {
       }
     }
   }, [currentSession, isLoaded]);
+
+  const showAlert = (mTitle: string, mDescription: string) => {
+    setModalTitle(mTitle);
+    setModalDescription(mDescription);
+    setModalOpened(true);
+  };
+
+  const handleModalClose = () => {
+    setModalOpened(false);
+  };
 
   const [createSession] = useMutation<ICreateSessionData, ICreateSessionPayload>(CREATE_SESSION, {
     variables: {
@@ -219,10 +236,10 @@ export default function SpeakerApplyForm(): React.ReactElement {
       if (resp.data.createSession.statusCode === '0') {
         history.push(ROUTES.APPLY_SPEAKER_COMPLETE);
       } else {
-        throw new Error('시스템 내부에 에러가 발생했습니다. 잠시후 다시 시도해주세요.');
+        throw new Error(resp.data.createSession.errorMessage);
       }
     } catch (e) {
-      alert(e.message);
+      showAlert('강연 정보를 저장하는데 오류가 발생했습니다', e.message);
     } finally {
       setLoading(false);
     }
@@ -372,6 +389,17 @@ export default function SpeakerApplyForm(): React.ReactElement {
           ),
         }}
       </DividedCard>
+      <Modal type="empty" isOpen={isModalOpened} onClose={handleModalClose}>
+        <img src={SomulLogo} alt="소물 로고" style={{ width: '112.5px', height: '20px' }} />
+        <Label type="H4" color={theme.color.primary.Azure} style={{ padding: '48px 0 16px 0' }}>
+          {modalTitle}
+        </Label>
+        <Label
+          type="P1"
+          style={{ paddingBottom: '48px' }}
+          dangerouslySetInnerHTML={{ __html: modalDescription }}
+        />
+      </Modal>
     </>
   );
 }
