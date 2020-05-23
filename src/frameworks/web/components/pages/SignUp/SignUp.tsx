@@ -17,24 +17,22 @@ const SignUpContainer = styled.div`
   justify-content: center;
 `;
 
-export default class SignIn extends React.PureComponent {
-  render() {
-    return (
+export default function SignIn() {
+  return (
+    <SignUpContainer>
       <Router>
-        <SignUpContainer>
-          <Switch>
-            <Route exact path={ROUTES.SIGN_UP}>
-              <SignUpNow />
-            </Route>
-            <Route path={ROUTES.SIGN_UP_START}>
-              <SignUpCard />
-            </Route>
-            <Route path={ROUTES.SIGN_UP_COMPLETE}>
-              <SignUpComplete />
-            </Route>
-          </Switch>
-        </SignUpContainer>
+        <Switch>
+          <Route path={ROUTES.SIGN_UP_START}>
+            <SignUpNow />
+          </Route>
+          <Route path={ROUTES.SIGN_UP_COMPLETE}>
+            <SignUpComplete />
+          </Route>
+          <Route path={ROUTES.SIGN_UP}>
+            <SignUpCard />
+          </Route>
+        </Switch>
       </Router>
-    );
-  }
+    </SignUpContainer>
+  );
 }
