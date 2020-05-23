@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import theme from 'theme';
 import SignUpNow from 'frameworks/web/components/organisms/SignUp/SignUpNow';
 import SignUpComplete from 'frameworks/web/components/organisms/SignUp/SignUpComplete';
@@ -20,19 +20,15 @@ const SignUpContainer = styled.div`
 export default function SignIn() {
   return (
     <SignUpContainer>
-      <Router>
-        <Switch>
-          <Route path={ROUTES.SIGN_UP_START}>
-            <SignUpNow />
-          </Route>
-          <Route path={ROUTES.SIGN_UP_COMPLETE}>
-            <SignUpComplete />
-          </Route>
-          <Route path={ROUTES.SIGN_UP}>
-            <SignUpCard />
-          </Route>
-        </Switch>
-      </Router>
+      <Route path={ROUTES.SIGN_UP_START}>
+        <SignUpNow />
+      </Route>
+      <Route path={ROUTES.SIGN_UP_COMPLETE}>
+        <SignUpComplete />
+      </Route>
+      <Route exact path={ROUTES.SIGN_UP}>
+        <SignUpCard />
+      </Route>
     </SignUpContainer>
   );
 }
