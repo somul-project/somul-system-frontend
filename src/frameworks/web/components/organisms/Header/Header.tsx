@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Visible, Hidden, ScreenClassRender } from 'react-grid-system';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import Label from 'frameworks/web/components/atoms/Label/Label';
 import Loading from 'frameworks/web/components/atoms/Loading/Loading';
@@ -100,9 +100,9 @@ export default function Header(): React.ReactElement {
                   <Label type="H5" onClick={handleClickInfo}>
                     강연정보
                   </Label>
-                  <Link to={ROUTES.APPLY_SPEAKER} style={{ textDecoration: 'none' }}>
+                  <NavLink to={ROUTES.APPLY_SPEAKER} style={{ textDecoration: 'none' }}>
                     <Label type="H5">참가신청</Label>
-                  </Link>
+                  </NavLink>
                   <a href="/?goto=landingSponsor" style={{ textDecoration: 'none' }}>
                     <Label type="H5">후원안내</Label>
                   </a>
@@ -124,7 +124,7 @@ export default function Header(): React.ReactElement {
                       />
                     ) : (
                       <>
-                        <Link to={ROUTES.SIGN_UP_START}>
+                        <NavLink to={ROUTES.SIGN_UP} replace>
                           <Button
                             type="small"
                             label="회원가입"
@@ -132,10 +132,10 @@ export default function Header(): React.ReactElement {
                             onClick={() => undefined}
                             style={{ marginRight: '20px' }}
                           />
-                        </Link>
-                        <Link to={ROUTES.SIGN_IN}>
+                        </NavLink>
+                        <NavLink to={ROUTES.SIGN_IN} replace>
                           <Button type="small" label="로그인" isPrimary onClick={() => undefined} />
-                        </Link>
+                        </NavLink>
                       </>
                     )}
                   </HeaderButtonContainer>

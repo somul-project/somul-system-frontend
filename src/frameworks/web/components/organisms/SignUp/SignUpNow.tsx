@@ -15,11 +15,15 @@ import CheckBox from 'frameworks/web/components/atoms/CheckBox/CheckBox';
 import Modal from 'frameworks/web/components/molecules/Modal/Modal';
 
 import SomulLogo from 'assets/logo/logo.svg';
+import WarningIcon from 'assets/icon/warning.svg';
 import SignUpIllust from 'assets/illust/signup-illustration.png';
 import { IRegisterUserValidateState } from 'interfaces/utils/IValidator';
 import { isEmail, isName, isPhoneNumber, isValidPassword } from 'utils/validator';
 import Loading from 'frameworks/web/components/atoms/Loading/Loading';
 import SignUpRequest from 'service/request/SignUpRequest';
+import useCurrentSession from 'frameworks/web/hooks/CurrentSessionHook';
+
+import * as ROUTES from 'utils/routes';
 
 const TextLabelContainer = styled.div`
   width: 65px;
@@ -54,8 +58,6 @@ const PrivacyContainer = styled.div`
 `;
 
 export default function SignUpNow(): React.ReactElement {
-  const emailFromQueryString = new URLSearchParams(window.location.search).get('email');
-
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -63,7 +65,6 @@ export default function SignUpNow(): React.ReactElement {
   const [rePassword, setRePassword] = useState('');
   const [isAgreeLicense, setAgreeLicense] = useState(false);
 
-  const [isEmailFieldEnabled, setEmailFieldEnabled] = useState(true);
   const [isRegisterButtonEnabled, setRegisterButtonEnabled] = useState(false);
 
   const [isLoading, setLoading] = useState(false);
@@ -71,6 +72,7 @@ export default function SignUpNow(): React.ReactElement {
   const [alertDescription, setAlertDescription] = useState('');
 
   const routerHistory = useHistory();
+  const [isCurrentSessionLoaded, currentSession] = useCurrentSession();
 
   // -1 : 초기 상태, 0 : 유저가 입력하려고 포커스까진 했음, 1: 오류, 2: 정상
   const [validate, setValidate] = useState<IRegisterUserValidateState>({
@@ -80,9 +82,42 @@ export default function SignUpNow(): React.ReactElement {
     passwordValidStatus: -1,
   });
 
+  const [isOAuthStep, setOAuthStep] = useState(false);
+
   const openAlert = (description: string) => {
     setAlert(true);
     setAlertDescription(description);
+  };
+
+  // OAuth 인증일 경우, 비밀번호와 이메일은 입력받지 않으며, 무조건 정상 처리
+  const bypassValidationDataForOAuthStep = () => {
+    setValidate({ ...validate, passwordValidStatus: 2, emailValidStatus: 2 });
+  };
+
+  const validateInputData = (type: 'name' | 'email' | 'phoneNumber' | 'password') => {
+    if (type === 'name') {
+      setValidate({ ...validate, nameValidStatus: isName(name) ? 2 : 1 });
+    } else if (type === 'email') {
+      if (isOAuthStep) {
+        setValidate({ ...validate, emailValidStatus: 2 });
+      } else {
+        setValidate({ ...validate, emailValidStatus: isEmail(email) ? 2 : 1 });
+      }
+    } else if (type === 'phoneNumber') {
+      setValidate({ ...validate, phoneNumberValidStatus: isPhoneNumber(phoneNumber) ? 2 : 1 });
+    } else if (type === 'password') {
+      if (isOAuthStep) {
+        setValidate({ ...validate, passwordValidStatus: 2 });
+      } else if (password.length > 0 && rePassword.length > 0) {
+        setValidate({
+          ...validate,
+          passwordValidStatus:
+            password === rePassword && isValidPassword(password) && isValidPassword(rePassword)
+              ? 2
+              : 1,
+        });
+      }
+    }
   };
 
   const checkAllDataValidated = (): boolean => {
@@ -93,39 +128,33 @@ export default function SignUpNow(): React.ReactElement {
     return isFieldPass && isAgreeLicense;
   };
 
-  const validateInputData = (type: 'name' | 'email' | 'phoneNumber' | 'password') => {
-    if (type === 'name') {
-      setValidate({ ...validate, nameValidStatus: isName(name) ? 2 : 1 });
-    } else if (type === 'email') {
-      setValidate({ ...validate, emailValidStatus: isEmail(email) ? 2 : 1 });
-    } else if (type === 'phoneNumber') {
-      setValidate({ ...validate, phoneNumberValidStatus: isPhoneNumber(phoneNumber) ? 2 : 1 });
-    } else if (type === 'password') {
-      if (password.length > 0 && rePassword.length > 0 && password !== rePassword) {
-        setValidate({ ...validate, passwordValidStatus: 1 });
-      } else {
-        setValidate({ ...validate, passwordValidStatus: isValidPassword(password) ? 2 : 1 });
+  const checkCurrentSessionIsOAuth = () => {
+    if (currentSession) {
+      // @ts-ignore
+      if (Object.keys(currentSession!).filter((v) => currentSession![v] != null).length === 2) {
+        // @ts-ignore
+        // eslint-disable-next-line no-underscore-dangle
+        if (currentSession!.email && currentSession!.__typename === 'GetSession') {
+          setOAuthStep(true);
+          setEmail(currentSession!.email);
+        }
       }
     }
   };
 
-  // 소셜 로그인 같은 경우, 계정에서 넘어온 이메일로 쓰도록
   useEffect(() => {
-    if (emailFromQueryString?.length ?? -1 > 0) {
-      validateInputData('email');
+    if (isOAuthStep) {
+      bypassValidationDataForOAuthStep();
     }
-  }, [email]);
+  }, [isOAuthStep]);
 
   useEffect(() => {
     checkAllDataValidated();
   }, [validate, isAgreeLicense]);
 
   useEffect(() => {
-    if (emailFromQueryString && emailFromQueryString.length > 0 && isEmail(emailFromQueryString)) {
-      setEmail(emailFromQueryString);
-      setEmailFieldEnabled(false);
-    }
-  }, []);
+    checkCurrentSessionIsOAuth();
+  }, [currentSession]);
 
   const signUpTry = async () => {
     const signupPayload = { name, email, phonenumber: phoneNumber.replace(/-/gi, ''), password };
@@ -144,8 +173,10 @@ export default function SignUpNow(): React.ReactElement {
       if (resultData.result.statusCode !== '0') {
         openAlert(resultData.result.errorMessage);
         setLoading(false);
+      } else if (isOAuthStep) {
+        routerHistory.replace(ROUTES.HOME, { oAuthComplete: true });
       } else {
-        routerHistory.push('/signup/complete', { email });
+        routerHistory.push(ROUTES.SIGN_UP_COMPLETE, { email });
       }
     } catch (e) {
       openAlert('계속 되지 않을 경우, 소물 팀에 문의 부탁드립니다!');
@@ -155,7 +186,10 @@ export default function SignUpNow(): React.ReactElement {
 
   return (
     <>
-      <DividedCard title="SIGN UP NOW">
+      <DividedCard
+        title={!isOAuthStep ? 'SIGN UP NOW' : '추가 정보를 입력해주세요!'}
+        leftPadding={isOAuthStep ? '77px 0 7px 0' : undefined}
+      >
         {{
           left: (
             <div>
@@ -164,9 +198,15 @@ export default function SignUpNow(): React.ReactElement {
                 alt="회원가입 이미지"
                 style={{ width: '380px', height: '580px', margin: '73px 0 18px 0' }}
               />
-              <Label type="P1" color={theme.color.primary.White} style={{ paddingBottom: '28px' }}>
-                SOMUL 가입을 환영합니다 :)
-              </Label>
+              {!isOAuthStep && (
+                <Label
+                  type="P1"
+                  color={theme.color.primary.White}
+                  style={{ paddingBottom: '28px' }}
+                >
+                  SOMUL 가입을 환영합니다 :)
+                </Label>
+              )}
             </div>
           ),
           right: (
@@ -184,14 +224,16 @@ export default function SignUpNow(): React.ReactElement {
                 </Label>
                 <Label
                   type="H5"
-                  style={{ marginTop: '82px', marginBottom: '56px' }}
+                  style={{ marginTop: !isOAuthStep ? '82px' : '54px', marginBottom: '56px' }}
                   color={theme.color.secondary.Nickel}
                 >
                   휴대폰
                 </Label>
-                <Label type="H5" color={theme.color.secondary.Nickel}>
-                  비밀번호
-                </Label>
+                {!isOAuthStep && (
+                  <Label type="H5" color={theme.color.secondary.Nickel}>
+                    비밀번호
+                  </Label>
+                )}
               </TextLabelContainer>
               <TextFieldContainer>
                 <TextField
@@ -213,23 +255,25 @@ export default function SignUpNow(): React.ReactElement {
                   }}
                   isError={validate.emailValidStatus === 1}
                   style={{ width: 'auto' }}
-                  readOnly={!isEmailFieldEnabled}
+                  readOnly={isOAuthStep}
                 />
-                <WarningTextContainer>
-                  <img
-                    src="warning.svg"
-                    alt="경고 아이콘"
-                    style={{ width: '20px', height: '18px' }}
-                  />
-                  <div style={{ display: 'flex' }}>
-                    <Label type="P2" color={theme.color.alert.Warning}>
-                      인증메일
-                    </Label>
-                    <Label type="P2" color={theme.color.secondary.Moon}>
-                      을 발송할 예정이니, 유효한 메일을 입력해주세요.
-                    </Label>
-                  </div>
-                </WarningTextContainer>
+                {!isOAuthStep && (
+                  <WarningTextContainer>
+                    <img
+                      src={WarningIcon}
+                      alt="경고 아이콘"
+                      style={{ width: '20px', height: '18px' }}
+                    />
+                    <div style={{ display: 'flex' }}>
+                      <Label type="P2" color={theme.color.alert.Warning}>
+                        인증메일
+                      </Label>
+                      <Label type="P2" color={theme.color.secondary.Moon}>
+                        을 발송할 예정이니, 유효한 메일을 입력해주세요.
+                      </Label>
+                    </div>
+                  </WarningTextContainer>
+                )}
                 <TextField
                   defaultLabel="휴대폰 번호를 입력하세요 (010-1234-5678)"
                   onValueChange={(value) => setPhoneNumber(value)}
@@ -237,37 +281,45 @@ export default function SignUpNow(): React.ReactElement {
                     if (!value) validateInputData('phoneNumber');
                   }}
                   isError={validate.phoneNumberValidStatus === 1}
-                  style={{ width: 'auto', clear: 'right' }}
+                  style={{
+                    width: 'auto',
+                    clear: 'right',
+                    marginTop: !isOAuthStep ? '0px' : '22px',
+                  }}
                 />
-                <PasswordContainer>
-                  <div style={{ width: '210px' }}>
-                    <TextField
-                      defaultLabel="비밀번호를 입력하세요"
-                      onValueChange={(value) => setPassword(value)}
-                      onFocusChanged={(value) => {
-                        if (!value) validateInputData('password');
-                      }}
-                      isError={validate.passwordValidStatus === 1}
-                      style={{ width: 'auto' }}
-                      type="password"
-                    />
-                  </div>
-                  <div style={{ width: '210px' }}>
-                    <TextField
-                      defaultLabel="비밀번호를 재입력하세요"
-                      onValueChange={(value) => setRePassword(value)}
-                      onFocusChanged={(value) => {
-                        if (!value) validateInputData('password');
-                      }}
-                      isError={validate.passwordValidStatus === 1}
-                      style={{ width: 'auto' }}
-                      type="password"
-                    />
-                  </div>
-                </PasswordContainer>
-                <Label type="P2" color={theme.color.secondary.Moon} style={{ float: 'right' }}>
-                  비밀번호는 8글자 이상의 숫자와 문자 조합이어야 합니다.
-                </Label>
+                {!isOAuthStep && (
+                  <>
+                    <PasswordContainer>
+                      <div style={{ width: '210px' }}>
+                        <TextField
+                          defaultLabel="비밀번호를 입력하세요"
+                          onValueChange={(value) => setPassword(value)}
+                          onFocusChanged={(value) => {
+                            if (!value) validateInputData('password');
+                          }}
+                          isError={validate.passwordValidStatus === 1}
+                          style={{ width: 'auto' }}
+                          type="password"
+                        />
+                      </div>
+                      <div style={{ width: '210px' }}>
+                        <TextField
+                          defaultLabel="비밀번호를 재입력하세요"
+                          onValueChange={(value) => setRePassword(value)}
+                          onFocusChanged={(value) => {
+                            if (!value) validateInputData('password');
+                          }}
+                          isError={validate.passwordValidStatus === 1}
+                          style={{ width: 'auto' }}
+                          type="password"
+                        />
+                      </div>
+                    </PasswordContainer>
+                    <Label type="P2" color={theme.color.secondary.Moon} style={{ float: 'right' }}>
+                      비밀번호는 8글자 이상의 숫자와 문자 조합이어야 합니다.
+                    </Label>
+                  </>
+                )}
               </TextFieldContainer>
               <PrivacyContainer>
                 <TextArea
@@ -298,7 +350,7 @@ export default function SignUpNow(): React.ReactElement {
           ),
         }}
       </DividedCard>
-      {isLoading && <Loading />}
+      {(!isCurrentSessionLoaded || isLoading) && <Loading />}
       <Modal type="empty" isOpen={isAlert} onClose={() => setAlert(false)}>
         <img src={SomulLogo} alt="소물 로고" style={{ width: '112.5px', height: '20px' }} />
         <Label type="H4" color={theme.color.primary.Azure} style={{ padding: '48px 0 16px 0' }}>

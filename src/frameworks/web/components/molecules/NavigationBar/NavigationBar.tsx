@@ -1,17 +1,13 @@
 import styled from 'styled-components';
 import theme from 'theme';
-import React from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 
 import Label from 'frameworks/web/components/atoms/Label/Label';
-import React, { useRef, useEffect, useState } from 'react';
 // eslint-disable-next-line no-unused-vars
 import {
   INavBar,
   INavBarState,
 } from 'interfaces/frameworks/web/components/molecules/NavigationBar/INavigationBar';
-
-import { SERVER_URL } from 'utils/constants';
-import * as ROUTES from 'utils/routes';
 
 import PersonIcon from 'assets/icon/person.svg';
 import ArrowDownIcon from 'assets/icon/arrow-down.svg';
@@ -47,7 +43,7 @@ const MenuDropdownContainer = styled.div`
   cursor: pointer;
   display: ${(props: INavBarState) => (props.isEnable ? 'block' : 'none')};
   position: absolute;
-  background-image: url('etc/dropdown-box.svg');
+  background-image: url(${DropdownBoxShadow});
   background-size: 255px 250px;
   width: 255px;
   height: 250px;

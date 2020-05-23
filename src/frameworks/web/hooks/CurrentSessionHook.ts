@@ -2,12 +2,20 @@ import { useEffect, useState } from 'react';
 import ILoginSession from 'interfaces/service/graphql/schema/ILoginSession';
 import CurrentSessionRequest from 'service/request/CurrentSessionRequest';
 
-export default function useCurrentSession(): [boolean, ILoginSession | undefined, () => void] {
+export default function useCurrentSession(): [
+  boolean,
+  ILoginSession | undefined,
+  (onlyLocal?: boolean) => void,
+] {
   const [currentUser, setCurrentUser] = useState<ILoginSession | undefined>(undefined);
   const [isLoaded, setLoaded] = useState(false);
 
-  const revoke = () => {
+  const revoke = (onlyLocal: boolean = true) => {
     setCurrentUser(undefined);
+
+    if (!onlyLocal) {
+      CurrentSessionRequest.logout();
+    }
   };
 
   const fetchSession = async () => {

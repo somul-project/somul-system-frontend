@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import theme from 'theme';
 import SignInCard from 'frameworks/web/components/organisms/SignIn/SignInCard';
 import ForgotPassword from 'frameworks/web/components/organisms/SignIn/ForgotPassword';
@@ -22,27 +22,23 @@ const SignInContainer = styled.div`
 export default class SignIn extends React.PureComponent {
   render() {
     return (
-      <Router>
-        <SignInContainer>
-          <Switch>
-            <Route exact path={ROUTES.SIGN_IN}>
-              <SignInCard />
-            </Route>
-            <Route path={ROUTES.SIGN_IN_FORGOT_PASSWORD}>
-              <ForgotPassword />
-            </Route>
-            <Route path={ROUTES.SIGN_IN_FORGOT_COMPLETE}>
-              <ForgotComplete />
-            </Route>
-            <Route path={ROUTES.SIGN_IN_CHANGE_PASSWORD}>
-              <ChangePassword />
-            </Route>
-            <Route path={ROUTES.SIGN_IN_CHANGE_PASSWORD_COMPLETE}>
-              <ChangeComplete />
-            </Route>
-          </Switch>
-        </SignInContainer>
-      </Router>
+      <SignInContainer>
+        <Route exact path={ROUTES.SIGN_IN}>
+          <SignInCard />
+        </Route>
+        <Route path={ROUTES.SIGN_IN_FORGOT_PASSWORD}>
+          <ForgotPassword />
+        </Route>
+        <Route path={ROUTES.SIGN_IN_FORGOT_COMPLETE}>
+          <ForgotComplete />
+        </Route>
+        <Route path={ROUTES.SIGN_IN_CHANGE_PASSWORD}>
+          <ChangePassword />
+        </Route>
+        <Route path={ROUTES.SIGN_IN_CHANGE_PASSWORD_COMPLETE}>
+          <ChangeComplete />
+        </Route>
+      </SignInContainer>
     );
   }
 }

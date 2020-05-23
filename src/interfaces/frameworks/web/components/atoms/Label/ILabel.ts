@@ -26,4 +26,5 @@ export interface ILabel extends ILabelMark {
   color?: string;
   style?: object;
   children?: any;
+  dangerouslySetInnerHTML?: any;
 }

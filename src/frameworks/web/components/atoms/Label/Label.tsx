@@ -70,14 +70,14 @@ const LabelP2 = styled(BaseLabel)`
 const MobileLabelH1 = styled(BaseLabel)`
   font-weight: 700;
   font-size: 36px;
-  letter-spacing: -0.54;
+  letter-spacing: -0.54px;
   line-height: 50px;
 `;
 
 const MobileLabelH2 = styled(BaseLabel)`
   font-weight: 700;
   font-size: 21px;
-  letter-spacing: -0.2;
+  letter-spacing: -0.2px;
   line-height: 32px;
 `;
 
@@ -124,6 +124,7 @@ export default function Label({
   color,
   style,
   children = null,
+  dangerouslySetInnerHTML,
 }: ILabel): React.ReactElement {
   let label = children;
   const LabelComponent = LABEL[type];
@@ -136,7 +137,13 @@ export default function Label({
     );
   }
   return (
-    <LabelComponent onClick={onClick} color={color} mark={mark} style={style}>
+    <LabelComponent
+      onClick={onClick}
+      color={color}
+      mark={mark}
+      style={style}
+      dangerouslySetInnerHTML={dangerouslySetInnerHTML}
+    >
       {label}
     </LabelComponent>
   );
