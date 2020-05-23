@@ -5,6 +5,7 @@ import theme from 'theme';
 import Button from 'frameworks/web/components/atoms/Button/Button';
 import Modal from 'frameworks/web/components/molecules/Modal/Modal';
 import Label from 'frameworks/web/components/atoms/Label/Label';
+import SomulLogo from 'assets/logo/logo.svg';
 
 export default {
   title: 'Modal',
@@ -58,7 +59,7 @@ export const EmptyModalExample = () => {
         <div>
           <Button type="default" label="Modal 열기" onClick={handleButtonClick} isPrimary />
           <Modal type="empty" isOpen={state.isModalOpen} onClose={handleModalClose}>
-            <img src="logo/logo.svg" alt="소물 로고" style={{ width: '112.5px', height: '20px' }} />
+            <img src={SomulLogo} alt="소물 로고" style={{ width: '112.5px', height: '20px' }} />
             <Label type="H4" color={theme.color.primary.Azure} style={{ padding: '48px 0 16px 0' }}>
               메일 인증이 완료되었습니다!
             </Label>

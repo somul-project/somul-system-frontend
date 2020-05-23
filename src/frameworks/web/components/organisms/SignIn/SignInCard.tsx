@@ -10,7 +10,9 @@ import TextField from 'frameworks/web/components/atoms/TextField/TextField';
 import Button from 'frameworks/web/components/atoms/Button/Button';
 import SignButton from 'frameworks/web/components/atoms/SignButton/SignButton';
 import Loading from 'frameworks/web/components/atoms/Loading/Loading';
+import Modal from 'frameworks/web/components/molecules/Modal/Modal';
 
+import SomulLogo from 'assets/logo/logo.svg';
 import { SERVER_URL } from 'utils/constants';
 import * as ROUTES from 'utils/routes';
 import { isEmail, isValidPassword } from 'utils/validator';
@@ -55,8 +57,9 @@ const SignButtonContainer = styled.div`
 export default function SignInCard(): React.ReactElement {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const [isLoading, setLoading] = useState(false);
+  const [isAlert, setAlert] = useState(false);
+  const [alertDescription, setAlertDescription] = useState('');
 
   const googleLogin = () => {
     window.location.href = `${SERVER_URL}/auth/google`;
@@ -64,6 +67,11 @@ export default function SignInCard(): React.ReactElement {
 
   const githubLogin = () => {
     window.location.href = `${SERVER_URL}/auth/github`;
+  };
+
+  const openAlert = (description: string) => {
+    setAlert(true);
+    setAlertDescription(description);
   };
 
   const login = async () => {
@@ -79,12 +87,11 @@ export default function SignInCard(): React.ReactElement {
         if (resultData.result.statusCode === '0') {
           window.location.replace('/');
         } else {
-          alert(resultData.result.errorMessage);
+          openAlert(resultData.result.errorMessage);
         }
-
         setLoading(false);
       } catch (e) {
-        alert('로그인을 할 수 없어요 :(\n계속 되지 않을 경우, 소물 팀에 문의 부탁드립니다!');
+        openAlert('계속 되지 않을 경우, 소물 팀에 문의 부탁드립니다!');
         setLoading(false);
       }
     }
@@ -137,6 +144,15 @@ export default function SignInCard(): React.ReactElement {
         </SignButtonContainer>
       </SignInContainer>
       {isLoading && <Loading />}
+      <Modal type="empty" isOpen={isAlert} onClose={() => setAlert(false)}>
+        <img src={SomulLogo} alt="소물 로고" style={{ width: '112.5px', height: '20px' }} />
+        <Label type="H4" color={theme.color.primary.Azure} style={{ padding: '48px 0 16px 0' }}>
+          로그인을 할 수 없어요 :(
+        </Label>
+        <Label type="P1" style={{ paddingBottom: '48px' }}>
+          {alertDescription}
+        </Label>
+      </Modal>
     </>
   );
 }

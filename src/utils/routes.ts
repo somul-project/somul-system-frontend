@@ -15,5 +15,6 @@ export const APPLY_SPEAKER = `/apply/speaker`;
 export const APPLY_SPEAKER_COMPLETE = `${APPLY_SPEAKER}/complete`;
 
 export const STATUS = `/status`;
+
 export const PROFILE = `/profile`;
 export const PROFILE_WITHDRAW = `${PROFILE}/withdraw`;
