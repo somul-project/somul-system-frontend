@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { IMutation } from '../schema/IMutation';
+import { IMutation } from 'interfaces/service/graphql/schema/IMutation';
 
 export interface ICreateSessionData {
   createSession: IMutation;
