@@ -75,7 +75,7 @@ const MenuElementContainer = styled.div`
 `;
 
 export default function NavigationBar(props: INavBar) {
-  const { email, name, style } = props;
+  const { email, name, style = {} } = props;
   const [isEnable, setEnable] = useState(false);
   const [, , revokeSession] = useCurrentSession();
 

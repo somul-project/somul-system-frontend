@@ -7,7 +7,6 @@ export const CREATE_SESSION = gql`
     $session_name: String
     $session_time: String
     $introduce: String
-    $session_explainer: String
     $document: String
   ) {
     createSession(
@@ -15,7 +14,6 @@ export const CREATE_SESSION = gql`
       session_name: $session_name
       session_time: $session_time
       introduce: $introduce
-      session_explainer: $session_explainer
       document: $document
     ) {
       statusCode

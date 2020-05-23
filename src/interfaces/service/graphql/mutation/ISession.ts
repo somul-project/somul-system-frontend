@@ -10,6 +10,5 @@ export interface ICreateSessionPayload {
   session_name: string;
   session_time: string;
   introduce: string;
-  session_explainer: string;
   document: string;
 }

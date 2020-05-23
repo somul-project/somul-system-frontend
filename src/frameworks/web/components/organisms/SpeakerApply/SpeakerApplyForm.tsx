@@ -2,7 +2,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { Container, Row, Col } from 'react-grid-system';
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router';
 
 import theme from 'theme';
@@ -16,9 +16,7 @@ import TextField from 'frameworks/web/components/atoms/TextField/TextField';
 import Button from 'frameworks/web/components/atoms/Button/Button';
 import DividedCard from 'frameworks/web/components/molecules/DividedCard/DividedCard';
 
-import { GET_USER } from 'service/graphql/query/User';
 import { CREATE_SESSION } from 'service/graphql/mutation/Session';
-import { IUserData, IUserPayload } from 'interfaces/service/graphql/query/IUser';
 import {
   ICreateSessionData,
   ICreateSessionPayload,
@@ -27,6 +25,7 @@ import {
 import SpeakerApplyAsset from 'assets/illust/speaker-apply-illustration.png';
 import AddButtonAsset from 'assets/icon/add-circle.svg';
 import OffButtonAsset from 'assets/icon/highlight-off.svg';
+import useCurrentSession from 'frameworks/web/hooks/CurrentSessionHook';
 
 const SCSpeakerApplyImage = styled.img`
   width: 380px;
@@ -127,7 +126,7 @@ export default function SpeakerApplyForm(): React.ReactElement {
   const [step, setStep] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const [email, setEmail] = useState<string>('dexterastin@kookmin.ac.kr');
+  const [email, setEmail] = useState<string>('');
   const [name, setName] = useState<string>('');
   const [bio, setBio] = useState<string>('');
   const [title, setTitle] = useState<string>('');
@@ -141,6 +140,30 @@ export default function SpeakerApplyForm(): React.ReactElement {
     }
     return !!title && !!description && youtubeLinks.every(isYouTubeURL);
   }, [step, bio, title, description, youtubeLinks]);
+
+  const [isLoaded, currentSession] = useCurrentSession();
+  const history = useHistory();
+
+  useEffect(() => {
+    if (isLoaded) {
+      if (currentSession?.email && currentSession?.name) {
+        setEmail(currentSession.email);
+        setName(currentSession.name);
+      } else {
+        history.push(ROUTES.SIGN_IN);
+      }
+    }
+  }, [currentSession, isLoaded]);
+
+  const [createSession] = useMutation<ICreateSessionData, ICreateSessionPayload>(CREATE_SESSION, {
+    variables: {
+      user_email: email,
+      session_name: title,
+      session_time: '0',
+      introduce: bio,
+      document: youtubeLinks.join(','),
+    },
+  });
 
   const handleBio = (newBio: string) => {
     setBio(newBio);
@@ -187,38 +210,6 @@ export default function SpeakerApplyForm(): React.ReactElement {
     setStep((prevState) => prevState + 1);
   };
 
-  const { loading: queryLoading, error: queryError, data: queryData } = useQuery<
-    IUserData,
-    IUserPayload
-  >(GET_USER, {
-    variables: { email },
-    fetchPolicy: 'no-cache',
-  });
-
-  const [createSession] = useMutation<ICreateSessionData, ICreateSessionPayload>(CREATE_SESSION, {
-    variables: {
-      user_email: email,
-      session_name: title,
-      session_time: '0',
-      introduce: bio,
-      document: youtubeLinks.join(','),
-      session_explainer: '-',
-    },
-  });
-
-  const history = useHistory();
-
-  useEffect(() => {
-    if (!queryError && queryData) {
-      setEmail(queryData?.user.email || '');
-      setName(queryData?.user.name || '');
-
-      if (queryData?.user.sessions.length !== 0) {
-        history.push(ROUTES.PROFILE);
-      }
-    }
-  }, [queryLoading, queryData, queryError]);
-
   const handleSubmit = async () => {
     if (!isEnabled) return;
     setLoading(true);
@@ -239,7 +230,7 @@ export default function SpeakerApplyForm(): React.ReactElement {
 
   return (
     <>
-      {(queryLoading || loading) && <Loading />}
+      {(!isLoaded || loading) && <Loading />}
       <DividedCard title={`STEP 0${step + 1}`}>
         {{
           left: (
