@@ -59,6 +59,7 @@ const ImgButton = styled.img`
   width: 24px;
   height: 24px;
   float: right;
+  cursor: pointer;
   margin-right: ${(props: ITextFieldElement) => (props.isFocus ? '22px' : '24px')};
 `;
 
@@ -84,9 +85,10 @@ export default function TextField(props: ITextField): React.ReactElement {
     buttonSrc,
     onButtonClicked,
     onFocusChanged,
-    onValueChange,
+    onValueChange = null,
     customRef,
     optionalString,
+    maxLength = 9999999,
   } = props;
 
   const [state, setState] = useState<ITextFieldElement>({ isFocus: false, isError: false });
@@ -106,7 +108,9 @@ export default function TextField(props: ITextField): React.ReactElement {
   };
 
   const onLabelChange = (newValue: string) => {
-    if (onValueChange) onValueChange(newValue);
+    if (maxLength >= newValue.length) {
+      if (onValueChange) onValueChange(newValue);
+    }
   };
 
   if (readOnly) {

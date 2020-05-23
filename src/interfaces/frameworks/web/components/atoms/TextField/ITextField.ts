@@ -3,7 +3,7 @@ type textfieldType = 'text' | 'password';
 export interface ITextField {
   type?: textfieldType;
   defaultLabel: string;
-  onValueChange: (value: string) => void;
+  onValueChange?: (value: string) => void;
   onFocusChanged?: (value: boolean) => void;
   style?: object;
   readOnly?: boolean;
@@ -14,6 +14,7 @@ export interface ITextField {
   onButtonClicked?: Function;
   optionalString?: string | undefined;
   customRef?: (instance: HTMLInputElement | null) => void;
+  maxLength?: number;
 }
 
 export interface ITextFieldElement {

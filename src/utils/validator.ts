@@ -39,7 +39,7 @@ export const isYouTubeURL = (url: string): boolean => {
 
     const { protocol, hostname, pathname, searchParams } = new URL(url);
 
-    if (protocol !== 'https') return false;
+    if (protocol !== 'https:') return false;
     if (hostname.includes(HOST_NAMES.LONG)) {
       const v = searchParams.get('v') || '';
       return pathname === '/watch' && v.length === 11;

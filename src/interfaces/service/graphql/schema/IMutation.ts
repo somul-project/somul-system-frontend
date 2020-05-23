@@ -1,4 +1,4 @@
 export interface IMutation {
-  result: boolean;
-  error: string;
+  statusCode: string;
+  errorMessage: string;
 }

@@ -2,6 +2,8 @@ import React from 'react';
 import { useHistory } from 'react-router';
 
 import theme from 'theme';
+import * as ROUTES from 'utils/routes';
+
 import SingleCard from 'frameworks/web/components/molecules/SingleCard/SingleCard';
 import Label from 'frameworks/web/components/atoms/Label/Label';
 
@@ -9,8 +11,7 @@ export default function SpeakerApplyComplete(): React.ReactElement {
   const history = useHistory();
 
   const goStatus = () => {
-    // TODO: 추후 신청현황 페이지로 이동 기능 추가
-    history.push('/');
+    history.push(ROUTES.STATUS);
   };
 
   return (
