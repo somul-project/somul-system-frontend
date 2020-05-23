@@ -44,7 +44,7 @@ function App() {
               <SignUpPage />
             </Route>
             <Route path={ROUTES.APPLY_SPEAKER}>
-              <SpeakerApplyPage email="test@somul.kr" name="테스트" />
+              <SpeakerApplyPage />
             </Route>
             <Route path={ROUTES.STATUS}>
               <StatusPage />

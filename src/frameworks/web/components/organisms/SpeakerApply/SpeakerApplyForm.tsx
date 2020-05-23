@@ -214,7 +214,7 @@ export default function SpeakerApplyForm(): React.ReactElement {
       setName(queryData?.user.name || '');
 
       if (queryData?.user.sessions.length !== 0) {
-        history.push(ROUTES.MY_PAGE);
+        history.push(ROUTES.PROFILE);
       }
     }
   }, [queryLoading, queryData, queryError]);
