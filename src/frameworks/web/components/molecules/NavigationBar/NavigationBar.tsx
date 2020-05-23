@@ -1,13 +1,18 @@
 import styled from 'styled-components';
 import theme from 'theme';
-import React from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 // eslint-disable-next-line no-unused-vars
 import {
   INavBar,
   INavBarState,
 } from 'interfaces/frameworks/web/components/molecules/NavigationBar/INavigationBar';
-import { SERVER_URL } from 'utils/constants';
 import Label from 'frameworks/web/components/atoms/Label/Label';
+
+import PersonIcon from 'assets/icon/person.svg';
+import ArrowDownIcon from 'assets/icon/arrow-down.svg';
+import DropdownBoxShadow from 'assets/etc/dropdown-box.svg';
+import useCurrentSession from 'frameworks/web/hooks/CurrentSessionHook';
+import CurrentSessionRequest from 'service/request/CurrentSessionRequest';
 
 const NavContainer = styled.div`
   position: relative;
@@ -37,7 +42,7 @@ const MenuDropdownContainer = styled.div`
   cursor: pointer;
   display: ${(props: INavBarState) => (props.isEnable ? 'block' : 'none')};
   position: absolute;
-  background-image: url('etc/dropdown-box.svg');
+  background-image: url(${DropdownBoxShadow});
   background-size: 255px 250px;
   width: 255px;
   height: 250px;
@@ -69,95 +74,80 @@ const MenuElementContainer = styled.div`
   }
 `;
 
-export default class NavigationBar extends React.PureComponent<INavBar, INavBarState> {
-  wrapperRef: HTMLDivElement | undefined = undefined;
+export default function NavigationBar(props: INavBar) {
+  const { email, name, style } = props;
+  const [isEnable, setEnable] = useState(false);
+  const [, , revokeSession] = useCurrentSession();
 
-  constructor(props: INavBar) {
-    super(props);
-    this.state = {
-      isEnable: false,
-    };
-    this.setWrapperRef = this.setWrapperRef.bind(this);
-    this.handleClickOutside = this.handleClickOutside.bind(this);
-  }
+  const setWrapperRef = useRef();
 
-  componentDidMount(): void {
-    // eslint-disable-next-line no-undef
-    document.addEventListener('mousedown', this.handleClickOutside);
-  }
+  const handleClickOutside = (event: Event) => {
+    // @ts-ignore
+    if (setWrapperRef.current && !setWrapperRef.current.contains(event.target! as Node)) {
+      setEnable(false);
+    }
+  };
 
-  componentWillUnmount(): void {
-    // eslint-disable-next-line no-undef
-    document.removeEventListener('mousedown', this.handleClickOutside);
-  }
+  const onMenuButtonClick = () => {
+    setEnable(!isEnable);
+  };
 
-  onMenuButtonClick() {
-    const { isEnable } = this.state;
-    this.setState({
-      isEnable: !isEnable,
-    });
-  }
-
-  setWrapperRef(node: HTMLDivElement) {
-    this.wrapperRef = node;
-  }
-
-  notYetAlert = () => {
+  const notYetAlert = () => {
     // eslint-disable-next-line no-undef, no-alert
     alert('준비중입니다.');
   };
 
-  handleClickOutside(event: Event) {
-    if (this.wrapperRef && !this.wrapperRef.contains(event.target! as Node)) {
-      this.setState({
-        isEnable: false,
-      });
-    }
-  }
+  const logout = () => {
+    CurrentSessionRequest.logout().then(() => {
+      revokeSession();
+      window.location.replace('/');
+    });
+  };
 
-  render() {
-    const { isEnable } = this.state;
-    const { name, email } = this.props;
-    return (
-      <NavContainer>
-        <MenuButtonContainer isEnable={isEnable} onClick={() => this.onMenuButtonClick()}>
-          <img src="icon/person.svg" alt="회원 아이콘" style={{ width: '24px', height: '24px' }} />
-          <Label type="H5" style={{ width: '52px', textAlign: 'left' }}>
-            {name}
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  return (
+    // @ts-ignore
+    <NavContainer style={style} ref={setWrapperRef}>
+      <MenuButtonContainer isEnable={isEnable} onClick={onMenuButtonClick}>
+        <img src={PersonIcon} alt="회원 아이콘" style={{ width: '24px', height: '24px' }} />
+        <Label type="H5" style={{ width: '52px', textAlign: 'left' }}>
+          {name}
+        </Label>
+        <img src={ArrowDownIcon} alt="화살표 아이콘" style={{ width: '24px', height: '24px' }} />
+      </MenuButtonContainer>
+      <MenuDropdownContainer isEnable={isEnable}>
+        <InfoContainer>
+          <div style={{ margin: '8px 0', display: 'flex', alignItems: 'flex-end' }}>
+            <Label type="H5">{name}</Label>
+            <Label type="P2">님</Label>
+          </div>
+          <Label type="P1" color={theme.color.secondary.Moon}>
+            {email}
           </Label>
-          <img
-            src="icon/arrow-down.svg"
-            alt="화살표 아이콘"
-            style={{ width: '24px', height: '24px' }}
-          />
-        </MenuButtonContainer>
-        <MenuDropdownContainer isEnable={isEnable}>
-          <InfoContainer>
-            <div style={{ margin: '8px 0', display: 'flex', alignItems: 'flex-end' }}>
-              <Label type="H5">{name}</Label>
-              <Label type="P2">님</Label>
-            </div>
+        </InfoContainer>
+        <MenuContainer>
+          <MenuElementContainer onClick={notYetAlert}>
+            <Label type="H5">신청 현황</Label>
+          </MenuElementContainer>
+          <MenuElementContainer onClick={notYetAlert}>
+            <Label type="H5">개인정보 수정</Label>
+          </MenuElementContainer>
+          <MenuElementContainer onClick={logout}>
             <Label type="P1" color={theme.color.secondary.Moon}>
-              {email}
+              로그아웃
             </Label>
-          </InfoContainer>
-          <MenuContainer>
-            <MenuElementContainer onClick={this.notYetAlert}>
-              <Label type="H5">신청 현황</Label>
-            </MenuElementContainer>
-            <MenuElementContainer onClick={this.notYetAlert}>
-              <Label type="H5">개인정보 수정</Label>
-            </MenuElementContainer>
-            <a href={`${SERVER_URL}/auth/logout`} style={{ textDecoration: 'none' }}>
-              <MenuElementContainer>
-                <Label type="P1" color={theme.color.secondary.Moon}>
-                  로그아웃
-                </Label>
-              </MenuElementContainer>
-            </a>
-          </MenuContainer>
-        </MenuDropdownContainer>
-      </NavContainer>
-    );
-  }
+          </MenuElementContainer>
+        </MenuContainer>
+      </MenuDropdownContainer>
+    </NavContainer>
+  );
 }

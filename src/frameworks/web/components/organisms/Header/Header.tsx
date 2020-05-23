@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Visible, Hidden, ScreenClassRender } from 'react-grid-system';
 import { Link } from 'react-router-dom';
 
 import Label from 'frameworks/web/components/atoms/Label/Label';
+import Loading from 'frameworks/web/components/atoms/Loading/Loading';
 import Button from 'frameworks/web/components/atoms/Button/Button';
 import NavigationBar from 'frameworks/web/components/molecules/NavigationBar/NavigationBar';
 import { IHeaderItem } from 'interfaces/frameworks/web/components/organisms/Header/IHeader';
@@ -12,6 +13,7 @@ import * as ROUTES from 'utils/routes';
 
 import SomulLogo from 'assets/logo/logo.svg';
 import HamburgerMenu from 'assets/icon/mobile-menu.svg';
+import useCurrentSession from 'frameworks/web/hooks/CurrentSessionHook';
 
 const HeaderContainer = styled.div`
   position: fixed;
@@ -36,7 +38,6 @@ const HeaderMenuContainer = styled.div`
 
 const HeaderButtonContainer = styled.div`
   float: right;
-  width: 260px;
   margin-top: 20px;
 
   display: flex;
@@ -53,8 +54,7 @@ const HeaderSidebarButton = styled.img`
 `;
 
 export default function Header(): React.ReactElement {
-  //  TODO: GraphQL 연동 필요
-  const [user] = useState<{ email: string; name: string } | null>(null);
+  const [isLoaded, currentSession] = useCurrentSession();
 
   const handleClickInfo = () => {
     //    TODO
@@ -68,6 +68,7 @@ export default function Header(): React.ReactElement {
     //    TODO
   };
 
+  // @ts-ignore
   return (
     <HeaderContainer>
       <ScreenClassRender
@@ -79,7 +80,7 @@ export default function Header(): React.ReactElement {
                 margin: sClass === 'xs' ? '0 24px' : '0 85px',
               }}
             >
-              <a href="https://www.somul.kr">
+              <a href="/">
                 <img
                   src={SomulLogo}
                   alt="소프트웨어에 물들다 (로고)"
@@ -109,26 +110,36 @@ export default function Header(): React.ReactElement {
                     FAQ
                   </Label>
                 </HeaderMenuContainer>
-                <HeaderButtonContainer>
-                  {user ? (
-                    <NavigationBar name={user.name} email={user.email} />
-                  ) : (
-                    <>
-                      <Link to={ROUTES.SIGN_UP_START}>
-                        <Button
-                          type="small"
-                          label="회원가입"
-                          isPrimary={false}
-                          onClick={() => undefined}
-                          style={{ marginLeft: '20px' }}
-                        />
-                      </Link>
-                      <Link to={ROUTES.SIGN_IN}>
-                        <Button type="small" label="로그인" isPrimary onClick={() => undefined} />
-                      </Link>
-                    </>
-                  )}
-                </HeaderButtonContainer>
+                {!isLoaded ? (
+                  <HeaderButtonContainer style={{ margin: '25px 0' }}>
+                    <Loading useBarrier={false} />
+                  </HeaderButtonContainer>
+                ) : (
+                  <HeaderButtonContainer>
+                    {currentSession?.name && currentSession?.name ? (
+                      <NavigationBar
+                        name={currentSession?.name}
+                        email={currentSession?.email}
+                        style={{ marginTop: '-3px' }}
+                      />
+                    ) : (
+                      <>
+                        <Link to={ROUTES.SIGN_UP_START}>
+                          <Button
+                            type="small"
+                            label="회원가입"
+                            isPrimary={false}
+                            onClick={() => undefined}
+                            style={{ marginRight: '20px' }}
+                          />
+                        </Link>
+                        <Link to={ROUTES.SIGN_IN}>
+                          <Button type="small" label="로그인" isPrimary onClick={() => undefined} />
+                        </Link>
+                      </>
+                    )}
+                  </HeaderButtonContainer>
+                )}
               </Visible>
               <Hidden xl>
                 <HeaderSidebarButton

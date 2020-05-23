@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import theme from 'theme';
 import React from 'react';
+import { ILoadingProps } from 'interfaces/frameworks/web/components/atoms/Loading/ILoading';
 
 const LoadingBarrier = styled.div`
   width: 100% !important;
@@ -13,15 +14,8 @@ const LoadingBarrier = styled.div`
   pointer-events: none;
 `;
 
-const LoadingComponent = styled.div`
-  width: 48px;
-  height: 48px;
-
+const BaseLoadingComponent = styled.div`
   z-index: 9999;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
 
   -webkit-animation: circle infinite 0.75s linear;
   -moz-animation: circle infinite 0.75s linear;
@@ -90,10 +84,30 @@ const LoadingComponent = styled.div`
   }
 `;
 
-export default function Loading(): React.ReactElement {
-  return (
-    <LoadingBarrier>
-      <LoadingComponent />
-    </LoadingBarrier>
-  );
+const LoadingComponent = styled(BaseLoadingComponent)`
+  width: 48px;
+  height: 48px;
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+const SmallLoadingComponent = styled(BaseLoadingComponent)`
+  width: 32px;
+  height: 32px;
+`;
+
+export default function Loading(props: ILoadingProps): React.ReactElement {
+  const { useBarrier = true } = props;
+
+  if (useBarrier) {
+    return (
+      <LoadingBarrier>
+        <LoadingComponent />
+      </LoadingBarrier>
+    );
+  }
+  return <SmallLoadingComponent />;
 }
