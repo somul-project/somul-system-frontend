@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Visible, Hidden, ScreenClassRender } from 'react-grid-system';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory, useLocation } from 'react-router-dom';
 
 import Label from 'frameworks/web/components/atoms/Label/Label';
 import Loading from 'frameworks/web/components/atoms/Loading/Loading';
@@ -53,8 +53,51 @@ const HeaderSidebarButton = styled.img`
   margin: ${(props: IHeaderItem) => (props.size === 'xs' ? '14px' : '20px')} 0px;
 `;
 
+export const PAGES = {
+  NEVER_LOGIN: [
+    ROUTES.SIGN_IN,
+    ROUTES.SIGN_IN_FORGOT_PASSWORD,
+    ROUTES.SIGN_IN_FORGOT_COMPLETE,
+    ROUTES.SIGN_IN_CHANGE_PASSWORD,
+    ROUTES.SIGN_IN_CHANGE_PASSWORD_COMPLETE,
+    ROUTES.SIGN_UP,
+    ROUTES.SIGN_UP_START,
+    ROUTES.SIGN_UP_COMPLETE,
+    ROUTES.SIGN_UP_OAUTH,
+  ],
+  REQUIRED_LOGIN: [
+    ROUTES.APPLY_SPEAKER,
+    ROUTES.APPLY_SPEAKER_COMPLETE,
+    ROUTES.PROFILE,
+    ROUTES.PROFILE_WITHDRAW,
+    ROUTES.STATUS,
+  ],
+  ALWAYS: [ROUTES.HOME],
+};
+
 export default function Header(): React.ReactElement {
   const [isLoaded, currentSession] = useCurrentSession();
+  const history = useHistory();
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    if (isLoaded) {
+      if (PAGES.ALWAYS.includes(pathname)) {
+        //  TODO:
+      } else if (PAGES.NEVER_LOGIN.includes(pathname)) {
+        if (currentSession?.email) {
+          history.push(ROUTES.HOME);
+        }
+      } else if (PAGES.REQUIRED_LOGIN.includes(pathname)) {
+        if (!currentSession?.email) {
+          history.push(ROUTES.SIGN_IN);
+        }
+      } else {
+        // TODO: 404
+        history.push(ROUTES.HOME);
+      }
+    }
+  }, [isLoaded, pathname, currentSession, history]);
 
   const handleClickInfo = () => {
     //    TODO
