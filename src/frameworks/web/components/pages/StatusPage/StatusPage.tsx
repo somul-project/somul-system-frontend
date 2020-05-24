@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from 'theme';
 import Label from 'frameworks/web/components/atoms/Label/Label';
@@ -49,32 +49,36 @@ export default function StatusPage(): React.ReactElement {
         <Label type="H3" color={theme.color.primary.Azure}>
           나의 신청현황
         </Label>
-        <StatusContentContainer isDarkBackground>
-          {isCurrentSessionLoaded && (
-            // @ts-ignore
-            <Query<IUserData, { email: string }>
-              query={GET_USER}
-              variables={{ email: currentSession?.email! }}
-              client={apolloClient}
-            >
-              {/* @ts-ignore */}
-              {({ loading, error, data }) => {
-                if (loading) {
-                  return <Loading />;
-                }
+        {isCurrentSessionLoaded && !currentSession?.email && <Redirect to={ROUTES.SIGN_IN} />}
+        {isCurrentSessionLoaded && (
+          // @ts-ignore
+          <Query<IUserData, { email: string }>
+            query={GET_USER}
+            variables={{ email: currentSession?.email! }}
+            client={apolloClient}
+            fetchPolicy="no-cache"
+          >
+            {/* @ts-ignore */}
+            {({ loading, error, data }) => {
+              if (loading) {
+                return <Loading />;
+              }
 
-                if (error) {
-                  return (
+              if (error) {
+                return (
+                  <StatusContentContainer isDarkBackground>
                     <NoStatusContainer>
                       <Label type="P1" color={theme.color.secondary.Moon}>
                         신청한 강연 정보를 불러오는 데에 오류가 발생했습니다.
                       </Label>
                     </NoStatusContainer>
-                  );
-                }
+                  </StatusContentContainer>
+                );
+              }
 
-                if (data && data.user.sessions.length === 0) {
-                  return (
+              if (data && data.user.sessions.length === 0) {
+                return (
+                  <StatusContentContainer isDarkBackground>
                     <NoStatusContainer>
                       <Label
                         type="P1"
@@ -85,10 +89,12 @@ export default function StatusPage(): React.ReactElement {
                       </Label>
                       <Button label="신청하기" onClick={linkToApply} />
                     </NoStatusContainer>
-                  );
-                }
+                  </StatusContentContainer>
+                );
+              }
 
-                return data!.user!.sessions!.map((session) => (
+              return data!.user!.sessions!.map((session) => (
+                <StatusContentContainer isDarkBackground key={session.id}>
                   <StatusContent
                     statusNum={parseInt(session.admin_approved, 10) as StatusType}
                     applyDate={session.createdAt}
@@ -96,13 +102,13 @@ export default function StatusPage(): React.ReactElement {
                     video={session.document.split(',')}
                     speaker={data!.user!.name}
                     bio={session.introduce}
-                    description="서버에 객체가 없어........"
+                    description={session.session_explainer}
                   />
-                ));
-              }}
-            </Query>
-          )}
-        </StatusContentContainer>
+                </StatusContentContainer>
+              ));
+            }}
+          </Query>
+        )}
       </StatusContainer>
       {!isCurrentSessionLoaded && <Loading />}
     </>
