@@ -45,7 +45,7 @@ export const isYouTubeURL = (url: string): boolean => {
       return pathname === '/watch' && v.length === 11;
     }
     if (hostname.includes(HOST_NAMES.SHORT)) {
-      return pathname.length === HASH_LENGTH;
+      return pathname.length === HASH_LENGTH + 1;
     }
 
     return false;
