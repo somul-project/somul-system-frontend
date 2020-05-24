@@ -62,6 +62,10 @@ const InfoContainer = styled.div`
 
 const MenuContainer = styled.div`
   padding: 8px;
+
+  a {
+    text-decoration: none;
+  }
 `;
 
 const MenuElementContainer = styled.div`
@@ -138,9 +142,11 @@ export default function NavigationBar(props: INavBar) {
           </Label>
         </InfoContainer>
         <MenuContainer>
-          <MenuElementContainer onClick={notYetAlert}>
-            <Label type="H5">신청 현황</Label>
-          </MenuElementContainer>
+          <Link to={ROUTES.STATUS}>
+            <MenuElementContainer onClick={() => setEnable(false)}>
+              <Label type="H5">신청 현황</Label>
+            </MenuElementContainer>
+          </Link>
           <Link to={ROUTES.PROFILE}>
             <MenuElementContainer onClick={() => setEnable(false)}>
               <Label type="H5">프로필</Label>

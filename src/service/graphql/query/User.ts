@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 
+// eslint-disable-next-line import/prefer-default-export
 export const GET_USER = gql`
   query User($email: String!) {
     user(email: $email) {
@@ -8,23 +9,21 @@ export const GET_USER = gql`
       phonenumber
       createdAt
       updateAt
-      librarys {
-        id
-      }
-      volunteers {
-        id
-      }
+      #      librarys {
+      #        id
+      #      }
+      #      volunteers {
+      #        id
+      #      }
       sessions {
         id
+        session_name
+        session_explainer
+        introduce
+        document
+        admin_approved
+        createdAt
       }
-    }
-  }
-`;
-
-export const GET_USERS = gql`
-  query Users($email: String, $name: String, $phonenumber: String) {
-    users(email: $email, name: $name, phonenumber: $phonenumber) {
-      email
     }
   }
 `;

@@ -5,11 +5,12 @@ import theme from 'theme';
 import Label from 'frameworks/web/components/atoms/Label/Label';
 import { IStatusContent } from 'interfaces/frameworks/web/components/organisms/StatusPage/IStatusContent';
 import VideoButton from 'frameworks/web/components/atoms/VideoButton/VideoButton';
+import Moment from 'react-moment';
 
 const ContentHeaderContainer = styled.div`
   padding: 16px 95px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 `;
 
 const DateContainer = styled.div`
@@ -65,26 +66,26 @@ export default function StatusContent({
   bio,
   description,
 }: IStatusContent): React.ReactElement {
-  const statusString = ['심사중', '반려', '심사중', '승인완료'];
+  const statusString = ['심사중', '반려', '반려', '승인완료'];
   const statusColor = [
     theme.color.secondary.Moon,
     theme.color.alert.Failure,
-    theme.color.secondary.Moon,
+    theme.color.alert.Failure,
     theme.color.alert.Success,
   ];
   return (
     <div>
       <ContentHeaderContainer>
-        {/* 하단 DateContainer는 정렬을 맞추기 위한 dummy Container입니다 */}
-        <DateContainer>
-          <Label type="H5" color="white" style={{ marginRight: '24px' }}>
-            신청일
-          </Label>
-          <Label type="P1" color="white">
-            {applyDate}
-          </Label>
-        </DateContainer>
-        <Label type="H4" color={theme.color.secondary.Moon}>
+        <Label
+          type="H4"
+          color={theme.color.secondary.Moon}
+          style={{
+            flex: 1,
+            display: 'flex',
+            justifyContent: 'center',
+            transform: 'translateX(60px)',
+          }}
+        >
           <span style={{ color: statusColor[statusNum] }}>{statusString[statusNum]}</span>{' '}
           <span style={{ fontWeight: 'normal' }}>{statusNum ? '되었습니다' : '입니다'}</span>
         </Label>
@@ -92,7 +93,9 @@ export default function StatusContent({
           <Label type="H5" style={{ marginRight: '24px' }}>
             신청일
           </Label>
-          <Label type="P1">{applyDate}</Label>
+          <Label type="P1">
+            <Moment format="MM.DD">{applyDate}</Moment>
+          </Label>
         </DateContainer>
       </ContentHeaderContainer>
       <SingleLine />

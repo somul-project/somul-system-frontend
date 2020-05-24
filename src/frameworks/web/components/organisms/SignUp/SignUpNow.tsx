@@ -24,6 +24,7 @@ import SignUpRequest from 'service/request/SignUpRequest';
 import useCurrentSession from 'frameworks/web/hooks/CurrentSessionHook';
 
 import * as ROUTES from 'utils/routes';
+import { PRIVACY_INFORMATION } from 'utils/constants';
 
 const TextLabelContainer = styled.div`
   width: 65px;
@@ -323,9 +324,7 @@ export default function SignUpNow(): React.ReactElement {
               </TextFieldContainer>
               <PrivacyContainer>
                 <TextArea
-                  defaultLabel={`1. 개인정보 처리방침이란?
-반갑습니다!
-소프트웨어에 물들다(이하 ‘소물')는 참여자의 ‘동의를 기반으로 개인정보를 수집·이용 및 제공’하고 있으며, ‘이용자의 권리 (개인정보 자기결정권)를 적극적으로 보장’합니다. 소물은 정보통신서비스제공자가 준수하여야 하는 대한민국의 관계 법령 및 개인정보보호 규정, 가이드라인을 준수하고 있습니다. “개인정보 처리방침”이란 참여자의 소중한 개인정보를 보호함으로써 참여자가 안심하고 소물에 참여할 수 있도록 소물이 준수해야 할 지침을 의미합니다. 본 개인정보 처리방침은 소물 강연 참여 신청 시스템에 적용됩니다`}
+                  defaultLabel={PRIVACY_INFORMATION}
                   onValueChange={() => undefined}
                   readOnly
                 />
