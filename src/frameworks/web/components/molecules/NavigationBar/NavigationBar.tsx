@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import theme from 'theme';
 import React, { useRef, useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
 
 import Label from 'frameworks/web/components/atoms/Label/Label';
 // eslint-disable-next-line no-unused-vars
@@ -15,6 +14,7 @@ import ArrowDownIcon from 'assets/icon/arrow-down.svg';
 import DropdownBoxShadow from 'assets/etc/dropdown-box.svg';
 import useCurrentSession from 'frameworks/web/hooks/CurrentSessionHook';
 import CurrentSessionRequest from 'service/request/CurrentSessionRequest';
+import { Link } from 'react-router-dom';
 import * as ROUTES from 'utils/routes';
 
 const NavContainer = styled.div`
@@ -95,13 +95,6 @@ export default function NavigationBar(props: INavBar) {
     setEnable(!isEnable);
   };
 
-  const history = useHistory();
-
-  const goProfile = () => {
-    setEnable(false);
-    history.push(ROUTES.PROFILE);
-  };
-
   const notYetAlert = () => {
     // eslint-disable-next-line no-undef, no-alert
     alert('준비중입니다.');
@@ -148,9 +141,11 @@ export default function NavigationBar(props: INavBar) {
           <MenuElementContainer onClick={notYetAlert}>
             <Label type="H5">신청 현황</Label>
           </MenuElementContainer>
-          <MenuElementContainer onClick={goProfile}>
-            <Label type="H5">프로필</Label>
-          </MenuElementContainer>
+          <Link to={ROUTES.PROFILE}>
+            <MenuElementContainer onClick={() => setEnable(false)}>
+              <Label type="H5">프로필</Label>
+            </MenuElementContainer>
+          </Link>
           <MenuElementContainer onClick={logout}>
             <Label type="P1" color={theme.color.secondary.Moon}>
               로그아웃
