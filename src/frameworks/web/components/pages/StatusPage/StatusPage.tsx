@@ -76,7 +76,7 @@ export default function StatusPage(): React.ReactElement {
                 );
               }
 
-              if (data && data.user.sessions.length === 0) {
+              if (data && data.user && data.user.sessions && data.user.sessions.length === 0) {
                 return (
                   <StatusContentContainer isDarkBackground>
                     <NoStatusContainer>
