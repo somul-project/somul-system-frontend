@@ -81,20 +81,23 @@ export default function Header(): React.ReactElement {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    if (PAGES.ALWAYS.includes(pathname)) {
-      //  TODO:
-    } else if (PAGES.NEVER_LOGIN.includes(pathname)) {
-      if (currentSession?.email) {
+    if (isLoaded) {
+      if (PAGES.ALWAYS.includes(pathname)) {
+        //  TODO:
+      } else if (PAGES.NEVER_LOGIN.includes(pathname)) {
+        if (currentSession?.email) {
+          history.push(ROUTES.HOME);
+        }
+      } else if (PAGES.REQUIRED_LOGIN.includes(pathname)) {
+        if (!currentSession?.email) {
+          history.push(ROUTES.SIGN_IN);
+        }
+      } else {
+        // TODO: 404
         history.push(ROUTES.HOME);
       }
-    } else if (PAGES.REQUIRED_LOGIN.includes(pathname)) {
-      if (!currentSession?.email) {
-        history.push(ROUTES.SIGN_IN);
-      }
-    } else {
-      history.push(ROUTES.HOME);
     }
-  }, [pathname, currentSession, history]);
+  }, [isLoaded, pathname, currentSession, history]);
 
   const handleClickInfo = () => {
     //    TODO
