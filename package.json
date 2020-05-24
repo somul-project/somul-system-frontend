@@ -1,10 +1,10 @@
 {
   "name": "somul-frontend",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
   "dependencies": {
     "@apollo/client": "~3.0.0-beta.44",
     "@craco/craco": "~5.6.4",
+    "@sentry/browser": "~5.15.5",
     "@types/react-router-dom": "~5.1.5",
     "apollo-cache-inmemory": "~1.6.5",
     "apollo-cache-persist": "~0.1.1",
@@ -24,6 +24,7 @@
     "react-apollo": "~3.1.5",
     "react-app-polyfill": "~1.0.6",
     "react-dom": "~16.12.0",
+    "react-ga": "~2.7.0",
     "react-grid-system": "~6.3.0",
     "react-moment": "~0.9.7",
     "react-router-dom": "~5.2.0",
@@ -34,8 +35,8 @@
     "typescript": "~3.7.2"
   },
   "scripts": {
-    "start": "cross-env NODE_ENV=development REACT_APP_SERVER_URL='http://localhost:8000' craco start",
-    "build": "craco build",
+    "start": "cross-env-shell NODE_ENV=development REACT_APP_SERVER_URL='http://localhost:8000' craco start",
+    "build": "cross-env-shell NODE_ENV=production REACT_APP_SERVER_URL='https://server.somul.kr' REACT_APP_SENTRY_DSN= REACT_APP_GA_ID= craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
