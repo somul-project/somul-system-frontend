@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Visible, Hidden, ScreenClassRender } from 'react-grid-system';
 import { NavLink, useHistory, useLocation } from 'react-router-dom';
@@ -14,6 +14,8 @@ import * as ROUTES from 'utils/routes';
 import SomulLogo from 'assets/logo/logo.svg';
 import HamburgerMenu from 'assets/icon/mobile-menu.svg';
 import useCurrentSession from 'frameworks/web/hooks/CurrentSessionHook';
+import theme from 'theme';
+import Modal from 'frameworks/web/components/molecules/Modal/Modal';
 
 const HeaderContainer = styled.div`
   position: fixed;
@@ -24,6 +26,10 @@ const HeaderContainer = styled.div`
   z-index: 2;
   background-color: white;
   box-shadow: 0 1px 0 rgba(12, 13, 14, 0.15);
+
+  img {
+    pointer-events: inherit;
+  }
 `;
 
 const HeaderMenuContainer = styled.div`
@@ -77,6 +83,7 @@ export const PAGES = {
 
 export default function Header(): React.ReactElement {
   const [isLoaded, currentSession] = useCurrentSession();
+  const [isPreparingModalOpened, setPreparingModalOpened] = useState(false);
   const history = useHistory();
   const { pathname } = useLocation();
 
@@ -100,7 +107,7 @@ export default function Header(): React.ReactElement {
   }, [isLoaded, pathname, currentSession, history]);
 
   const handleClickInfo = () => {
-    //    TODO
+    setPreparingModalOpened(true);
   };
 
   const handleClickSideMenu = () => {
@@ -109,86 +116,110 @@ export default function Header(): React.ReactElement {
 
   // @ts-ignore
   return (
-    <HeaderContainer>
-      <ScreenClassRender
-        render={(sClass: string) => (
-          <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
-            <div
-              style={{
-                height: sClass === 'xs' ? '48px' : '80px',
-                margin: sClass === 'xs' ? '0 24px' : '0 85px',
-              }}
-            >
-              <a href="/">
-                <img
-                  src={SomulLogo}
-                  alt="소프트웨어에 물들다 (로고)"
-                  style={{
-                    margin: sClass === 'xs' ? '16px 0' : '30px 76px 30px 0',
-                    width: sClass === 'xs' ? '90px' : '112.5px',
-                    height: sClass === 'xs' ? '16px' : '20px',
-                    float: 'left',
-                  }}
-                />
-              </a>
-              <Visible xl>
-                <HeaderMenuContainer>
-                  <a href="/?goto=landingAbout" style={{ textDecoration: 'none' }}>
-                    <Label type="H5">소물이란?</Label>
-                  </a>
-                  <Label type="H5" onClick={handleClickInfo}>
-                    강연정보
-                  </Label>
-                  <NavLink to={ROUTES.APPLY_SPEAKER} style={{ textDecoration: 'none' }}>
-                    <Label type="H5">참가신청</Label>
-                  </NavLink>
-                  <a href="/?goto=landingSponsor" style={{ textDecoration: 'none' }}>
-                    <Label type="H5">후원안내</Label>
-                  </a>
-                </HeaderMenuContainer>
-                {!isLoaded ? (
-                  <HeaderButtonContainer style={{ margin: '25px 0' }}>
-                    <Loading useBarrier={false} />
-                  </HeaderButtonContainer>
-                ) : (
-                  <HeaderButtonContainer>
-                    {currentSession?.name && currentSession?.name ? (
-                      <NavigationBar
-                        name={currentSession?.name}
-                        email={currentSession?.email}
-                        style={{ marginTop: '-3px' }}
-                      />
-                    ) : (
-                      <>
-                        <NavLink to={ROUTES.SIGN_UP} replace>
-                          <Button
-                            type="small"
-                            label="회원가입"
-                            isPrimary={false}
-                            onClick={() => undefined}
-                            style={{ marginRight: '20px' }}
-                          />
-                        </NavLink>
-                        <NavLink to={ROUTES.SIGN_IN} replace>
-                          <Button type="small" label="로그인" isPrimary onClick={() => undefined} />
-                        </NavLink>
-                      </>
-                    )}
-                  </HeaderButtonContainer>
-                )}
-              </Visible>
-              <Hidden xl>
-                <HeaderSidebarButton
-                  src={HamburgerMenu}
-                  alt="사이드 메뉴"
-                  onClick={handleClickSideMenu}
-                  size={sClass}
-                />
-              </Hidden>
+    <>
+      <HeaderContainer>
+        <ScreenClassRender
+          render={(sClass: string) => (
+            <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+              <div
+                style={{
+                  height: sClass === 'xs' ? '48px' : '80px',
+                  margin: sClass === 'xs' ? '0 24px' : '0 85px',
+                }}
+              >
+                <a href="/">
+                  <img
+                    src={SomulLogo}
+                    alt="소프트웨어에 물들다 (로고)"
+                    style={{
+                      margin: sClass === 'xs' ? '16px 0' : '30px 76px 30px 0',
+                      width: sClass === 'xs' ? '90px' : '112.5px',
+                      height: sClass === 'xs' ? '16px' : '20px',
+                      float: 'left',
+                    }}
+                  />
+                </a>
+                <Visible xl>
+                  <HeaderMenuContainer>
+                    <a href="/?goto=landingAbout" style={{ textDecoration: 'none' }}>
+                      <Label type="H5">소물이란?</Label>
+                    </a>
+                    <Label type="H5" onClick={handleClickInfo}>
+                      강연정보
+                    </Label>
+                    <NavLink to={ROUTES.APPLY_SPEAKER} style={{ textDecoration: 'none' }}>
+                      <Label type="H5">참가신청</Label>
+                    </NavLink>
+                    <a href="/?goto=landingSponsor" style={{ textDecoration: 'none' }}>
+                      <Label type="H5">후원안내</Label>
+                    </a>
+                  </HeaderMenuContainer>
+                  {!isLoaded ? (
+                    <HeaderButtonContainer style={{ margin: '25px 0' }}>
+                      <Loading useBarrier={false} />
+                    </HeaderButtonContainer>
+                  ) : (
+                    <HeaderButtonContainer>
+                      {currentSession?.name && currentSession?.name ? (
+                        <NavigationBar
+                          name={currentSession?.name}
+                          email={currentSession?.email}
+                          style={{ marginTop: '-3px' }}
+                        />
+                      ) : (
+                        <>
+                          <NavLink to={ROUTES.SIGN_UP} replace>
+                            <Button
+                              type="small"
+                              label="회원가입"
+                              isPrimary={false}
+                              onClick={() => undefined}
+                              style={{ marginRight: '20px' }}
+                            />
+                          </NavLink>
+                          <NavLink to={ROUTES.SIGN_IN} replace>
+                            <Button
+                              type="small"
+                              label="로그인"
+                              isPrimary
+                              onClick={() => undefined}
+                            />
+                          </NavLink>
+                        </>
+                      )}
+                    </HeaderButtonContainer>
+                  )}
+                </Visible>
+                <Hidden xl>
+                  <HeaderSidebarButton
+                    src={HamburgerMenu}
+                    alt="사이드 메뉴"
+                    onClick={handleClickSideMenu}
+                    size={sClass}
+                  />
+                </Hidden>
+              </div>
             </div>
-          </div>
-        )}
-      />
-    </HeaderContainer>
+          )}
+        />
+      </HeaderContainer>
+      <Modal
+        type="empty"
+        isOpen={isPreparingModalOpened}
+        onClose={() => setPreparingModalOpened(false)}
+      >
+        <img src={SomulLogo} alt="소물 로고" style={{ width: '112.5px', height: '20px' }} />
+        <Label type="H4" color={theme.color.primary.Azure} style={{ padding: '48px 0 16px 0' }}>
+          곧 공개됩니다!
+        </Label>
+        <Label
+          type="P1"
+          style={{ paddingBottom: '48px' }}
+          dangerouslySetInnerHTML={{
+            __html: '어떤 강연이 준비되고 있을까요?<br>강연은 5월 29일 금요일날 공개됩니다!',
+          }}
+        />
+      </Modal>
+    </>
   );
 }
