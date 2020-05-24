@@ -99,11 +99,6 @@ export default function NavigationBar(props: INavBar) {
     setEnable(!isEnable);
   };
 
-  const notYetAlert = () => {
-    // eslint-disable-next-line no-undef, no-alert
-    alert('준비중입니다.');
-  };
-
   const logout = () => {
     CurrentSessionRequest.logout().then(() => {
       revokeSession();
