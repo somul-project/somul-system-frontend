@@ -24,7 +24,7 @@ import {
   ICreateSessionPayload,
 } from 'interfaces/service/graphql/mutation/ISession';
 
-import SpeakerApplyAsset from 'assets/illust/speaker-apply-illustration.png';
+import SpeakerApplyAsset from 'assets/illust/speaker-apply-illustration.svg';
 import AddButtonAsset from 'assets/icon/add-circle.svg';
 import OffButtonAsset from 'assets/icon/highlight-off.svg';
 import useCurrentSession from 'frameworks/web/hooks/CurrentSessionHook';

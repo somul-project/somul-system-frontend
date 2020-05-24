@@ -5,7 +5,7 @@ import { Row, Col, ScreenClassRender } from 'react-grid-system';
 import theme from 'theme';
 import Label from 'frameworks/web/components/atoms/Label/Label';
 
-import AboutImage from 'assets/illust/about-illustration.png';
+import AboutImage from 'assets/illust/about-illustration.svg';
 
 const MaxContainer = styled.div`
   max-width: 1280px;

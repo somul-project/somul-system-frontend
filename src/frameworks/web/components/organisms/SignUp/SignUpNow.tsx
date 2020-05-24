@@ -16,7 +16,7 @@ import Modal from 'frameworks/web/components/molecules/Modal/Modal';
 
 import SomulLogo from 'assets/logo/logo.svg';
 import WarningIcon from 'assets/icon/warning.svg';
-import SignUpIllust from 'assets/illust/signup-illustration.png';
+import SignUpIllust from 'assets/illust/signup-illustration.svg';
 import { IRegisterUserValidateState } from 'interfaces/utils/IValidator';
 import { isEmail, isName, isPhoneNumber, isValidPassword } from 'utils/validator';
 import Loading from 'frameworks/web/components/atoms/Loading/Loading';
