@@ -3,18 +3,20 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from 'theme';
-import DividedCard from 'frameworks/web/components/molecules/DividedCard/DividedCard';
+import { useMutation } from '@apollo/client';
+
 import Label from 'frameworks/web/components/atoms/Label/Label';
-import TextField from 'frameworks/web/components/atoms/TextField/TextField';
 import Button from 'frameworks/web/components/atoms/Button/Button';
+import Loading from 'frameworks/web/components/atoms/Loading/Loading';
+import TextField from 'frameworks/web/components/atoms/TextField/TextField';
+import DividedCard from 'frameworks/web/components/molecules/DividedCard/DividedCard';
+
 import * as ROUTES from 'utils/routes';
+import { UPDATE_USER } from 'service/graphql/mutation/User';
+import useCurrentSession from 'frameworks/web/hooks/CurrentSessionHook';
+
 import ProfileIllust from 'assets/illust/speaker-apply-illustration.png';
 import WarningSVG from 'assets/icon/warning.svg';
-import { useMutation } from '@apollo/client';
-import gql from 'graphql-tag';
-import useCurrentSession from '../../../hooks/CurrentSessionHook';
-import Loading from '../../atoms/Loading/Loading';
-import { UPDATE_USER } from '../../../../../service/graphql/mutation/User';
 
 const TextLabelContainer = styled.div`
   width: 93px;
@@ -58,7 +60,7 @@ export default function ProfileInfo(): React.ReactElement {
 
   useEffect(() => {
     if (isLoaded) {
-      if (currentUser?.name && currentUser?.email && currentUser?.phonenumber) {
+      if (currentUser?.name) {
         setName(currentUser.name);
         setEmail(currentUser.email);
         setPhoneNumber(currentUser.phonenumber);
