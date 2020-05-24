@@ -8,6 +8,7 @@ import Label from 'frameworks/web/components/atoms/Label/Label';
 import TextField from 'frameworks/web/components/atoms/TextField/TextField';
 
 import * as Valid from 'utils/validator';
+import * as ROUTES from 'utils/routes';
 
 const WarningTextContainer = styled.div`
   float: right;
@@ -32,7 +33,7 @@ export default function ForgotPassword(): React.ReactElement {
     setValid(result);
 
     if (result) {
-      history.push('/signin/forgot-complete', { email });
+      history.push(ROUTES.SIGN_IN_FORGOT_PASSWORD, { email });
     }
   };
 
