@@ -18,6 +18,7 @@ export const GET_USER = gql`
       sessions {
         id
         session_name
+        session_explainer
         introduce
         document
         admin_approved

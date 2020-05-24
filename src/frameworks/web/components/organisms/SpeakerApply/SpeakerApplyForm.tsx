@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Container, Row, Col } from 'react-grid-system';
 import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router';
+import { Redirect } from 'react-router-dom';
 
 import theme from 'theme';
 import { isYouTubeURL } from 'utils/validator';
@@ -156,8 +157,6 @@ export default function SpeakerApplyForm(): React.ReactElement {
       if (currentSession?.email && currentSession?.name) {
         setEmail(currentSession.email);
         setName(currentSession.name);
-      } else {
-        history.push(ROUTES.SIGN_IN);
       }
     }
   }, [currentSession, isLoaded]);
@@ -177,6 +176,7 @@ export default function SpeakerApplyForm(): React.ReactElement {
       user_email: email,
       session_name: title,
       session_time: '0',
+      session_explainer: description,
       introduce: bio,
       document: youtubeLinks.join(','),
     },
@@ -248,147 +248,152 @@ export default function SpeakerApplyForm(): React.ReactElement {
   return (
     <>
       {(!isLoaded || loading) && <Loading />}
-      <DividedCard title={`STEP 0${step + 1}`}>
-        {{
-          left: (
-            <div>
-              <SCSpeakerApplyImage src={SpeakerApplyAsset} alt="강연자 지원 이미지" />
-            </div>
-          ),
-          right: (
-            <SCContainer>
-              <SCStepper hidden={step !== 0}>
-                <SCRow>
-                  <Col md={3} sm={12}>
-                    <CustomTextLabel label="이름" />
-                  </Col>
-                  <Col md={8} sm={12}>
-                    <FullTextField readOnly value={name} />
-                  </Col>
-                </SCRow>
-                <SCRow>
-                  <Col md={3} sm={12}>
-                    <CustomTextLabel label="이메일" />
-                  </Col>
-                  <Col md={8} sm={12}>
-                    <FullTextField readOnly value={email} />
-                  </Col>
-                </SCRow>
-                <SCRow>
-                  <Col md={3} sm={12}>
-                    <CustomTextLabel label="소개" />
-                  </Col>
-                  <Col md={8} sm={12}>
-                    <FullTextArea
-                      height={120}
-                      maxLength={300}
-                      defaultLabel="간단한 이력 및 본인소개를 작성해주세요 (공백포함 최대 300자)"
-                      onChange={handleBio}
-                    />
-                    <Hint hint="※ 강연 당일 리스트에 노출되는 내용입니다." />
-                  </Col>
-                </SCRow>
-                <SCRow>
-                  <Col md={3} sm={12} />
-                  <Col md={8} sm={12}>
-                    <Button
-                      isEnabled={isEnabled}
-                      type="default"
-                      label="다음"
-                      isPrimary={false}
-                      onClick={handleNext}
-                      style={{ float: 'right' }}
-                    />
-                  </Col>
-                </SCRow>
-              </SCStepper>
-              <SCStepper hidden={step !== 1}>
-                <SCRow>
-                  <Col md={3} sm={12}>
-                    <CustomTextLabel label="강연 제목" />
-                  </Col>
-                  <Col md={8} sm={12}>
-                    <FullTextField
-                      value={title}
-                      onChange={handleTitle}
-                      maxLength={50}
-                      defaultLabel="강연 제목을 입력하세요. (공백포함 최대 50자)"
-                    />
-                    <Hint hint="※ 편리한 검색을 위해 강연 제목에 불필요한 영어 사용을 자제해주세요." />
-                  </Col>
-                </SCRow>
-                <SCRow>
-                  <Col md={3} sm={12}>
-                    <CustomTextLabel label="강연 내용" />
-                  </Col>
-                  <Col md={8} sm={12}>
-                    <FullTextArea
-                      height={120}
-                      maxLength={300}
-                      defaultLabel="강연 내용을 입력하세요 (공백포함 최대 500자)"
-                      onChange={handleDescription}
-                    />
-                  </Col>
-                </SCRow>
-                <SCRow>
-                  <Col md={3} sm={12}>
-                    <CustomTextLabel label="유튜브 링크" />
-                  </Col>
-                  <Col md={8} sm={12}>
-                    {youtubeLinks.map((link, i) => {
-                      const key = `youtube-${i}`;
-                      return (
-                        <FullTextField
-                          key={key}
-                          value={link}
-                          isError={isFocusYoutube && !isYouTubeURL(link)}
-                          onChange={(newLink: string) => handleYoutubeLink(newLink, i)}
-                          defaultLabel="강연 링크를 입력하세요."
-                          isButton={i !== 0}
-                          buttonSrc={OffButtonAsset}
-                          onButtonClicked={() => handleRemoveYoutubeLink(i)}
-                        />
-                      );
-                    })}
-                    {youtubeLinks.length !== 3 && (
-                      <YoutubeAddButton onClick={handleAddYoutubeLink} />
-                    )}
-                    <Hint
-                      hint={
-                        <>
-                          ※ 재생시간이 15분 이상인 경우 영상 분할 업로드를 추천 드리며,
-                          <br />
-                          영상은 반드시 순서대로 입력해주세요.
-                        </>
-                      }
-                    />
-                  </Col>
-                </SCRow>
-                <SCRow>
-                  <Col md={3} sm={12} />
-                  <Col md={8} sm={12}>
-                    <SCButtonGroup>
-                      <Button
-                        type="default"
-                        label="이전"
-                        isPrimary={false}
-                        onClick={handlePrevious}
+      {isLoaded && currentSession?.email ? (
+        <DividedCard title={`STEP 0${step + 1}`}>
+          {{
+            left: (
+              <div>
+                <SCSpeakerApplyImage src={SpeakerApplyAsset} alt="강연자 지원 이미지" />
+              </div>
+            ),
+            right: (
+              <SCContainer>
+                <SCStepper hidden={step !== 0}>
+                  <SCRow>
+                    <Col md={3} sm={12}>
+                      <CustomTextLabel label="이름" />
+                    </Col>
+                    <Col md={8} sm={12}>
+                      <FullTextField readOnly value={name} />
+                    </Col>
+                  </SCRow>
+                  <SCRow>
+                    <Col md={3} sm={12}>
+                      <CustomTextLabel label="이메일" />
+                    </Col>
+                    <Col md={8} sm={12}>
+                      <FullTextField readOnly value={email} />
+                    </Col>
+                  </SCRow>
+                  <SCRow>
+                    <Col md={3} sm={12}>
+                      <CustomTextLabel label="소개" />
+                    </Col>
+                    <Col md={8} sm={12}>
+                      <FullTextArea
+                        height={120}
+                        maxLength={300}
+                        defaultLabel="간단한 이력 및 본인소개를 작성해주세요 (공백포함 최대 300자)"
+                        onChange={handleBio}
                       />
+                      <Hint hint="※ 강연 당일 리스트에 노출되는 내용입니다." />
+                    </Col>
+                  </SCRow>
+                  <SCRow>
+                    <Col md={3} sm={12} />
+                    <Col md={8} sm={12}>
                       <Button
-                        type="default"
-                        label="제출하기"
                         isEnabled={isEnabled}
-                        isPrimary
-                        onClick={handleSubmit}
+                        type="default"
+                        label="다음"
+                        isPrimary={false}
+                        onClick={handleNext}
+                        style={{ float: 'right' }}
                       />
-                    </SCButtonGroup>
-                  </Col>
-                </SCRow>
-              </SCStepper>
-            </SCContainer>
-          ),
-        }}
-      </DividedCard>
+                    </Col>
+                  </SCRow>
+                </SCStepper>
+                <SCStepper hidden={step !== 1}>
+                  <SCRow>
+                    <Col md={3} sm={12}>
+                      <CustomTextLabel label="강연 제목" />
+                    </Col>
+                    <Col md={8} sm={12}>
+                      <FullTextField
+                        value={title}
+                        onChange={handleTitle}
+                        maxLength={50}
+                        defaultLabel="강연 제목을 입력하세요. (공백포함 최대 50자)"
+                      />
+                      <Hint hint="※ 편리한 검색을 위해 강연 제목에 불필요한 영어 사용을 자제해주세요." />
+                    </Col>
+                  </SCRow>
+                  <SCRow>
+                    <Col md={3} sm={12}>
+                      <CustomTextLabel label="강연 내용" />
+                    </Col>
+                    <Col md={8} sm={12}>
+                      <FullTextArea
+                        height={120}
+                        maxLength={300}
+                        defaultLabel="강연 내용을 입력하세요 (공백포함 최대 500자)"
+                        onChange={handleDescription}
+                      />
+                    </Col>
+                  </SCRow>
+                  <SCRow>
+                    <Col md={3} sm={12}>
+                      <CustomTextLabel label="유튜브 링크" />
+                    </Col>
+                    <Col md={8} sm={12}>
+                      {youtubeLinks.map((link, i) => {
+                        const key = `youtube-${i}`;
+                        return (
+                          <FullTextField
+                            key={key}
+                            value={link}
+                            isError={isFocusYoutube && !isYouTubeURL(link)}
+                            onChange={(newLink: string) => handleYoutubeLink(newLink, i)}
+                            defaultLabel="강연 링크를 입력하세요."
+                            isButton={i !== 0}
+                            buttonSrc={OffButtonAsset}
+                            onButtonClicked={() => handleRemoveYoutubeLink(i)}
+                          />
+                        );
+                      })}
+                      {youtubeLinks.length !== 3 && (
+                        <YoutubeAddButton onClick={handleAddYoutubeLink} />
+                      )}
+                      <Hint
+                        hint={
+                          <>
+                            ※ 재생시간이 15분 이상인 경우 영상 분할 업로드를 추천 드리며,
+                            <br />
+                            영상은 반드시 순서대로 입력해주세요.
+                          </>
+                        }
+                      />
+                    </Col>
+                  </SCRow>
+                  <SCRow>
+                    <Col md={3} sm={12} />
+                    <Col md={8} sm={12}>
+                      <SCButtonGroup>
+                        <Button
+                          type="default"
+                          label="이전"
+                          isPrimary={false}
+                          onClick={handlePrevious}
+                        />
+                        <Button
+                          type="default"
+                          label="제출하기"
+                          isEnabled={isEnabled}
+                          isPrimary
+                          onClick={handleSubmit}
+                        />
+                      </SCButtonGroup>
+                    </Col>
+                  </SCRow>
+                </SCStepper>
+              </SCContainer>
+            ),
+          }}
+        </DividedCard>
+      ) : (
+        <Redirect to={ROUTES.SIGN_IN} />
+      )}
+
       <Modal type="empty" isOpen={isModalOpened} onClose={handleModalClose}>
         <img src={SomulLogo} alt="소물 로고" style={{ width: '112.5px', height: '20px' }} />
         <Label type="H4" color={theme.color.primary.Azure} style={{ padding: '48px 0 16px 0' }}>
