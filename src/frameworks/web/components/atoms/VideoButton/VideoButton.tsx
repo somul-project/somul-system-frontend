@@ -19,14 +19,12 @@ const PlayImg = styled.img`
 `;
 
 export default function VideoButton({ href }: IVideoButton): React.ReactElement {
-  const onButtonClick = () => {
-    const win = window.open(href, '_blank');
-    win!.focus();
-  };
-
   return (
-    <VideoButtonContainer onClick={onButtonClick}>
-      <PlayImg src={PlayIcon} alt="재생 버튼" />
+    <VideoButtonContainer>
+      {/* eslint-disable-next-line react/jsx-no-target-blank */}
+      <a href={href} target="_blank">
+        <PlayImg src={PlayIcon} alt="재생 버튼" />
+      </a>
     </VideoButtonContainer>
   );
 }

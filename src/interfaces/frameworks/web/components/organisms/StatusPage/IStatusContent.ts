@@ -1,7 +1,7 @@
-type statusType = 0 | 1 | 2 | 3;
+export type StatusType = 0 | 1 | 2 | 3;
 
 export interface IStatusContent {
-  statusNum: statusType;
+  statusNum: StatusType;
   applyDate: string;
   title: string;
   video: Array<string>;

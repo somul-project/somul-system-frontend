@@ -7,6 +7,9 @@ const LoadingBarrier = styled.div`
   width: 100% !important;
   height: 100% !important;
   top: 0 !important;
+  left: 0 !important;
+  bottom: 0 !important;
+  right: 0 !important;
   overflow: hidden;
   z-index: 9999;
   background: rgba(255, 255, 255, 0.3);

@@ -14,6 +14,8 @@ import ArrowDownIcon from 'assets/icon/arrow-down.svg';
 import DropdownBoxShadow from 'assets/etc/dropdown-box.svg';
 import useCurrentSession from 'frameworks/web/hooks/CurrentSessionHook';
 import CurrentSessionRequest from 'service/request/CurrentSessionRequest';
+import { Link } from 'react-router-dom';
+import * as ROUTES from 'utils/routes';
 
 const NavContainer = styled.div`
   position: relative;
@@ -60,6 +62,10 @@ const InfoContainer = styled.div`
 
 const MenuContainer = styled.div`
   padding: 8px;
+
+  a {
+    text-decoration: none;
+  }
 `;
 
 const MenuElementContainer = styled.div`
@@ -136,9 +142,11 @@ export default function NavigationBar(props: INavBar) {
           </Label>
         </InfoContainer>
         <MenuContainer>
-          <MenuElementContainer onClick={notYetAlert}>
-            <Label type="H5">신청 현황</Label>
-          </MenuElementContainer>
+          <Link to={ROUTES.STATUS}>
+            <MenuElementContainer onClick={() => setEnable(false)}>
+              <Label type="H5">신청 현황</Label>
+            </MenuElementContainer>
+          </Link>
           <MenuElementContainer onClick={notYetAlert}>
             <Label type="H5">개인정보 수정</Label>
           </MenuElementContainer>

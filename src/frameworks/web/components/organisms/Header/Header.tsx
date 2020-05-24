@@ -60,10 +60,6 @@ export default function Header(): React.ReactElement {
     //    TODO
   };
 
-  const handleClickFAQ = () => {
-    //    TODO
-  };
-
   const handleClickSideMenu = () => {
     //    TODO
   };
@@ -106,9 +102,6 @@ export default function Header(): React.ReactElement {
                   <a href="/?goto=landingSponsor" style={{ textDecoration: 'none' }}>
                     <Label type="H5">후원안내</Label>
                   </a>
-                  <Label type="H5" onClick={handleClickFAQ}>
-                    FAQ
-                  </Label>
                 </HeaderMenuContainer>
                 {!isLoaded ? (
                   <HeaderButtonContainer style={{ margin: '25px 0' }}>
