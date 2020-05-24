@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars,no-unused-vars */
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -115,16 +116,16 @@ export default function SignInCard(): React.ReactElement {
             onValueChange={(value) => setPassword(value)}
             style={{ width: 'auto', margin: '8px 0' }}
           />
-          <ForgotContainer>
-            <Label type="P2" color={theme.color.secondary.Moon}>
-              비밀번호를 잊으셨나요?
-            </Label>
-            <Link to={ROUTES.SIGN_IN_FORGOT_PASSWORD} style={{ textDecoration: 'none' }}>
-              <Label type="P2" color={theme.color.primary.Azure} style={{ marginLeft: '16px' }}>
-                비밀번호 변경
-              </Label>
-            </Link>
-          </ForgotContainer>
+          {/* <ForgotContainer> */}
+          {/*  <Label type="P2" color={theme.color.secondary.Moon}> */}
+          {/*    비밀번호를 잊으셨나요? */}
+          {/*  </Label> */}
+          {/*  <Link to={ROUTES.SIGN_IN_FORGOT_PASSWORD} style={{ textDecoration: 'none' }}> */}
+          {/*    <Label type="P2" color={theme.color.primary.Azure} style={{ marginLeft: '16px' }}> */}
+          {/*      비밀번호 변경 */}
+          {/*    </Label> */}
+          {/*  </Link> */}
+          {/* </ForgotContainer> */}
           <div style={{ padding: '32px 0 0 0', clear: 'right' }}>
             <Button type="wide" label="로그인하기" isPrimary onClick={login} />
           </div>
