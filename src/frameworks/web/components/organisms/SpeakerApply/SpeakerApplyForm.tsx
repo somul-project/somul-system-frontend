@@ -248,7 +248,8 @@ export default function SpeakerApplyForm(): React.ReactElement {
   return (
     <>
       {(!isLoaded || loading) && <Loading />}
-      {isLoaded && currentSession?.email ? (
+      {isLoaded && !currentSession?.email && <Redirect to={ROUTES.SIGN_IN} />}
+      {isLoaded && currentSession?.email && (
         <DividedCard title={`STEP 0${step + 1}`}>
           {{
             left: (
@@ -390,8 +391,6 @@ export default function SpeakerApplyForm(): React.ReactElement {
             ),
           }}
         </DividedCard>
-      ) : (
-        <Redirect to={ROUTES.SIGN_IN} />
       )}
 
       <Modal type="empty" isOpen={isModalOpened} onClose={handleModalClose}>
