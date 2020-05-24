@@ -19,7 +19,7 @@ const CardContainer = styled(ContentsBox)`
 
 const LeftContainer = styled.div`
   width: 380px;
-  height: 100%;
+  height: auto;
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
   padding: ${(props: IDividedCardLeft) => props.leftPadding ?? '80px 0'};
