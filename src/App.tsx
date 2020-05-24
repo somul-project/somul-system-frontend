@@ -50,7 +50,7 @@ function App() {
               <StatusPage />
             </Route>
             <Route path={ROUTES.PROFILE}>
-              <ProfilePage email="test@somul.kr" name="테스트" phone="010-1234-5678" />
+              <ProfilePage />
             </Route>
           </Switch>
           <Footer />

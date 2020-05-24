@@ -49,7 +49,7 @@ const MenuDropdownContainer = styled.div`
   background-size: 255px 250px;
   width: 255px;
   height: 250px;
-  margin-top: 24px;
+  margin-top: 6px;
   z-index: 1;
 `;
 
@@ -99,11 +99,6 @@ export default function NavigationBar(props: INavBar) {
     setEnable(!isEnable);
   };
 
-  const notYetAlert = () => {
-    // eslint-disable-next-line no-undef, no-alert
-    alert('준비중입니다.');
-  };
-
   const logout = () => {
     CurrentSessionRequest.logout().then(() => {
       revokeSession();
@@ -147,9 +142,11 @@ export default function NavigationBar(props: INavBar) {
               <Label type="H5">신청 현황</Label>
             </MenuElementContainer>
           </Link>
-          <MenuElementContainer onClick={notYetAlert}>
-            <Label type="H5">개인정보 수정</Label>
-          </MenuElementContainer>
+          <Link to={ROUTES.PROFILE}>
+            <MenuElementContainer onClick={() => setEnable(false)}>
+              <Label type="H5">프로필</Label>
+            </MenuElementContainer>
+          </Link>
           <MenuElementContainer onClick={logout}>
             <Label type="P1" color={theme.color.secondary.Moon}>
               로그아웃

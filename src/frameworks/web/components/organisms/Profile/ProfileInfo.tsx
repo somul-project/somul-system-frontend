@@ -1,17 +1,22 @@
-/* eslint-disable react/no-unused-state */
-/* eslint-disable no-undef */
-/* eslint-disable no-alert */
-import React, { useState } from 'react';
+/* eslint-disable no-unused-vars,@typescript-eslint/no-unused-vars */
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from 'theme';
-import DividedCard from 'frameworks/web/components/molecules/DividedCard/DividedCard';
+import { useMutation } from '@apollo/client';
+
 import Label from 'frameworks/web/components/atoms/Label/Label';
-import TextField from 'frameworks/web/components/atoms/TextField/TextField';
 import Button from 'frameworks/web/components/atoms/Button/Button';
-import { IProfile } from 'interfaces/frameworks/web/components/pages/Profile/IProfile';
-import { IProfileInfoState } from 'interfaces/frameworks/web/components/organisms/Profile/IProfileInfo';
+import Loading from 'frameworks/web/components/atoms/Loading/Loading';
+import TextField from 'frameworks/web/components/atoms/TextField/TextField';
+import DividedCard from 'frameworks/web/components/molecules/DividedCard/DividedCard';
+
+import * as ROUTES from 'utils/routes';
+import { UPDATE_USER } from 'service/graphql/mutation/User';
+import useCurrentSession from 'frameworks/web/hooks/CurrentSessionHook';
+
 import ProfileIllust from 'assets/illust/speaker-apply-illustration.png';
+import WarningSVG from 'assets/icon/warning.svg';
 
 const TextLabelContainer = styled.div`
   width: 93px;
@@ -42,15 +47,46 @@ const WithdrawContainer = styled.div`
   justify-content: space-between;
 `;
 
-export default function ProfileInfo(props: IProfile): React.ReactElement {
-  const { name, email, phone } = props;
-  const [state, setState] = useState<IProfileInfoState>({ name, phone, password: '' });
+export default function ProfileInfo(): React.ReactElement {
+  const [name, setName] = useState<string>('');
+  const [phoneNumber, setPhoneNumber] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+
+  const [isLoaded, currentUser] = useCurrentSession();
+  const [loading, setLoading] = useState<boolean>(false);
+
   const history = useHistory();
+
+  useEffect(() => {
+    if (isLoaded) {
+      if (currentUser?.name) {
+        setName(currentUser.name);
+        setEmail(currentUser.email);
+        setPhoneNumber(currentUser.phonenumber);
+      } else {
+        history.push(ROUTES.SIGN_IN);
+      }
+    }
+  }, [isLoaded, currentUser]);
+
   const onPasswordChangeClicked = () => {
     // 비밀번호 변경 버튼 클릭시 작동되는 함수
   };
 
-  const onSaveButtonClicked = () => {
+  const [createSession] = useMutation(UPDATE_USER, {
+    variables: { email, name, phonenumber: phoneNumber },
+  });
+
+  const onSaveButtonClicked = async () => {
+    try {
+      setLoading(true);
+      const resp = await createSession();
+      // eslint-disable-next-line no-empty
+    } catch (e) {
+    } finally {
+      setLoading(false);
+    }
     // save 버튼 클릭시 작동되는 함수
   };
 
@@ -59,6 +95,7 @@ export default function ProfileInfo(props: IProfile): React.ReactElement {
   };
   return (
     <div>
+      {loading && !isLoaded && <Loading />}
       <DividedCard title="PROFILE" leftPadding="70px 0 0 0">
         {{
           left: (
@@ -86,18 +123,17 @@ export default function ProfileInfo(props: IProfile): React.ReactElement {
                 >
                   휴대폰
                 </Label>
-                <Label type="H5" color={theme.color.secondary.Nickel}>
-                  현재 비밀번호
-                </Label>
+                {/* <Label type="H5" color={theme.color.secondary.Nickel}> */}
+                {/*  현재 비밀번호 */}
+                {/* </Label> */}
               </TextLabelContainer>
               <TextFieldContainer>
                 <TextField
+                  readOnly
                   defaultLabel="이름을 입력하세요"
-                  onValueChange={(data: string) =>
-                    setState({ name: data, phone: state.phone, password: state.password })
-                  }
+                  onValueChange={(data: string) => setName(data)}
                   style={{ width: 'auto' }}
-                  value={state.name}
+                  value={name}
                 />
                 <TextField
                   defaultLabel=""
@@ -107,65 +143,62 @@ export default function ProfileInfo(props: IProfile): React.ReactElement {
                   value={email}
                 />
                 <TextField
+                  readOnly
                   defaultLabel="전화번호를 입력하세요"
-                  onValueChange={(data: string) =>
-                    setState({ name: state.name, phone: data, password: state.password })
-                  }
+                  onValueChange={(data: string) => setPhoneNumber(data)}
                   style={{ width: 'auto' }}
-                  value={state.phone}
+                  value={phoneNumber}
                 />
-                <div>
-                  <Button
-                    label="비밀번호 변경"
-                    onClick={onPasswordChangeClicked}
-                    style={{ float: 'right' }}
-                  />
-                  <TextField
-                    defaultLabel="현재 비밀번호를 입력하세요"
-                    onValueChange={(data: string) =>
-                      setState({ name: state.name, phone: state.phone, password: data })
-                    }
-                    style={{ width: '228px', marginTop: '24px' }}
-                    value={state.password}
-                  />
-                </div>
-                <WarningTextContainer>
-                  <img
-                    src="warning.svg"
-                    alt="경고 아이콘"
-                    style={{ width: '20px', height: '18px' }}
-                  />
-                  <div style={{ display: 'flex' }}>
-                    <Label type="P2" color={theme.color.alert.Warning}>
-                      현재 비밀번호
-                    </Label>
-                    <Label type="P2" color={theme.color.secondary.Moon}>
-                      를 입력하셔야 개인정보 수정을 완료할 수 있습니다.
-                    </Label>
-                  </div>
-                </WarningTextContainer>
+                {/* <div> */}
+                {/*  <Button */}
+                {/*    label="비밀번호 변경" */}
+                {/*    onClick={onPasswordChangeClicked} */}
+                {/*    style={{ float: 'right' }} */}
+                {/*  /> */}
+                {/*  <TextField */}
+                {/*    defaultLabel="현재 비밀번호를 입력하세요" */}
+                {/*    onValueChange={(data: string) => setPassword(data)} */}
+                {/*    style={{ width: '228px', marginTop: '24px', webkitTextSecurity: 'disc' }} */}
+                {/*    value={password} */}
+                {/*  /> */}
+                {/* </div> */}
+                {/* <WarningTextContainer> */}
+                {/*  <img */}
+                {/*    src={WarningSVG} */}
+                {/*    alt="경고 아이콘" */}
+                {/*    style={{ width: '20px', height: '18px' }} */}
+                {/*  /> */}
+                {/*  <div style={{ display: 'flex' }}> */}
+                {/*    <Label type="P2" color={theme.color.alert.Warning}> */}
+                {/*      현재 비밀번호 */}
+                {/*    </Label> */}
+                {/*    <Label type="P2" color={theme.color.secondary.Moon}> */}
+                {/*      를 입력하셔야 개인정보 수정을 완료할 수 있습니다. */}
+                {/*    </Label> */}
+                {/*  </div> */}
+                {/* </WarningTextContainer> */}
               </TextFieldContainer>
-              <Button
-                type="default"
-                label="저장하기"
-                isPrimary
-                onClick={onSaveButtonClicked}
-                style={{ float: 'right' }}
-              />
+              {/* <Button */}
+              {/*  type="default" */}
+              {/*  label="저장하기" */}
+              {/*  isPrimary */}
+              {/*  onClick={onSaveButtonClicked} */}
+              {/*  style={{ float: 'right' }} */}
+              {/* /> */}
             </div>
           ),
         }}
       </DividedCard>
-      <div style={{ width: '1100px', margin: '0 auto' }}>
-        <WithdrawContainer>
-          <Label type="P1" color={theme.color.secondary.Nickel}>
-            계정을 삭제하시겠습니까?
-          </Label>
-          <Label type="H5" color={theme.color.secondary.Nickel} onClick={onWithdrawClicked}>
-            계정 삭제하기
-          </Label>
-        </WithdrawContainer>
-      </div>
+      {/* <div style={{ width: '1100px', margin: '0 auto' }}> */}
+      {/*  <WithdrawContainer> */}
+      {/*    <Label type="P1" color={theme.color.secondary.Nickel}> */}
+      {/*      계정을 삭제하시겠습니까? */}
+      {/*    </Label> */}
+      {/*    <Label type="H5" color={theme.color.secondary.Nickel} onClick={onWithdrawClicked}> */}
+      {/*      계정 삭제하기 */}
+      {/*    </Label> */}
+      {/*  </WithdrawContainer> */}
+      {/* </div> */}
     </div>
   );
 }
