@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import theme from 'theme';
 import React, { useRef, useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 
 import Label from 'frameworks/web/components/atoms/Label/Label';
 // eslint-disable-next-line no-unused-vars
@@ -14,6 +15,7 @@ import ArrowDownIcon from 'assets/icon/arrow-down.svg';
 import DropdownBoxShadow from 'assets/etc/dropdown-box.svg';
 import useCurrentSession from 'frameworks/web/hooks/CurrentSessionHook';
 import CurrentSessionRequest from 'service/request/CurrentSessionRequest';
+import * as ROUTES from 'utils/routes';
 
 const NavContainer = styled.div`
   position: relative;
@@ -47,7 +49,7 @@ const MenuDropdownContainer = styled.div`
   background-size: 255px 250px;
   width: 255px;
   height: 250px;
-  margin-top: 24px;
+  margin-top: 6px;
   z-index: 1;
 `;
 
@@ -91,6 +93,13 @@ export default function NavigationBar(props: INavBar) {
 
   const onMenuButtonClick = () => {
     setEnable(!isEnable);
+  };
+
+  const history = useHistory();
+
+  const goProfile = () => {
+    setEnable(false);
+    history.push(ROUTES.PROFILE);
   };
 
   const notYetAlert = () => {
@@ -139,8 +148,8 @@ export default function NavigationBar(props: INavBar) {
           <MenuElementContainer onClick={notYetAlert}>
             <Label type="H5">신청 현황</Label>
           </MenuElementContainer>
-          <MenuElementContainer onClick={notYetAlert}>
-            <Label type="H5">개인정보 수정</Label>
+          <MenuElementContainer onClick={goProfile}>
+            <Label type="H5">프로필</Label>
           </MenuElementContainer>
           <MenuElementContainer onClick={logout}>
             <Label type="P1" color={theme.color.secondary.Moon}>
