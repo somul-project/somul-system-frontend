@@ -25,6 +25,8 @@ const FooterLogo = styled.img`
   width: ${FOOTER_LOGO_WIDTH}px;
   height: ${FOOTER_LOGO_WIDTH}px;
   margin: 8px;
+  cursor: pointer;
+  pointer-events: inherit;
 `;
 
 const FooterCenterContainer = styled.div`
@@ -38,13 +40,16 @@ const FooterCenterContainer = styled.div`
 function FooterLogos({ style = null }: any): React.ReactElement {
   return (
     <div style={style}>
-      <a href="https://www.facebook.com/groups/may.somul/">
+      {/* eslint-disable-next-line react/jsx-no-target-blank */}
+      <a href="https://www.facebook.com/groups/may.somul/" target="_blank">
         <FooterLogo src={FacebookLogo} alt="footer facebook icon" />
       </a>
-      <a href="https://github.com/somul-project">
+      {/* eslint-disable-next-line react/jsx-no-target-blank */}
+      <a href="https://github.com/somul-project" target="_blank">
         <FooterLogo src={GithubLogo} alt="footer github icon" />
       </a>
-      <a href="https://codeclubkorea.org">
+      {/* eslint-disable-next-line react/jsx-no-target-blank */}
+      <a href="https://codeclubkorea.org" target="_blank">
         <FooterLogo src={CodeClubLogo} alt="footer code-club icon" />
       </a>
     </div>

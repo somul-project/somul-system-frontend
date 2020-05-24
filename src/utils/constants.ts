@@ -1,4 +1,6 @@
 export const NODE_ENV = process.env.NODE_ENV !== 'production' ? 'development' : 'production';
+export const { REACT_APP_SENTRY_DSN } = process.env;
+export const { REACT_APP_GA_ID } = process.env;
 
 export const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 

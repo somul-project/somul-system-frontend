@@ -15,7 +15,7 @@ import * as ROUTES from 'utils/routes';
 import { UPDATE_USER } from 'service/graphql/mutation/User';
 import useCurrentSession from 'frameworks/web/hooks/CurrentSessionHook';
 
-import ProfileIllust from 'assets/illust/speaker-apply-illustration.png';
+import ProfileIllust from 'assets/illust/speaker-apply-illustration.svg';
 import WarningSVG from 'assets/icon/warning.svg';
 
 const TextLabelContainer = styled.div`

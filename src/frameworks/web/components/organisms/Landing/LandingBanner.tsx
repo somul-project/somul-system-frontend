@@ -7,7 +7,7 @@ import Label from 'frameworks/web/components/atoms/Label/Label';
 import Button from 'frameworks/web/components/atoms/Button/Button';
 import { ILandingContainer } from 'interfaces/frameworks/web/components/organisms/LandingBanner/ILandingBanner';
 
-import BannerImage from 'assets/illust/main-illustration.png';
+import BannerImage from 'assets/illust/main-illustration.svg';
 
 const BannerContainer = styled.div`
   background-color: ${theme.color.primary.Azure};
@@ -28,7 +28,7 @@ const BannerContainerMedium = styled(BannerContainer)`
 `;
 
 const BannerContainerLarge = styled(BannerContainer)`
-  margin: 0 110px 0 180px;
+  margin: 0 110px 0 100px;
   background-position: right 114px;
   background-size: 589px 526px;
 `;

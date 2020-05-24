@@ -6,7 +6,7 @@ import theme from 'theme';
 import Label from 'frameworks/web/components/atoms/Label/Label';
 import Tag from 'frameworks/web/components/atoms/Tag/Tag';
 
-import SponsorImage from 'assets/illust/sponsor-illustration.png';
+import SponsorImage from 'assets/illust/sponsor-illustration.svg';
 
 const MaxContainer = styled.div`
   max-width: 1280px;

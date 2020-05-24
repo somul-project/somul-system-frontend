@@ -8,7 +8,8 @@ const BaseLabel = styled.p`
   font-family: 'Muli', 'Noto Sans KR', sans-serif;
   margin: 0;
   color: ${(props: ILabel) => props.color ?? theme.color.primary.Black};
-  ${(props: ILabel) => (typeof props.onClick !== 'undefined' ? 'cursor: pointer;' : '')}
+  ${(props: ILabel) => (typeof props.onClick !== 'undefined' ? 'cursor: pointer;' : '')};
+  word-break: keep-all;
 `;
 
 const LabelH1 = styled(BaseLabel)`

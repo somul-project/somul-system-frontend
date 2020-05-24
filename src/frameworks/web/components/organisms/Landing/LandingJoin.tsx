@@ -8,7 +8,7 @@ import Label from 'frameworks/web/components/atoms/Label/Label';
 import ContentsBox from 'frameworks/web/components/atoms/ContentsBox/ContentsBox';
 import Button from 'frameworks/web/components/atoms/Button/Button';
 
-import SpeakerImage from 'assets/illust/speaker-illustration.png';
+import SpeakerImage from 'assets/illust/speaker-illustration.svg';
 
 const MaxContainer = styled.div`
   max-width: 1280px;
@@ -52,7 +52,7 @@ export default function LandingJoin(): React.ReactElement {
               <Row justify="center" style={{ margin: '0' }}>
                 <Col xs={10} lg={9}>
                   <ContentsBox isDarkBackground>
-                    <div style={{ padding: ['lg', 'xl'].includes(sClass) ? '24px 0 48px 0' : '' }}>
+                    <div style={{ padding: ['lg', 'xl'].includes(sClass) ? '48px 0' : '' }}>
                       <JoinIllust src={SpeakerImage} alt="Join us" />
                       <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
                         <Button
