@@ -15,8 +15,8 @@ export default function LectureList(): React.ReactElement {
   const lectureArray: ILectureInfo[] = [];
 
   // TODO: 강연 정보를 불러와야 함
-  for (let i = 0; i < 10; i += 1) {
-    lectureArray.push({ title: '제목', speaker: '테스트' });
+  for (let i = 1; i <= 10; i += 1) {
+    lectureArray.push({ title: `제목 ${i}`, speaker: '테스트' });
   }
 
   const onLectureClicked = (idx: number) => {
