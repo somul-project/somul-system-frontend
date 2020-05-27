@@ -14,6 +14,7 @@ import LandingPage from 'frameworks/web/components/pages/Landing/Landing';
 import SignInPage from 'frameworks/web/components/pages/SignIn/SignIn';
 import SignUpPage from 'frameworks/web/components/pages/SignUp/SignUp';
 import StatusPage from 'frameworks/web/components/pages/StatusPage/StatusPage';
+import Lecture from 'frameworks/web/components/pages/Lecture/Lecture';
 
 import apolloClient, { initStorage } from 'frameworks/web/apollo';
 import * as ROUTES from 'utils/routes';
@@ -51,6 +52,9 @@ function App() {
             </Route>
             <Route path={ROUTES.PROFILE}>
               <ProfilePage />
+            </Route>
+            <Route path={ROUTES.LECTURE}>
+              <Lecture />
             </Route>
           </Switch>
           <Footer />

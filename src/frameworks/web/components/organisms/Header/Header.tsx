@@ -78,7 +78,7 @@ export const PAGES = {
     ROUTES.PROFILE_WITHDRAW,
     ROUTES.STATUS,
   ],
-  ALWAYS: [ROUTES.HOME],
+  ALWAYS: [ROUTES.HOME, ROUTES.LECTURE],
 };
 
 export default function Header(): React.ReactElement {

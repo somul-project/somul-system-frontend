@@ -13,6 +13,7 @@ const CardContainer = styled(ContentsBox)`
   background-color: white;
   text-align: center;
   cursor: pointer;
+  transition: all 0.2s;
   @media (hover: hover) {
     &:hover {
       box-shadow: 0 5px 30px 0 rgba(155, 155, 155, 0.4);
@@ -31,11 +32,12 @@ export default function LectureCard({
   title,
   speaker,
   onCardClick,
+  style,
 }: ILectureCard): React.ReactElement {
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
     <div onClick={() => onCardClick()}>
-      <CardContainer isDarkBackground>
+      <CardContainer isDarkBackground style={style}>
         <Label type="H4" color={theme.color.primary.Azure}>
           {title}
         </Label>
