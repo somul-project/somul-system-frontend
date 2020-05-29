@@ -1,9 +1,12 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import styled from 'styled-components';
 import { Row, Col } from 'react-grid-system';
 
 import { ILectureInfo } from 'interfaces/frameworks/web/components/organisms/Lecture/ILectureList';
-import LectureCard from '../../molecules/LectureCard/LectureCard';
+import LectureCard from 'frameworks/web/components/molecules/LectureCard/LectureCard';
+import { useQuery } from '@apollo/client';
+import { ISessionData } from 'interfaces/service/graphql/query/ISession';
+import { GET_SESSIONS } from 'service/graphql/query/Sessions';
 
 const LectureListContainer = styled.div`
   width: 100%;
@@ -14,10 +17,15 @@ const LectureListContainer = styled.div`
 export default function LectureList(): React.ReactElement {
   const lectureArray: ILectureInfo[] = [];
 
-  // TODO: 강연 정보를 불러와야 함
-  for (let i = 1; i <= 10; i += 1) {
-    lectureArray.push({ title: `제목 ${i}`, speaker: '테스트' });
-  }
+  const getSessions = useQuery<ISessionData>(GET_SESSIONS, { fetchPolicy: 'no-cache' });
+
+  useEffect(() => {
+    if (getSessions.data) {
+      getSessions.data!.sessions.forEach((session) => {
+        lectureArray.push({ title: session.session_name, speaker: session.user_email });
+      });
+    }
+  }, [getSessions.data]);
 
   const onLectureClicked = (idx: number) => {
     // TODO: 렉쳐카드 클릭 시 모달이 나오는 함수를 구현해야 함
