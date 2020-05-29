@@ -18,3 +18,5 @@ export const STATUS = `/status`;
 
 export const PROFILE = `/profile`;
 export const PROFILE_WITHDRAW = `${PROFILE}/withdraw`;
+
+export const LECTURE = `/lecture`;

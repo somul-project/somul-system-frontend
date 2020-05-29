@@ -60,7 +60,7 @@ const ImgButton = styled.img`
   height: 24px;
   float: right;
   cursor: pointer;
-  margin-right: ${(props: ITextFieldElement) => (props.isFocus ? '22px' : '24px')};
+  margin-right: 24px;
 `;
 
 const OptionalLabel = styled.p<IOptionalLabelElement>`
@@ -135,9 +135,7 @@ export default function TextField(props: ITextField): React.ReactElement {
           onChange={(event) => onLabelChange(event.target.value)}
           value={value}
         />
-        {isButton && (
-          <ImgButton src={buttonSrc} onClick={() => onButtonClicked!()} isFocus={state.isFocus} />
-        )}
+        {isButton && <ImgButton src={buttonSrc} onClick={() => onButtonClicked!()} />}
       </TextFieldContainerActivate>
       {optionalString && <OptionalLabel isError={isError ?? false}>{optionalString}</OptionalLabel>}
     </div>
