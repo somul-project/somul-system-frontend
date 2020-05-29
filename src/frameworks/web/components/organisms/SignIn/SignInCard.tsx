@@ -27,7 +27,7 @@ const SignInContainer = styled(ContentsBox)`
 
 const SignInFormContainer = styled.div`
   width: 350px;
-  margin: 40px auto;
+  margin: 40px auto 0 auto;
 `;
 
 const ForgotContainer = styled.div`
@@ -41,7 +41,7 @@ const BlockContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  margin: 16px 0;
 `;
 
 const SingleLine = styled.div`
@@ -108,13 +108,13 @@ export default function SignInCard(): React.ReactElement {
           <TextField
             defaultLabel="이메일을 입력하세요"
             onValueChange={(value) => setEmail(value)}
-            style={{ width: 'auto', margin: '8px 0' }}
+            style={{ width: 'auto', marginBottom: '16px' }}
           />
           <TextField
             type="password"
             defaultLabel="비밀번호를 입력하세요"
             onValueChange={(value) => setPassword(value)}
-            style={{ width: 'auto', margin: '8px 0' }}
+            style={{ width: 'auto' }}
           />
           {/* <ForgotContainer> */}
           {/*  <Label type="P2" color={theme.color.secondary.Moon}> */}
