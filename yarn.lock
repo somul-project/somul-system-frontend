@@ -1493,7 +1493,7 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@sentry/browser@^5.15.5":
+"@sentry/browser@~5.15.5":
   version "5.15.5"
   resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-5.15.5.tgz#d9a51f1388581067b50d30ed9b1aed2cbb333a36"
   integrity sha512-rqDvjk/EvogfdbZ4TiEpxM/lwpPKmq23z9YKEO4q81+1SwJNua53H60dOk9HpRU8nOJ1g84TMKT2Ov8H7sqDWA==
@@ -11521,7 +11521,7 @@ react-focus-lock@^2.1.0:
     use-callback-ref "^1.2.1"
     use-sidecar "^1.0.1"
 
-react-ga@^2.7.0:
+react-ga@~2.7.0:
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/react-ga/-/react-ga-2.7.0.tgz#24328f157f31e8cffbf4de74a3396536679d8d7c"
   integrity sha512-AjC7UOZMvygrWTc2hKxTDvlMXEtbmA0IgJjmkhgmQQ3RkXrWR11xEagLGFGaNyaPnmg24oaIiaNPnEoftUhfXA==

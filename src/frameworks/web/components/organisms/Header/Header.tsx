@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Visible, Hidden, ScreenClassRender } from 'react-grid-system';
 import { NavLink, useHistory, useLocation } from 'react-router-dom';
@@ -14,8 +14,6 @@ import * as ROUTES from 'utils/routes';
 import SomulLogo from 'assets/logo/logo.svg';
 import HamburgerMenu from 'assets/icon/mobile-menu.svg';
 import useCurrentSession from 'frameworks/web/hooks/CurrentSessionHook';
-import theme from 'theme';
-import Modal from 'frameworks/web/components/molecules/Modal/Modal';
 
 const HeaderContainer = styled.div`
   position: fixed;
@@ -83,7 +81,6 @@ export const PAGES = {
 
 export default function Header(): React.ReactElement {
   const [isLoaded, currentSession] = useCurrentSession();
-  const [isPreparingModalOpened, setPreparingModalOpened] = useState(false);
   const history = useHistory();
   const { pathname } = useLocation();
 
@@ -105,10 +102,6 @@ export default function Header(): React.ReactElement {
       }
     }
   }, [isLoaded, pathname, currentSession, history]);
-
-  const handleClickInfo = () => {
-    setPreparingModalOpened(true);
-  };
 
   const handleClickSideMenu = () => {
     //    TODO
@@ -144,9 +137,9 @@ export default function Header(): React.ReactElement {
                     <a href="/?goto=landingAbout" style={{ textDecoration: 'none' }}>
                       <Label type="H5">소물이란?</Label>
                     </a>
-                    <Label type="H5" onClick={handleClickInfo}>
-                      강연정보
-                    </Label>
+                    <NavLink to={ROUTES.LECTURE} style={{ textDecoration: 'none' }}>
+                      <Label type="H5">강연정보</Label>
+                    </NavLink>
                     <NavLink to={ROUTES.APPLY_SPEAKER} style={{ textDecoration: 'none' }}>
                       <Label type="H5">참가신청</Label>
                     </NavLink>
@@ -203,23 +196,6 @@ export default function Header(): React.ReactElement {
           )}
         />
       </HeaderContainer>
-      <Modal
-        type="empty"
-        isOpen={isPreparingModalOpened}
-        onClose={() => setPreparingModalOpened(false)}
-      >
-        <img src={SomulLogo} alt="소물 로고" style={{ width: '112.5px', height: '20px' }} />
-        <Label type="H4" color={theme.color.primary.Azure} style={{ padding: '48px 0 16px 0' }}>
-          곧 공개됩니다!
-        </Label>
-        <Label
-          type="P1"
-          style={{ paddingBottom: '48px' }}
-          dangerouslySetInnerHTML={{
-            __html: '어떤 강연이 준비되고 있을까요?<br>강연은 5월 29일 금요일날 공개됩니다!',
-          }}
-        />
-      </Modal>
     </>
   );
 }
