@@ -39,11 +39,6 @@ const LectureListContainer = styled.div`
 `;
 
 export default function Lecture(): React.ReactElement {
-  // const [searchText, setSearchText] = useState('');
-  // const handleSearch = () => {
-  //   console.log(searchText);
-  //   // TODO : 검색 로직 구현
-  // };
   return (
     <>
       <LectureHeader>
@@ -59,14 +54,6 @@ export default function Lecture(): React.ReactElement {
                 강연 리스트
               </Label>
             </LectureHeaderTitle>
-            {/* <TextField */}
-            {/*  defaultLabel="검색어를 입력하세요" */}
-            {/*  onValueChange={(search: string) => setSearchText(search)} */}
-            {/*  isButton */}
-            {/*  buttonSrc={SearchButtonAsset} */}
-            {/*  onButtonClicked={() => handleSearch()} */}
-            {/*  style={{ width: 'auto' }} */}
-            {/* /> */}
           </Col>
           <Col xs={3}>
             <ListIllust src={ListIllustAsset} alt="일러스트 이미지" />
