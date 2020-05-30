@@ -1,9 +1,14 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Row, Col } from 'react-grid-system';
 
-import { ILectureInfo } from 'interfaces/frameworks/web/components/organisms/Lecture/ILectureList';
-import LectureCard from '../../molecules/LectureCard/LectureCard';
+import LectureCard from 'frameworks/web/components/molecules/LectureCard/LectureCard';
+import { useQuery } from '@apollo/client';
+import { ISessionData } from 'interfaces/service/graphql/query/ISession';
+import { GET_SESSIONS } from 'service/graphql/query/Sessions';
+import LectureModal from 'frameworks/web/components/molecules/LectureModal/LectureModal';
+import { ISession } from 'interfaces/service/graphql/schema/ISession';
+import Loading from 'frameworks/web/components/atoms/Loading/Loading';
 
 const LectureListContainer = styled.div`
   width: 100%;
@@ -12,16 +17,27 @@ const LectureListContainer = styled.div`
 `;
 
 export default function LectureList(): React.ReactElement {
-  const lectureArray: ILectureInfo[] = [];
+  const [lectureArray, setLectureArray] = useState<ISession[]>([]);
+  const [isLectureModalOpened, setLectureModalOpened] = useState(false);
+  const [clickLectureData, setClickLectureData] = useState<ISession | null>(null);
 
-  // TODO: 강연 정보를 불러와야 함
-  for (let i = 1; i <= 10; i += 1) {
-    lectureArray.push({ title: `제목 ${i}`, speaker: '테스트' });
-  }
+  const getSessions = useQuery<ISessionData>(GET_SESSIONS, { fetchPolicy: 'no-cache' });
+
+  useEffect(() => {
+    if (getSessions.data) {
+      const lArray: ISession[] = [];
+      getSessions.data!.sessions.forEach((session) => {
+        lArray.push(session);
+      });
+
+      setLectureArray(lArray);
+    }
+  }, [getSessions.data]);
 
   const onLectureClicked = (idx: number) => {
-    // TODO: 렉쳐카드 클릭 시 모달이 나오는 함수를 구현해야 함
-    console.log(idx);
+    // @ts-ignore
+    setClickLectureData(lectureArray[idx]);
+    setLectureModalOpened(true);
   };
 
   function LectureColContainer({ col }: any): React.ReactElement {
@@ -30,8 +46,8 @@ export default function LectureList(): React.ReactElement {
       if (i % 3 === col) {
         listElement.push(
           <LectureCard
-            title={lecture.title}
-            speaker={lecture.speaker}
+            title={lecture.session_name}
+            speaker={lecture.user.name}
             onCardClick={() => onLectureClicked(i)}
             style={{ marginBottom: '30px' }}
           />,
@@ -40,13 +56,28 @@ export default function LectureList(): React.ReactElement {
     });
     return <Col>{listElement}</Col>;
   }
+
   return (
-    <LectureListContainer>
-      <Row align="start">
-        <LectureColContainer col={0} />
-        <LectureColContainer col={1} />
-        <LectureColContainer col={2} />
-      </Row>
-    </LectureListContainer>
+    <>
+      <LectureListContainer>
+        <Row align="start">
+          <LectureColContainer col={0} />
+          <LectureColContainer col={1} />
+          <LectureColContainer col={2} />
+        </Row>
+      </LectureListContainer>
+      {isLectureModalOpened && (
+        <LectureModal
+          isOpen={isLectureModalOpened}
+          onClose={() => setLectureModalOpened(false)}
+          title={clickLectureData!.session_name}
+          youtubeLink={clickLectureData!.document.split(',')}
+          speaker={clickLectureData!.user.name}
+          speakerInfo={clickLectureData!.introduce}
+          lectureInfo={clickLectureData!.session_explainer}
+        />
+      )}
+      {getSessions.loading && <Loading />}
+    </>
   );
 }

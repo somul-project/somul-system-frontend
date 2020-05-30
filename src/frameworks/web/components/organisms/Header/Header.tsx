@@ -81,7 +81,6 @@ export const PAGES = {
 
 export default function Header(): React.ReactElement {
   const [isLoaded, currentSession] = useCurrentSession();
-  // const [isPreparingModalOpened, setPreparingModalOpened] = useState(false);
   const history = useHistory();
   const { pathname } = useLocation();
 
@@ -103,12 +102,6 @@ export default function Header(): React.ReactElement {
       }
     }
   }, [isLoaded, pathname, currentSession, history]);
-
-  /*
-  const handleClickInfo = () => {
-    setPreparingModalOpened(true);
-  };
-   */
 
   const handleClickSideMenu = () => {
     //    TODO
@@ -203,25 +196,6 @@ export default function Header(): React.ReactElement {
           )}
         />
       </HeaderContainer>
-      {/*
-        <Modal
-          type="empty"
-          isOpen={isPreparingModalOpened}
-          onClose={() => setPreparingModalOpened(false)}
-        >
-          <img src={SomulLogo} alt="소물 로고" style={{ width: '112.5px', height: '20px' }} />
-          <Label type="H4" color={theme.color.primary.Azure} style={{ padding: '48px 0 16px 0' }}>
-            곧 공개됩니다!
-          </Label>
-          <Label
-            type="P1"
-            style={{ paddingBottom: '48px' }}
-            dangerouslySetInnerHTML={{
-              __html: '어떤 강연이 준비되고 있을까요?<br>강연은 5월 29일 금요일날 공개됩니다!',
-            }}
-          />
-        </Modal>
-        */}
     </>
   );
 }
