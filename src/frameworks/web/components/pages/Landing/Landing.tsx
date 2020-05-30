@@ -7,6 +7,7 @@ import LandingSponsor from 'frameworks/web/components/organisms/Landing/LandingS
 import Label from 'frameworks/web/components/atoms/Label/Label';
 import theme from 'theme';
 import Modal from 'frameworks/web/components/molecules/Modal/Modal';
+import YoutubeModal from 'frameworks/web/components/molecules/YoutubeModal/YoutubeModal';
 
 import SomulLogo from 'assets/logo/logo.svg';
 import { useLocation, useHistory } from 'react-router';
@@ -20,6 +21,8 @@ export default function Landing(): React.ReactElement {
   const [modalTitle, setModalTitle] = useState('');
   const [modalDescription, setModalDescription] = useState('');
 
+  const [isYoutubeModalOpened, setYoutubeModalOpened] = useState(true);
+
   const handleModalClose = () => {
     setModalOpened(false);
 
@@ -29,6 +32,10 @@ export default function Landing(): React.ReactElement {
 
     history.replace('/', state);
     window.localStorage.clear();
+  };
+
+  const handleYoutubeModalClose = () => {
+    setYoutubeModalOpened(false);
   };
 
   useEffect(() => {
@@ -81,6 +88,11 @@ export default function Landing(): React.ReactElement {
           dangerouslySetInnerHTML={{ __html: modalDescription }}
         />
       </Modal>
+      <YoutubeModal
+        isOpen={isYoutubeModalOpened}
+        onClose={handleYoutubeModalClose}
+        youtubeLink="https://www.youtube.com/embed/6sKjutgEMzk"
+      />
     </div>
   );
 }
