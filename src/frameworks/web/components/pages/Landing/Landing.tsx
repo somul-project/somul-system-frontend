@@ -91,7 +91,7 @@ export default function Landing(): React.ReactElement {
       <YoutubeModal
         isOpen={isYoutubeModalOpened}
         onClose={handleYoutubeModalClose}
-        youtubeLink="https://www.youtube.com/embed/6sKjutgEMzk"
+        youtubeLink="https://www.youtube.com/embed/xQ4teqTpWzI"
       />
     </div>
   );
