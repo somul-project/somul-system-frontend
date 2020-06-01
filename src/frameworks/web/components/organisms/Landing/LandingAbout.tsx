@@ -72,7 +72,7 @@ export default function LandingAbout(): React.ReactElement {
                 >
                   올해는 COVID-19 바이러스(이하 코로나)로 인하여 온라인으로 진행합니다.
                   {sClass === 'md' ? '\n' : ' '}
-                  5월 29일 오후 2시에 공개될 강연 리스트(유튜브 링크)로 여러분들을 찾아뵙겠습니다.
+                  5월 30일 오후 2시에 공개될 강연 리스트(유튜브 링크)로 여러분들을 찾아뵙겠습니다.
                 </Label>
               </Col>
             </Row>
